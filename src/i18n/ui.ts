@@ -28,6 +28,14 @@ export const ui = {
     'nav.terms_conditions': 'Terms and Conditions',
     'nav.blogs': 'Blogs',
     'nav.contact_us': 'Contact Us',
+
+    //footer english 
+    'footer.contact_us': 'Contact Us',
+    'footer.phone': 'Phone',
+    'footer.email': 'Email',
+    'footer.address': 'Address',
+    'footer.quick_links': 'Quick Links',
+    'footer.description': 'To establish a complete digital eco-platform POSCAR Digital is one of the leading company in smart system in education, accounting, attendance and other ERP solutionsPrevious',
   },
   km: {
     'nav.home': 'ទំព័រដើម',
@@ -51,5 +59,13 @@ export const ui = {
     'nav.terms_conditions': 'កណ្តាប់បញ្ជី និង លក្ខខណ្ឌ',
     'nav.blogs': 'ប្លក់',
     'nav.contact_us': 'ទំនាក់ទំនងយើងខ្ញុំ',
+
+    //footer Khmer
+    'footer.contact_us': 'ទំនាក់ទំនងយើង',
+    'footer.phone': 'លេខទូរស័ព្ទ',
+    'footer.email': 'អ៊ីមែល',
+    'footer.address': 'អាស័យដ្ឋាន',
+    'footer.quick_links': 'តំណភ្ជាប់រហ័ស',
+    'footer.description': 'ដើម្បីបង្កើតវេទិកាអេកូឌីជីថលពេញលេញ POSCAR Digital គឺជាក្រុមហ៊ុនឈានមុខគេមួយនៅក្នុងប្រព័ន្ធឆ្លាតវៃក្នុងការអប់រំ គណនេយ្យ ការចូលរួម និងដំណោះស្រាយ ERP ផ្សេងទៀតពីមុន',
   },
 } as const;
