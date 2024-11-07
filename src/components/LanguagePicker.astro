@@ -1,0 +1,10 @@
+---
+import { languages } from '../i18n/ui';
+---
+<ul class="flex flex-col md:flex-row items-center md:space-x-3 space-y-3 md:space-y-0 bg-gradient-to-r from-blue-100 to-blue-200 shadow-lg p-2 rounded-full md:px-8">
+  {Object.entries(languages).map(([lang, label]) => (
+    <li>
+      <a href={`/${lang}/`}>{label}</a>
+    </li>
+  ))}
+</ul>
