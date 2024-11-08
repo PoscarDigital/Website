@@ -1,5 +1,4 @@
 ---
-// Imports for language and translations
 import LanguagePicker from '../components/LanguagePicker.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
@@ -7,109 +6,123 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<ul class="flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white p-5 rounded-lg shadow-md space-y-3 md:space-y-0 md:px-10 border-b-2 border-white/10">
-  <!-- Logo and Company Name -->
-  <li class="flex items-center space-x-3">
-    <!-- Logo -->
-    <img 
-      src="../../public/po.png" 
-      alt="Company Logo" 
-      class="w-14 h-14 object-cover rounded-full transition-transform duration-300 hover:scale-105"
-    />
-    <!-- Company Name -->
-    <span class="text-3xl font-semibold text-white hover:text-cyan-300 transition-colors duration-300">Poscar</span>
+<ul class="sticky top-0 flex flex-col md:flex-row items-center justify-between bg-white bg-opacity-80 backdrop-blur-md text-gray-800 p-4 md:p-6 shadow-lg md:px-12 border-b border-gray-200 z-10">
+  <!-- Logo and Company Name as a Link to the Homepage -->
+  <li>
+    <a href={`/${lang}/`} class="flex items-center space-x-3">
+      <img 
+        src="../../public/po.png" 
+        alt="Company Logo" 
+        class="w-12 h-12 object-cover rounded-full transition-transform duration-300 hover:scale-105"
+      />
+      <span class="text-2xl font-bold text-gray-800 hover:text-cyan-500 transition-colors duration-300">Poscar</span>
+    </a>
   </li>
 
-  <!-- Home Link -->
-  <li>
+  <!-- Hamburger Icon for Mobile -->
+  <button 
+    class="md:hidden text-gray-800 focus:outline-none transition-transform duration-300 hover:scale-110"
+    aria-label="Toggle Navigation"
+    id="menu-toggle"
+  >
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+
+  <!-- Menu Items -->
+  <div id="nav-links" class="hidden md:flex flex-col md:flex-row items-center mt-4 md:mt-0 transition-all duration-300 space-y-4 md:space-y-0 md:space-x-8">
+    <!-- Home Link -->
     <a 
       href={`/${lang}/`} 
-      class="text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-white/10 hover:text-cyan-300 focus:bg-white/20 focus:text-pink-200"
+      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
     >
       {t('nav.home')}
     </a>
-  </li>
 
-  <!-- Products & Services with Mega Menu -->
-  <li class="relative group">
-    <a 
-      href="#" 
-      class="text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-white/10 hover:text-cyan-300 focus:bg-white/20 focus:text-pink-200"
-    >
-      {t('nav.products_services')}
-    </a>
-    <!-- Mega Menu -->
-    <div class=" absolute hidden group-hover:block bg-white shadow-lg p-5 rounded-xl w-80 left-0 top-full mt-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-      <div class="grid grid-cols-2 gap-x-0 ">
-        <div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">{t('nav.education')}</h3>
-          <ul>
-            <li><a href="https://wikischool.asia" class="text-blue-500 hover:text-blue-700">{t('nav.kindergarten_k12')}</a></li>
-            <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.university_solution')}</a></li>
-            <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.enrollment')}</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">{t('nav.enterprise')}</h3>
-          <ul>
-            <li><a href="https://vithean.com" class="text-blue-500 hover:text-blue-700">{t('nav.vithean_page')}</a></li>
-            <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.attendance_card_device')}</a></li>
-            <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.hrm_solution')}</a></li>
-          </ul>
+    <!-- Products & Services with Mega Menu -->
+    <div class="relative group">
+      <a 
+        href="#" 
+        class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
+      >
+        {t('nav.products_services')}
+      </a>
+      <!-- Mega Menu -->
+      <div class="absolute hidden group-hover:flex bg-white shadow-xl p-6 rounded-lg w-80 left-0 top-full mt-2 transition duration-300 opacity-0 group-hover:opacity-100 z-20">
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.education')}</h3>
+            <ul>
+              <li><a href="https://wikischool.asia" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.kindergarten_k12')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.university_solution')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.enrollment')}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.enterprise')}</h3>
+            <ul>
+              <li><a href="https://vithean.com" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.vithean_page')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.attendance_card_device')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.hrm_solution')}</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </li>
 
-  <!-- About Us Link -->
-  <li class="relative group">
-    <a 
-      href={`/${lang}/about/`} 
-      class="text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-white/10 hover:text-cyan-300 focus:bg-white/20 focus:text-pink-200"
-    >
-      {t('nav.about')}
-    </a>
-    <!-- Dropdown Menu -->
-    <div class="absolute hidden group-hover:block bg-white shadow-lg p-4 rounded-xl w-56 left-0 top-full mt-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-      <ul>
-        <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.company_profile')}</a></li>
-        <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.our_customers')}</a></li>
-        <li class="relative group">
-          <a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.legal')}</a>
-          <!-- Legal Submenu -->
-          <div class="absolute hidden group-hover:block bg-white shadow-lg p-4 rounded-xl w-40 left-full top-0 mt-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-            <ul>
-              <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.privacy')}</a></li>
-              <li><a href="#" class="text-blue-500 hover:text-blue-700">{t('nav.terms_conditions')}</a></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+    <!-- About Us Link with Dropdown -->
+    <div class="relative group">
+      <a 
+        href={`/${lang}/about/`} 
+        class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
+      >
+        {t('nav.about')}
+      </a>
+      <div class="absolute hidden group-hover:flex bg-white shadow-xl p-4 rounded-lg w-56 left-0 top-full mt-2 transition duration-300 opacity-0 group-hover:opacity-100 z-20">
+        <ul>
+          <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.company_profile')}</a></li>
+          <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.our_customers')}</a></li>
+          <li class="relative group">
+            <a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.legal')}</a>
+            <div class="absolute hidden group-hover:flex bg-white shadow-xl p-4 rounded-lg w-40 left-full top-0 mt-0 transition duration-300 opacity-0 group-hover:opacity-100">
+              <ul>
+                <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.privacy')}</a></li>
+                <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.terms_conditions')}</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </li>
 
-  <!-- Blogs Link -->
-  <li>
+    <!-- Blogs Link -->
     <a 
       href={`/${lang}/blogs/`} 
-      class="text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-white/10 hover:text-cyan-300 focus:bg-white/20 focus:text-pink-200"
+      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
     >
       {t('nav.blogs')}
     </a>
-  </li>
 
-  <!-- Contact Us Link -->
-  <li>
+    <!-- Contact Us Link -->
     <a 
       href={`/${lang}/contact/`} 
-      class="text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-white/10 hover:text-cyan-300 focus:bg-white/20 focus:text-pink-200"
+      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
     >
       {t('nav.contact_us')}
     </a>
-  </li>
 
-  <!-- Language Picker -->
-  <li class="ml-3">
-    <LanguagePicker />
-  </li>
+    <!-- Language Picker -->
+    <div class="ml-3">
+      <LanguagePicker />
+    </div>
+  </div>
 </ul>
+
+<!-- Inline JavaScript to Handle Toggle -->
+<script>
+  document.getElementById('menu-toggle').addEventListener('click', function() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('hidden');
+  });
+</script>

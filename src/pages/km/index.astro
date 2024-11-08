@@ -1,7 +1,88 @@
 ---
+// src/pages/index.astro
 import Base from '../../layouts/Base.astro';
 ---
+
 <Base>
-    <h1>ទំព័រដើម</h1>
-    ...
+  <!-- Welcome Section -->
+  <section class="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white py-16">
+    <div class="container mx-auto text-center">
+      <h1 class="text-5xl font-extrabold mb-4">សូមស្វាគមន៍មកកាន់ Poscar</h1>
+      <p class="text-xl mb-8">មិត្តរបស់អ្នកក្នុងការផ្តល់ដំណោះស្រាយដែលមានច创新ចលន</p>
+      <a 
+        href="/products_services" 
+        class="bg-cyan-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-cyan-500 transition-colors duration-300"
+      >
+        ស្វែងរកសេវាកម្មរបស់យើង
+      </a>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="py-16 bg-white text-gray-800">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl font-semibold mb-6">អំពីយើង</h2>
+      <p class="text-lg mb-8">សូមស្វែងយល់ពីដំណើរនិងទស្សនកិច្ចរបស់យើង។</p>
+      <a 
+        href="/about/" 
+        class="bg-transparent border-2 border-cyan-600 text-cyan-600 py-3 px-6 rounded-lg text-lg font-semibold hover:bg-cyan-600 hover:text-white transition-colors duration-300"
+      >
+        សូមស្វែងយល់បន្ថែម
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Products & Services Section -->
+  <section class="py-16 bg-gray-100">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl font-semibold mb-6">ផលិតផល និងសេវាកម្មដែលមានលក្ខណៈពិសេស</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Example of Product/Service Card -->
+        <div class="bg-white shadow-xl rounded-lg p-6">
+          <h3 class="text-2xl font-semibold mb-4">មគ្គុទេសក៍កុមារ និង K12</h3>
+          <p class="text-lg mb-4">ផ្តល់ការអប់រំគុណភាពពីថ្នាក់មុនសាលាដល់ថ្នាក់K12។</p>
+          <a 
+            href="/products_services" 
+            class="text-cyan-600 font-semibold hover:text-cyan-400 transition-colors duration-300"
+          >
+            សូមស្វែងយល់បន្ថែម
+          </a>
+        </div>
+        <div class="bg-white shadow-xl rounded-lg p-6">
+          <h3 class="text-2xl font-semibold mb-4">ដំណោះស្រាយសាកលវិទ្យាល័យ</h3>
+          <p class="text-lg mb-4">បញ្ជូនវិស័យការអប់រំខ្ពស់ដោយមានដំណោះស្រាយដែលមានច创新ចលន។</p>
+          <a 
+            href="/products_services" 
+            class="text-cyan-600 font-semibold hover:text-cyan-400 transition-colors duration-300"
+          >
+            សូមស្វែងយល់បន្ថែម
+          </a>
+        </div>
+        <div class="bg-white shadow-xl rounded-lg p-6">
+          <h3 class="text-2xl font-semibold mb-4">ដំណោះស្រាយHRM</h3>
+          <p class="text-lg mb-4">ផ្លាស់ប្តូរគ្រប់គ្រងធនធានមនុស្សជាមួយបច្ចេកវិទ្យាដែលមានភាពឆ្លាតវៃ។</p>
+          <a 
+            href="/products_services" 
+            class="text-cyan-600 font-semibold hover:text-cyan-400 transition-colors duration-300"
+          >
+            សូមស្វែងយល់បន្ថែម
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="py-16 bg-cyan-600 text-white text-center">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-semibold mb-4">ទំនាក់ទំនងជាមួយយើង</h2>
+      <p class="text-xl mb-6">មានសំណួរឬត្រូវការជំនួយ? យើងនៅទីនេះដើម្បីជួយអ្នក!</p>
+      <a 
+        href="/contact" 
+        class="bg-white text-cyan-600 py-3 px-8 rounded-lg text-lg font-semibold hover:bg-cyan-600 hover:text-white transition-colors duration-300"
+      >
+        ទំនាក់ទំនងយើង
+      </a>
+    </div>
+  </section>
 </Base>

@@ -1,5 +1,4 @@
 ---
-import LanguagePicker from '../components/LanguagePicker.astro';
 import { getLangFromUrl } from '../i18n/utils';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -10,15 +9,19 @@ const lang = getLangFromUrl(Astro.url);
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Astro</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     </head>
-    <body>
-        <Nav />
-        <slot />
-        <!-- <footer>
-          <LanguagePicker />
-        </footer> -->
-        <Footer />
+    <body class="bg-gray-100 text-gray-900 font-sans">
+        <header class="sticky top-0">
+            <Nav />
+        </header>
+        <main>
+            <slot />
+        </main>
+        <footer>
+            <Footer />
+        </footer>
     </body>
 </html>
