@@ -1,0 +1,133 @@
+---
+// src/pages/products_services.astro
+import Base from '../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Base>
+  <!-- Products & Services Header Section -->
+  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Our Products & Services</h1>
+      <p class="text-lg md:text-xl mb-8">Explore the innovative solutions we offer to support your needs.</p>
+    </div>
+  </section>
+
+  <!-- Products & Services Details Section -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto">
+      
+      <!-- Education Section -->
+      <div class="mb-16 text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold mb-6">Education</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">Kindergarten & K12</h3>
+            <p class="text-lg mb-4">Providing quality education from kindergarten through K12 levels.</p>
+            <a 
+              href="https://wikischool.asia" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">University Solutions</h3>
+            <p class="text-lg mb-4">Empowering higher education with modern solutions.</p>
+            <a 
+              href="/products_services/university" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">Enrollment</h3>
+            <p class="text-lg mb-4">Streamlining the enrollment process for institutions.</p>
+            <a 
+              href="/products_services/enrollment" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enterprise Section -->
+      <div class="mb-16 text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold mb-6">Enterprise</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">Vithean Page</h3>
+            <p class="text-lg mb-4">A comprehensive platform for enterprise management.</p>
+            <a 
+              href="https://vithean.com" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Visit Vithean
+            </a>
+          </div>
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">Attendance / Card / Device</h3>
+            <p class="text-lg mb-4">Innovative devices and systems for attendance management.</p>
+            <a 
+              href="/products_services/attendance" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">HRM Solutions</h3>
+            <p class="text-lg mb-4">Transforming human resources management with smart technology.</p>
+            <a 
+              href="/products_services/hrm" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Solution Section -->
+      <div class="mb-16 text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold mb-6">Custom Solution</h2>
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-8">
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">Tailored Solutions</h3>
+            <p class="text-lg mb-4">Customized solutions designed to fit your unique business requirements.</p>
+            <a 
+              href="/products_services/custom_solutions" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outsourcing Section -->
+      <div class="text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold mb-6">Outsourcing</h2>
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-8">
+          <div class="bg-gray-100 shadow-lg rounded-lg p-6">
+            <h3 class="text-2xl font-semibold mb-4">Outsourcing Services</h3>
+            <p class="text-lg mb-4">Flexible outsourcing solutions to support your business operations.</p>
+            <a 
+              href="/products_services/outsourcing" 
+              class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Base>

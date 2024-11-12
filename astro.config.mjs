@@ -5,9 +5,9 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [vue(), tailwind()],
   i18n: {
-    defaultLocale: "km",
+    defaultLocale: "kh",
     locales: [
-      "km", // Khmer
+      "kh", // Khmer
       "en"  // English
     ]
   }

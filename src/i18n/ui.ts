@@ -1,6 +1,6 @@
 export const languages = {
   en: 'English',
-  km: 'Khmer',
+  kh: 'Khmer',
 };
 
 export const defaultLang = 'en';
@@ -37,7 +37,7 @@ export const ui = {
     'footer.quick_links': 'Quick Links',
     'footer.description': 'To establish a complete digital eco-platform POSCAR Digital is one of the leading company in smart system in education, accounting, attendance and other ERP solutionsPrevious',
   },
-  km: {
+  kh: {
     'nav.home': 'ទំព័រដើម',
     'nav.about': 'អំពីខ្ញុំ',
     'nav.twitter': 'ទ្វីត',

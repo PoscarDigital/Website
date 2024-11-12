@@ -6,36 +6,37 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<ul class="sticky top-0 flex flex-col md:flex-row items-center justify-between bg-white bg-opacity-80 backdrop-blur-md text-gray-800 p-4 md:p-6 shadow-lg md:px-12 border-b border-gray-200 z-10">
+<ul class=" flex flex-col md:flex-row items-center justify-between bg-white bg-opacity-80 backdrop-blur-sm text-gray-800 p-4 md:p-6 shadow-lg md:px-12 border-b border-gray-200 z-10">
   <!-- Logo and Company Name as a Link to the Homepage -->
-  <li>
+  <li class="flex items-center justify-between w-full md:w-auto">
     <a href={`/${lang}/`} class="flex items-center space-x-3">
       <img 
-        src="../../public/po.png" 
+        src="../../public/poscar-logo.png" 
         alt="Company Logo" 
-        class="w-12 h-12 object-cover rounded-full transition-transform duration-300 hover:scale-105"
+        class="w-22 h-12 object-center rounded-full transition-transform duration-300 hover:scale-105"
       />
-      <span class="text-2xl font-bold text-gray-800 hover:text-cyan-500 transition-colors duration-300">Poscar</span>
+      <span class="text-2xl font-bold text-gray-800 hover:text-cyan-500 transition-colors duration-300"></span>
     </a>
+    <!-- Hamburger Icon for Mobile, aligned to the right -->
+    <button 
+      class="md:hidden text-gray-800 focus:outline-none transition-transform duration-300 hover:scale-110"
+      aria-label="Toggle Navigation"
+      aria-expanded="false"
+      aria-controls="nav-links"
+      id="menu-toggle"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
   </li>
-
-  <!-- Hamburger Icon for Mobile -->
-  <button 
-    class="md:hidden text-gray-800 focus:outline-none transition-transform duration-300 hover:scale-110"
-    aria-label="Toggle Navigation"
-    id="menu-toggle"
-  >
-    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-    </svg>
-  </button>
 
   <!-- Menu Items -->
   <div id="nav-links" class="hidden md:flex flex-col md:flex-row items-center mt-4 md:mt-0 transition-all duration-300 space-y-4 md:space-y-0 md:space-x-8">
     <!-- Home Link -->
     <a 
       href={`/${lang}/`} 
-      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
+      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-slate-100"
     >
       {t('nav.home')}
     </a>
@@ -43,63 +44,75 @@ const t = useTranslations(lang);
     <!-- Products & Services with Mega Menu -->
     <div class="relative group">
       <a 
-        href="#" 
-        class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
+      href={`/${lang}/product_services/`} 
+        class="flex items-center text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100"
       >
         {t('nav.products_services')}
+        <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M5.5 7.5l4 4 4-4" />
+        </svg>
       </a>
       <!-- Mega Menu -->
-      <div class="absolute hidden group-hover:flex bg-white shadow-xl p-6 rounded-lg w-80 left-0 top-full mt-2 transition duration-300 opacity-0 group-hover:opacity-100 z-20">
-        <div class="grid grid-cols-2 gap-6">
+      <div class="absolute hidden group-hover:flex md:group-hover:flex bg-white shadow-xl p-6 rounded-lg w-full md:w-80 left-0 top-full mt-2 transition duration-300 opacity-0 group-hover:opacity-100 z-20">
+        <div class="grid grid-cols-1 gap-6">
           <div>
             <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.education')}</h3>
             <ul>
-              <li><a href="https://wikischool.asia" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.kindergarten_k12')}</a></li>
-              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.university_solution')}</a></li>
-              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.enrollment')}</a></li>
+              <li><a href="https://wikischool.asia" class="text-cyan-600 hover:text-red-600 transition">{t('nav.kindergarten_k12')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.university_solution')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.enrollment')}</a></li>
             </ul>
           </div>
           <div>
             <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.enterprise')}</h3>
             <ul>
-              <li><a href="https://vithean.com" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.vithean_page')}</a></li>
-              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.attendance_card_device')}</a></li>
-              <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.hrm_solution')}</a></li>
+              <li><a href="https://vithean.com" class="text-cyan-600 hover:text-red-600 transition">{t('nav.vithean_page')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.attendance_card_device')}</a></li>
+              <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.hrm_solution')}</a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- About Us Link with Dropdown -->
-    <div class="relative group">
-      <a 
-        href={`/${lang}/about/`} 
-        class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
-      >
-        {t('nav.about')}
-      </a>
-      <div class="absolute hidden group-hover:flex bg-white shadow-xl p-4 rounded-lg w-56 left-0 top-full mt-2 transition duration-300 opacity-0 group-hover:opacity-100 z-20">
-        <ul>
-          <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.company_profile')}</a></li>
-          <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.our_customers')}</a></li>
-          <li class="relative group">
-            <a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.legal')}</a>
-            <div class="absolute hidden group-hover:flex bg-white shadow-xl p-4 rounded-lg w-40 left-full top-0 mt-0 transition duration-300 opacity-0 group-hover:opacity-100">
-              <ul>
-                <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.privacy')}</a></li>
-                <li><a href="#" class="text-cyan-600 hover:text-cyan-800 transition">{t('nav.terms_conditions')}</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+   <!-- About Us Link with Dropdown -->
+<div class="relative group">
+  <a 
+    href={`/${lang}/about/`} 
+    class="flex items-center text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100"
+  >
+    {t('nav.about')}
+    <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M5.5 7.5l4 4 4-4" />
+    </svg>
+  </a>
+  <div class="absolute hidden group-hover:flex bg-white shadow-xl p-4 rounded-lg w-full md:w-56 left-0 top-full mt-2 transition duration-300 opacity-0 group-hover:opacity-100 z-20">
+    <ul>
+      <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.company_profile')}</a></li>
+      <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.our_customers')}</a></li>
+      <!-- Legal section -->
+      <li class="relative group">
+        <a href="#" class="flex items-center text-cyan-600 hover:text-red-600 transition">{t('nav.legal')}
+          <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5.5 7.5l4 4 4-4" />
+          </svg>
+        </a>
+        <!-- Hidden dropdown menu that shows only when hovering over 'Legal' -->
+        <div class="absolute hidden group-hover:block bg-white shadow-xl p-4 rounded-lg w-full md:w-40 left-full top-0 mt-0 transition duration-300 opacity-0 group-hover:opacity-100">
+          <ul>
+            <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.privacy')}</a></li>
+            <li><a href="#" class="text-cyan-600 hover:text-red-600 transition">{t('nav.terms_conditions')}</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
 
     <!-- Blogs Link -->
     <a 
       href={`/${lang}/blogs/`} 
-      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
+      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100"
     >
       {t('nav.blogs')}
     </a>
@@ -107,22 +120,57 @@ const t = useTranslations(lang);
     <!-- Contact Us Link -->
     <a 
       href={`/${lang}/contact/`} 
-      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-cyan-100 hover:text-cyan-500 focus:bg-cyan-100"
+      class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100"
     >
       {t('nav.contact_us')}
     </a>
 
     <!-- Language Picker -->
     <div class="ml-3">
-      <LanguagePicker />
+      <LanguagePicker/>
     </div>
   </div>
 </ul>
 
 <!-- Inline JavaScript to Handle Toggle -->
 <script>
-  document.getElementById('menu-toggle').addEventListener('click', function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
-    navLinks.classList.toggle('hidden');
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('visible');
+        const isExpanded = navLinks.classList.contains('visible');
+        menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      });
+    }
   });
 </script>
+
+<style>
+/* Hidden by default on mobile */
+#nav-links {
+  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show on mobile when visible */
+#nav-links.visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  flex-direction: column;
+}
+
+/* Desktop view: show nav-links by default */
+@media (min-width: 768px) {
+  #nav-links {
+    display: flex;
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>

@@ -8,13 +8,19 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    "allowJs": true,
+    "outDir": "./dist" // specify the output directory
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.astro"
-, "src/components/Slider.vue"  ],
+    "src/**/*.astro",
+    "src/**/*.vue",
+    "src/**/*.mdx",
+    "src/**/*.md",
+    "src/**/*.svg"
+  ],
   "exclude": [
     "node_modules"
   ]
