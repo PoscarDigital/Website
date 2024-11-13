@@ -1,7 +1,132 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
+
 <Base>
-    <h1>អំពីខ្ញុំ</h1>
-    ...
+  <!-- About Us Main Section with New Background Style -->
+  <section class="about-section py-20 px-6 md:px-12 lg:px-16 bg-slate-600 text-white">
+    <div class="container mx-auto text-center">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">អំពី​ពួក​យើង</h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        POSCAR Digital គឺជាអ្នកដឹកនាំក្នុងការអប់រំឆ្លាតវៃ គណនេយ្យ ការចូលរួម និងដំណោះស្រាយ ERP បង្កើតវេទិកាអេកូឌីជីថលដើម្បីពង្រឹងអង្គការ និងបុគ្គល។
+      </p>
+    </div>
+  </section>
+
+  <!-- Company Profile Section with Elevated Card Style -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center max-w-4xl">
+      <div class="p-10 bg-white shadow-lg rounded-lg transition-shadow duration-300 hover:shadow-xl">
+        <h2 class="text-4xl md:text-5xl font-semibold mb-4">ប្រវត្តិសាជីវកម្ម</h2>
+        <p class="text-lg md:text-xl mb-8">
+          POSCAR Digital ត្រូវបានបង្កើតឡើងដោយបេសកកម្មក្នុងការផ្លាស់ប្តូរដែនដីឌីជីថល ដោយផ្តល់ដំណោះស្រាយពេញលេញសម្រាប់ SME និងគ្រឹះស្ថានអប់រំទូទាំងកម្ពុជា និងលើសពីនេះ។
+        </p>
+        <a 
+          href={`/${lang}/company-profile`} 
+          class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300 text-lg"
+        >
+          អាន​បន្ថែម
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision Section with Distinct Background and Icons -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-4">ចក្ខុវិស័យ​របស់​ពួក​យើង</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        បង្កើតវេទិកាអេកូឌីជីថលពេញលេញសម្រាប់អប់រំ និងប្រតិបត្តិការអាជីវកម្ម ដើម្បីគាំទ្រ SME នៅកម្ពុជា។
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission Section with Enhanced Layout -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">បេសកកម្ម​របស់​ពួក​យើង</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        ដើម្បីចូលរួមគ្រឹះស្ថានអប់រំ និង SME ក្នុងប្រព័ន្ធអេកូឌីជីថលពេញលេញ ដើម្បីពង្រឹងពួកគេជាមួយបច្ចេកវិទ្យាឆ្លាតវៃ និងធនធាន។
+      </p>
+    </div>
+  </section>
+
+  <!-- Value Proposition Section with Icon Cards -->
+  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">តម្លៃដែលយើងផ្តល់</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-8 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <p class="text-lg md:text-xl mb-4">
+            យើងអនុញ្ញាតឱ្យអតិថិជនរបស់យើងពង្រីកប្រមាណទូលាយអាជីវកម្មរបស់ពួកគេក្នុងវិធីងាយស្រួល និងមានសុវត្ថិភាព។
+          </p>
+        </div>
+        <div class="p-8 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <p class="text-lg md:text-xl mb-4">
+            ធានាថាអតិថិជនរបស់យើងនៅតែបន្តទំនាក់ទំនងទៅនឹងប្រតិបត្តិការរបស់ពួកគេ និងភាគីពាក់ព័ន្ធនៅគ្រប់ពេល។
+          </p>
+        </div>
+        <div class="p-8 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <p class="text-lg md:text-xl mb-4">
+            ផ្តល់ដំណោះស្រាយច្នៃប្រឌិតដែលអាចបំពេញតាមតម្រូវការអាជីវកម្មបែបផ្ទាល់ខ្លួន។
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Customers Section with Emphasized Claim -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">អតិថិជន​របស់​យើង</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        សេវាកម្មរបស់យើងបម្រើអតិថិជនដ៏ចម្រុះទូទាំងកម្ពុជា និងតំបន់ ដែលមានទាំងគ្រឹះស្ថានអប់រំ SME និងសហគ្រាស។
+      </p>
+      <a 
+        href={`/${lang}/our-customers`} 
+        class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300 text-lg"
+      >
+        ស្វែង​យល់​បន្ថែម​អំពី​អតិថិជន​របស់​យើង
+      </a>
+    </div>
+  </section>
+
+  <!-- Legal Section with Clear Call to Action -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">ផ្នែកផ្លូវការ</h2>
+      <div class="flex flex-col md:flex-row justify-center gap-8">
+        <a 
+          href={`/${lang}/legal/privacy`} 
+          class="text-gray-600 font-semibold hover:underline transition duration-300 text-lg"
+        >
+          គោលការណ៍​ឯកជនភាព
+        </a>
+        <a 
+          href={`/${lang}/legal/terms-and-conditions`} 
+          class="text-gray-600 font-semibold hover:underline transition duration-300 text-lg"
+        >
+          លក្ខខណ្ឌ និងលក្ខខណ្ឌ
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section with Encouraging Tone -->
+  <section class="py-16 text-gray-800 text-center px-6 md:px-12 lg:px-16 bg-gradient-to-b from-gray-100 to-white">
+    <div class="container mx-auto">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-4">ចូលរួមជាមួយពួកយើងក្នុងដំណើរទស្សនកិច្ច</h2>
+      <p class="text-lg md:text-xl mb-6">ចង់ដឹងបន្ថែមអំពីការងាររបស់យើង ឬមានសំណួរទេ? ចូលរួមជាមួយពួកយើងថ្ងៃនេះ!</p>
+      <a 
+        href={`/${lang}/contact`} 
+        class="bg-blue-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-blue-500 transition-colors duration-300"
+      >
+        ទាក់ទង​មក​ពួក​យើង
+      </a>
+    </div>
+  </section>
 </Base>

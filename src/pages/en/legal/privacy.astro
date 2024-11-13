@@ -1,0 +1,137 @@
+---
+// src/pages/legal/privacy.astro
+import Base from '../../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Base>
+  <!-- Privacy Policy Section -->
+  <section class="bg-white text-gray-800 py-16 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Privacy Policy</h1>
+        <p class="text-lg md:text-xl">
+          At POSCAR Digital Co., Ltd., we respect your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our services.
+        </p>
+      </div>
+
+      <!-- Introduction -->
+      <section id="introduction" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Introduction</h2>
+        <p class="text-lg mb-4">
+          POSCAR Digital Co., Ltd. builds the Digital Products application as a free app or as a "Service Charge" app or cloud ERP product based on arrangement.
+        </p>
+        <p class="text-lg mb-4">
+          The Digital Products apps include: Wiki School, Wiki College, Wiki TV, Wiki HRM, Wiki POS, BluePinn, and other apps (together, the “Apps” and referred to individually as the “App”) and the Cloud ERP product includes Vithean.
+        </p>
+        <p class="text-lg mb-4">
+          If you choose to use our Service, you agree to the collection, use, and disclosure of information as specified in this policy. The Personal Information we collect is used for providing and improving the Service.
+        </p>
+      </section>
+
+      <!-- Information Collection -->
+      <section id="data-collection" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Information Collection and Use</h2>
+        <p class="text-lg mb-4">
+          To provide you with a better service, we require you to provide certain personally identifiable information, such as your name, date of birth, gender, phone number, and email address (“Personal Information”).
+        </p>
+        <p class="text-lg mb-4">
+          If you do not wish to provide us with Personal Information, you may not be able to use some parts of our Service or Apps. The information we request will be retained by us and used as described in this Privacy Policy.
+        </p>
+        <p class="text-lg mb-4">
+          You have the following rights regarding your Personal Information:
+        </p>
+        <ul class="list-disc list-inside text-lg mb-4">
+          <li>Check and update your Personal Information to ensure accuracy.</li>
+          <li>Request that we restrict the processing or delete your Personal Information.</li>
+          <li>Object to our continued processing of your Personal Information.</li>
+        </ul>
+      </section>
+
+      <!-- Third-Party Services -->
+      <section id="third-party-services" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Third-Party Services</h2>
+        <p class="text-lg mb-4">
+          Our services may integrate with third-party systems that may collect information to identify you. These third-party systems include, but are not limited to:
+        </p>
+        <ul class="list-disc list-inside text-lg mb-4">
+          <li>Bank or Payment Agent APIs</li>
+          <li>Devices such as POS, Card Scanners, NFC, or Biometric devices</li>
+        </ul>
+        <p class="text-lg mb-4">
+          We only use or send data based on our service needs and in accordance with their privacy terms and conditions.
+        </p>
+        <p class="text-lg mb-4">
+          Third parties that assist in providing the Service may have access to your Personal Information. They are prohibited from using or disclosing your information except for performing work for us or as required by Cambodian law.
+        </p>
+      </section>
+
+      <!-- Log Data -->
+      <section id="log-data" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Log Data</h2>
+        <p class="text-lg mb-4">
+          When you use our Service, in case of an error, we may collect data and information through third-party products on your phone (“Log Data”). This Log Data may include information like your device IP address, device name, operating system version, configuration of the App, and the time and date of your use of the Service.
+        </p>
+      </section>
+
+      <!-- Cookies -->
+      <section id="cookies" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Cookies</h2>
+        <p class="text-lg mb-4">
+          Our Service does not use cookies explicitly. However, the App may use third-party code and libraries that use cookies to collect information and improve their services. You can accept or refuse these cookies, and if you refuse, some portions of the Service may not be accessible.
+        </p>
+      </section>
+
+      <!-- Data Ownership -->
+      <section id="data-ownership" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Data Ownership</h2>
+        <p class="text-lg mb-4">
+          After you cancel or stop using our Service, your personal data will still be retained in our app and system for marketing purposes. However, you will have the option to opt-out of receiving future marketing communications if they are not relevant or of interest.
+        </p>
+      </section>
+
+      <!-- Security -->
+      <section id="security" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Security</h2>
+        <p class="text-lg mb-4">
+          We strive to protect your personal information from accidental or unlawful destruction, loss, alteration, unauthorized disclosure, or access. However, please remember that no method of transmission over the internet or method of electronic storage is 100% secure.
+        </p>
+      </section>
+
+      <!-- Links to Other Sites -->
+      <section id="links-to-other-sites" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Links to Other Sites</h2>
+        <p class="text-lg mb-4">
+          Our Service may contain links to third-party sites. We advise you to review their privacy policies as we have no control over these external sites.
+        </p>
+      </section>
+
+      <!-- Information Retention -->
+      <section id="information-retention" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Information Retention</h2>
+        <p class="text-lg mb-4">
+          We retain your personal data for as long as necessary for the purposes described in this Privacy Policy. After the retention period, we will securely delete or anonymize your data. In cases where deletion is not possible, we will take necessary measures to ensure your data is securely isolated.
+        </p>
+      </section>
+
+      <!-- Changes to the Privacy Policy -->
+      <section id="changes" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Changes to this Privacy Policy</h2>
+        <p class="text-lg mb-4">
+          We may update our Privacy Policy from time to time. Please review this page periodically for any changes. We will notify you of significant changes by posting the new Privacy Policy here.
+        </p>
+      </section>
+
+      <!-- Contact Us -->
+      <section id="contact-us" class="mb-12">
+        <h2 class="text-3xl font-semibold mb-4">Contact Us</h2>
+        <p class="text-lg mb-4">
+          If you have any questions about our Privacy Policy, please contact us at <a href="mailto:info@poscardigital.com" class="text-cyan-600">info@poscardigital.com</a>.
+        </p>
+      </section>
+    </div>
+  </section>
+</Base>
