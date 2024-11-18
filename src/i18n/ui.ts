@@ -1,6 +1,6 @@
 export const languages = {
   en: 'English',
-  kh: 'Khmer',
+  km: 'Khmer',
 };
 
 export const defaultLang = 'en';
@@ -59,7 +59,7 @@ export const ui = {
     'blogs.post3.title': 'Top Trends in HR Management',
     'blogs.post3.description': 'An exploration of the latest trends and technologies shaping human resources management.',
   },
-  kh: {
+  km: {
     // Navigation
     'nav.home': 'ទំព័រដើម',
     'nav.about': 'អំពីខ្ញុំ',
