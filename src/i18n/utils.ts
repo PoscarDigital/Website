@@ -1,3 +1,4 @@
+// Language Utils
 import { ui, defaultLang } from './ui';
 
 export function getLangFromUrl(url: URL) {

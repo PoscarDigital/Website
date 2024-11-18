@@ -1,0 +1,15 @@
+---
+// BlogPost.astro
+const { post, lang } = Astro.props;
+---
+
+<article class="bg-white shadow-md rounded-lg overflow-hidden">
+  <img src={post.image} alt={post.title} class="w-full h-48 object-cover" />
+  <div class="p-4">
+    <h2 class="text-xl font-semibold">
+      <a href={`/${lang}/blogs/${post.slug}`} class="text-cyan-600 hover:underline">{post.title}</a>
+    </h2>
+    <p class="mt-2 text-gray-600">{post.excerpt}</p>
+    <p class="mt-4 text-sm text-gray-500">Published on {new Date(post.date).toLocaleDateString()}</p>
+  </div>
+</article>
