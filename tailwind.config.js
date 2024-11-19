@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,vue}'],
+  content: ['./src/**/*.{astro,html,js,vue}'], // Fixed double slash
   theme: {
     extend: {
       animation: {
@@ -17,8 +17,10 @@ module.exports = {
           '100%': { transform: 'translateY(0)', opacity: 1 },
         },
       },
+      fontFamily: {
+        kantumruy: ['Kantumruy Pro', 'sans-serif',],
+      },
     },
   },
   plugins: [],
 };
-

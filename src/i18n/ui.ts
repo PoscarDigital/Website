@@ -52,9 +52,9 @@ export const ui = {
     // Example blog posts
     'blogs.post1.title': 'The Future of Education Technology',
     'blogs.post1.description': 'Discover how technology is transforming the education landscape and what it means for future generations.',
-    'blogs.recentPost1.description': 'kk',
+    'blogs.recentPost1.description': 'example',
     'blogs.post2.title': 'Why Choose Poscar Digital for Your Enterprise Solutions',
-    'blogs.recentPost1.title': 'nn',
+    'blogs.recentPost1.title': 'bloge',
     'blogs.post2.description': 'Learn about our customized solutions designed to meet the unique needs of businesses.',
     'blogs.post3.title': 'Top Trends in HR Management',
     'blogs.post3.description': 'An exploration of the latest trends and technologies shaping human resources management.',
@@ -105,8 +105,8 @@ export const ui = {
     // Example blog posts
     'blogs.post1.title': 'អនាគតនៃបច្ចេកវិទ្យាក្នុងការអប់រំ',
     'blogs.post1.description': 'ស្វែងយល់ពីវិធីដែលបច្ចេកវិទ្យាកំពុងប្ដូរបំផ្លាញវាលស្រែកដើម្បីអនាគត។',
-    'blogs.recentPost1.description': 'kk',
-    'blogs.recentPost1.title': 'nn',
+    'blogs.recentPost1.description': 'ឧទាហរណ៍',
+    'blogs.recentPost1.title': 'ប្លក់',
     'blogs.post2.title': 'ហេតុអ្វីជ្រើស Poscar Digital សម្រាប់ដំណោះស្រាយអាជីវកម្មរបស់អ្នក',
     'blogs.post2.description': 'ស្វែងយល់អំពីដំណោះស្រាយកែច្នៃរបស់យើងដែលត្រូវបានរចនាឡើងដើម្បីត្រូវនឹងតម្រូវការផ្សេងៗរបស់អាជីវកម្ម។',
     'blogs.post3.title': 'និន្នាការសំខាន់ៗក្នុងការគ្រប់គ្រងធនធានមនុស្ស',
