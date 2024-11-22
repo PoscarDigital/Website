@@ -1,16 +1,16 @@
 ---
-import { getEntry } from 'astro:content';
-
-const { lang, slug } = Astro.params;
-const page = await getEntry('blog', `${lang}/${slug}`);
-
-if (!page) {
-  return Astro.redirect('/404');
-}
-
-const formattedDate = page.data.date.toLocaleString(lang);
-const { Content, headings } = await page.render();
+// Import layout and get the post data
+import Base from "../../../layouts/Base.astro";
+const { slug } = Astro.params;
+const post = await Astro.glob(`../../../content/blog/${slug}.md`).then((posts) =>
+  posts[0]
+);
 ---
-<h1>{page.data.title}</h1>
-<p>by {page.data.author} • {formattedDate}</p>
-<Content/>
+<Base>
+  <h1>{post.frontmatter.title}</h1>
+  <p><strong>Author:</strong> {post.frontmatter.author}</p>
+  <p><strong>Date:</strong> {post.frontmatter.date}</p>
+  <article>
+    {post.Content}
+  </article>
+</Base>

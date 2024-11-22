@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,vue}'], // Fixed double slash
+  content: ['./src/**/*.{astro,html,js}'], // Fixed double slash
   theme: {
     extend: {
       animation: {

@@ -1,12 +1,21 @@
+backend:
+  name: github
+  repo: "" # Replace with your GitHub username and repository name
+  branch: main # Optional: specify the branch you want to use for the CMS (default is 'main')
+  auth_scope: "repo" # Scope of access to GitHub repositories (repo access for content writing)
+  
+media_folder: "src/images" # Folder where media like images will be uploaded
+public_folder: "/images" # Public path for media files
+
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "src/content/blog"
-    create: true
-    fields:
-      - { name: "language", label: "Language", widget: "select", options: ["en", "km"] }
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "author", label: "Author", widget: "string" }
-      - { name: "tags", label: "Tags", widget: "list" }
-      - { name: "body", label: "Body", widget: "markdown" }
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "src/content/blog" # Path to the folder where the blog documents are stored
+    create: true # Allow users to create new blog posts
+    fields: # The fields for each blog post
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - { label: "Rating (scale of 1-5)", name: "rating", widget: "number" }
+      - { label: "Body", name: "body", widget: "markdown" }
