@@ -1,4 +1,5 @@
 ---
+import Base from "../../../layouts/Base.astro";
 import { getEntry } from 'astro:content';
 
 const { lang, slug } = Astro.params;
@@ -11,6 +12,8 @@ if (!page) {
 const formattedDate = page.data.date.toLocaleString(lang);
 const { Content, headings } = await page.render();
 ---
-<h1>{page.data.title}</h1>
-<p>by {page.data.author} • {formattedDate}</p>
-<Content/>
+<Base>
+  <h1>{page.data.title}</h1>
+  <p>by {page.data.author} • {formattedDate}</p>
+  <Content/>
+</Base>

@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "home": "Home",
+    "products_services": "Products & Services",
+    "education": "Education",
+    "kindergarten_k12": "Kindergarten & K12",
+    "university_solution": "University Solutions",
+    "enterprise": "Enterprise",
+    "accounting_erp": "Accounting System & ERP",
+    "attendance_card_device": "Attendance / Card / Device",
+    "hrm_solution": "HRM Solution",
+    "enrollment": "Enrollment, Online Registration",
+    "blogs": "Blogs",
+    "about": "About",
+    "company_profile": "Company Profile",
+    "our_customers": "Our Customers",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "terms_conditions": "Terms and Conditions",
+    "contact_us": "Contact Us"
+  }
+}
