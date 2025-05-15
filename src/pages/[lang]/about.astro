@@ -1,0 +1,195 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const content = await getContentTranslations(lang);
+
+// Override default meta tags for this page
+const meta = {
+  title: 'About POSCAR Digital - Leading Digital Solutions Provider in Cambodia',
+  description: 'Learn about POSCAR Digital, a leading provider of smart education, accounting, attendance, and ERP solutions in Cambodia. Discover our mission, vision, and innovative digital platforms including Wiki School and Vithean.',
+  keywords: 'POSCAR Digital, company profile, about us, digital solutions, Cambodia, Wiki School, Vithean, ERP solutions, smart education, accounting software',
+  ogImage: '/images/poscar-digital-about.jpg'
+};
+---
+
+<Base meta={meta}>
+  <!-- About Us Main Section with New Background Style -->
+  <section class="about-section py-20 px-6 md:px-12 lg:px-16 bg-slate-600 text-white">
+    <div class="container mx-auto text-center">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">About POSCAR Digital</h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        POSCAR Digital is a leader in smart education, accounting, attendance, and ERP solutions, creating a complete digital eco-platform to empower organizations and individuals.
+      </p>
+    </div>
+  </section>
+
+  <!-- Company Profile Section with Elevated Card Style -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center max-w-4xl">
+      <div class="p-10 bg-white shadow-lg rounded-lg transition-shadow duration-300 hover:shadow-xl">
+        <h2 class="text-4xl md:text-5xl font-semibold mb-4">Our Company Profile</h2>
+        <p class="text-lg md:text-xl mb-8">
+          POSCAR Digital was established with a mission to reshape digital landscapes, providing end-to-end solutions for SMEs and educational institutions across Cambodia and beyond. Our innovative platforms, including Wiki School and Vithean, are transforming education and business operations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision Section with Distinct Background and Icons -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-4">Our Vision</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        To establish a complete digital eco-platform for education and business operations, supporting SMEs in Cambodia through innovative solutions like Wiki School and Vithean.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission Section with Enhanced Layout -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">Our Mission</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        To engage educational institutions and SMEs in a complete digital eco-system, empowering them with smart technology and resources through our comprehensive platforms.
+      </p>
+    </div>
+  </section>
+
+  <!-- Value Proposition Section with Icon Cards -->
+  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">Our Value Proposition</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-8 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <p class="text-lg md:text-xl mb-4">
+            We enable our clients to maximize their business horizon in the most convenient and secure manner.
+          </p>
+        </div>
+        <div class="p-8 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <p class="text-lg md:text-xl mb-4">
+            Ensuring our clients stay connected to their operations and stakeholders at all times.
+          </p>
+        </div>
+        <div class="p-8 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <p class="text-lg md:text-xl mb-4">
+            Providing innovative solutions tailored to unique business needs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Products Section -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">Our Products</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="p-8 bg-gray-50 rounded-lg shadow-md">
+          <h3 class="text-2xl font-semibold mb-4">Wiki School</h3>
+          <p class="text-lg">
+            Our comprehensive education management platform that revolutionizes how schools and educational institutions operate.
+          </p>
+        </div>
+        <div class="p-8 bg-gray-50 rounded-lg shadow-md">
+          <h3 class="text-2xl font-semibold mb-4">Vithean</h3>
+          <p class="text-lg">
+            An advanced ERP solution designed to streamline business operations and enhance productivity.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Customers Section with Emphasized Claim -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">Our Customers</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        Serving a diverse clientele across Cambodia and the region, from educational institutions to SMEs and enterprises.
+      </p>
+      <a 
+        href={`/${lang}/our-customers`} 
+        class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300 text-lg"
+      >
+        Explore Our Customers
+      </a>
+    </div>
+  </section>
+
+  <!-- Company Overview -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl">
+      <div class="prose prose-lg mx-auto">
+        <h2>Our Story</h2>
+        <p>
+          POSCAR Digital Co., Ltd. was established with a vision to transform the digital landscape in Cambodia. 
+          We specialize in providing cutting-edge software solutions for education, enterprise, and custom development needs.
+        </p>
+
+        <h2>Our Mission</h2>
+        <p>
+          To empower organizations with innovative digital solutions that drive growth, efficiency, and success 
+          in the modern business landscape.
+        </p>
+
+        <h2>Our Values</h2>
+        <ul>
+          <li>Innovation and Excellence</li>
+          <li>Customer-Centric Approach</li>
+          <li>Integrity and Transparency</li>
+          <li>Continuous Learning and Improvement</li>
+        </ul>
+
+        <h2>Our Team</h2>
+        <p>
+          Our team consists of experienced professionals who are passionate about technology and dedicated to 
+          delivering the best solutions for our clients. We combine technical expertise with industry knowledge 
+          to create impactful digital solutions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-center mb-12">Our Achievements</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-slate-600 mb-2">100+</div>
+          <p class="text-lg">Happy Clients</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-slate-600 mb-2">50+</div>
+          <p class="text-lg">Projects Completed</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-slate-600 mb-2">5+</div>
+          <p class="text-lg">Years Experience</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="py-16 text-gray-800 text-center px-6 md:px-12 lg:px-16 bg-gradient-to-b from-gray-100 to-white">
+    <div class="container mx-auto">
+      <h2 class="text-4xl md:text-5xl font-semibold mb-4">Join Us on Our Journey</h2>
+      <p class="text-lg md:text-xl mb-6">Want to learn more about our work or have any inquiries? Connect with us today!</p>
+      <a 
+        href={`/${lang}/contact`} 
+        class="bg-blue-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-blue-500 transition-colors duration-300"
+      >
+        Contact Us
+      </a>
+    </div>
+  </section>
+</Base> 

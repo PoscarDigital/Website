@@ -55,11 +55,11 @@ const t = useTranslations(lang);
           <div>
             <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.enterprise')}</h3>
             <ul>
-              <li><a href={`/${lang}/accounting-erp-vithean/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.accounting_erp')}</a></li>
+              <li><a href={`/${lang}/accounting-erp-vithean/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.vithean_page')}</a></li>
               <li><a href={`/${lang}/attendance-solution/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.attendance_card_device')}</a></li>
               <li><a href={`/${lang}/hrm-solution/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.hrm_solution')}</a></li>
               <li><a href={`/${lang}/enrollment-online-registration/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.enrollment')}</a></li>
-              <li><a href={`/${lang}/custom-solutions/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.custom_solutions')}</a></li>
+              <li><a href={`/${lang}/custom-solutions/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.custom_solution')}</a></li>
             </ul>
           </div>
         </div>
@@ -79,21 +79,14 @@ const t = useTranslations(lang);
       </button>
       <div id="about-dropdown" class="absolute hidden bg-white shadow-xl p-4 rounded-lg w-full md:w-56 left-0 top-full mt-2 transition duration-300 opacity-0 z-20">
         <ul>
-          <li><a href={`/${lang}/company-profile/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.company_profile')}</a></li>
+          <li><a href={`/${lang}/about/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.about')}</a></li>
           <li><a href={`/${lang}/customers/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.our_customers')}</a></li>
-          <li class="relative">
-            <button class="flex items-center text-slate-600 hover:text-red-600 transition" id="legal-dropdown-toggle">
-              {t('nav.legal')}
-              <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M5.5 7.5l4 4 4-4" />
-              </svg>
-            </button>
-            <div id="legal-dropdown" class="absolute hidden bg-white shadow-xl p-4 rounded-lg w-full md:w-40 left-full top-0 mt-0 transition duration-300 opacity-0">
-              <ul>
-                <li><a href={`/${lang}/privacy/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.privacy')}</a></li>
-                <li><a href={`/${lang}/toc/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.terms_conditions')}</a></li>
-              </ul>
-            </div>
+          <li class="mt-4 pt-4 border-t border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.legal')}</h3>
+            <ul>
+              <li><a href={`/${lang}/privacy/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.privacy')}</a></li>
+              <li><a href={`/${lang}/toc/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.terms_conditions')}</a></li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -118,8 +111,6 @@ const t = useTranslations(lang);
     const productsDropdown = document.getElementById('products-dropdown');
     const aboutDropdownToggle = document.getElementById('about-dropdown-toggle');
     const aboutDropdown = document.getElementById('about-dropdown');
-    const legalDropdownToggle = document.getElementById('legal-dropdown-toggle');
-    const legalDropdown = document.getElementById('legal-dropdown');
 
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('visible');
@@ -138,33 +129,27 @@ const t = useTranslations(lang);
       aboutDropdown.classList.toggle('opacity-0');
       aboutDropdown.classList.toggle('opacity-100');
     });
-
-    legalDropdownToggle.addEventListener('click', () => {
-      legalDropdown.classList.toggle('hidden');
-      legalDropdown.classList.toggle('opacity-0');
-      legalDropdown.classList.toggle('opacity-100');
-    });
   });
 </script>
 
 <style>
-#nav-links {
-  display: none;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-#nav-links.visible {
-  display: flex;
-  opacity: 1;
-  transform: translateY(0);
-  flex-direction: column;
-}
-@media (min-width: 768px) {
   #nav-links {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  #nav-links.visible {
     display: flex;
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
+    flex-direction: column;
   }
-}
+  @media (min-width: 768px) {
+    #nav-links {
+      display: flex;
+      opacity: 1;
+      transform: none;
+    }
+  }
 </style>

@@ -1,0 +1,203 @@
+{
+  "home": {
+    "hero": {
+      "title": "POSCAR Digital Co., LTD.",
+      "subtitle": "To establish a complete digital eco-platform",
+      "description": "POSCAR Digital is one of the leading company in smart system in education, accounting, attendance and other ERP solutions."
+    },
+    "about": {
+      "title": "About Us",
+      "description": "Watch our story and see what drives us every day to innovate and inspire.",
+      "vision": {
+        "title": "Vision",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere ipsa exercitationem laudantium ab ratione! Debitis voluptatum esse mollitia itaque porro, non nihil! Ullam veniam, temporibus officiis delectus doloribus recusandae sapiente!"
+      }
+    },
+    "products": {
+      "title": "Featured Products & Services",
+      "items": {
+        "k12": {
+          "title": "Kindergarten & K12",
+          "description": "Providing quality education from kindergarten through K12 levels."
+        },
+        "university": {
+          "title": "University Solutions",
+          "description": "Empowering higher education with innovative solutions."
+        },
+        "hrm": {
+          "title": "HRM Solutions",
+          "description": "Transforming human resources management with smart technology."
+        }
+      }
+    },
+    "contact": {
+      "title": "Get in Touch with Us",
+      "description": "Have questions or need assistance? We're here to help!"
+    }
+  },
+  "products_services": {
+    "hero": {
+      "title": "Products & Services",
+      "description": "Explore the innovative solutions we offer to support your needs."
+    },
+    "education": {
+      "title": "Education",
+      "items": {
+        "k12": {
+          "title": "Kindergarten & K12",
+          "description": "Providing quality education from kindergarten through K12 levels."
+        },
+        "university": {
+          "title": "University Solutions",
+          "description": "Empowering higher education with modern solutions."
+        },
+        "enrollment": {
+          "title": "Enrollment",
+          "description": "Streamlining the enrollment process for institutions."
+        }
+      }
+    },
+    "enterprise": {
+      "title": "Enterprise",
+      "items": {
+        "vithean": {
+          "title": "Vithean Page",
+          "description": "A comprehensive platform for enterprise management."
+        },
+        "attendance": {
+          "title": "Attendance / Card / Device",
+          "description": "Innovative devices and systems for attendance management."
+        },
+        "hrm": {
+          "title": "HRM Solutions",
+          "description": "Transforming human resources management with smart technology."
+        }
+      }
+    },
+    "custom_solution": {
+      "title": "Custom Solution",
+      "items": {
+        "tailored": {
+          "title": "Tailored Solutions",
+          "description": "Customized solutions designed to fit your unique business requirements."
+        }
+      }
+    },
+    "outsourcing": {
+      "title": "Outsourcing",
+      "items": {
+        "services": {
+          "title": "Outsourcing Services",
+          "description": "Flexible outsourcing solutions to support your business operations."
+        }
+      }
+    }
+  },
+  "common": {
+    "buttons": {
+      "learn_more": "Learn More",
+      "get_started": "Get Started",
+      "contact_us": "Contact Us",
+      "visit_site": "Visit Site"
+    },
+    "navigation": {
+      "home": "Home",
+      "products": "Products & Services",
+      "about": "About Us",
+      "contact": "Contact"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "last_updated": "Last Updated: March 2024",
+    "sections": {
+      "introduction": {
+        "title": "Introduction",
+        "content": "POSCAR Digital Co., Ltd. has created Digital Product Applications that may be free applications or \"paid\" applications and Cloud ERP. ... This document is intended to inform you and users about our policies regarding the collection, use, and disclosure of your personal information when you use our applications and services."
+      },
+      "info_collection": {
+        "title": "Information We Collect",
+        "content": "In order for our company to provide you with better services ... you should provide us with information that can identify you ...",
+        "list": [
+          "Name",
+          "Date of Birth",
+          "Gender",
+          "Phone Number",
+          "Email"
+        ]
+      },
+      "usage": {
+        "title": "How We Use Your Information",
+        "content": "We use the collected information to provide and improve our applications and services.",
+        "list": [
+          "Provide and maintain services",
+          "Process bookings and other operations",
+          "Send information and notifications",
+          "Improve services"
+        ]
+      },
+      "sharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell or rent your personal information to third parties. We may share information with:",
+        "list": [
+          "Service providers",
+          "Legal authorities",
+          "Business partners (with consent)"
+        ]
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We use security measures to protect your personal information from unauthorized access."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You have the right to:",
+        "list": [
+          "Access your personal information",
+          "Correct inaccurate information",
+          "Request deletion of information",
+          "Opt out of marketing communications"
+        ]
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have questions about this policy, please contact info@poscardigital.com or +855 23 123 456."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "We'd love to hear from you! Reach out with any questions or inquiries.",
+    "form": {
+      "name": {
+        "label": "Your Name",
+        "placeholder": "Enter your name"
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "example@example.com"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Enter your message"
+      },
+      "submit": "Send Message"
+    },
+    "details": {
+      "title": "Get in Touch",
+      "description": "For any inquiries, please use the contact form or reach out through the details below:",
+      "address": {
+        "label": "Address",
+        "value": "3E:Fii Building 6th-7th Floor, Street Vimean Ahha, Kien Klaing Village, Sangkat Chroy Changva, Khan Chroy Changvar, Phnom Penh, Cambodia."
+      },
+      "phone": {
+        "label": "Phone",
+        "value": "095 569 568 | 081 569 568"
+      },
+      "email": {
+        "label": "Email",
+        "value": "info@poscar.com"
+      }
+    }
+  }
+} 

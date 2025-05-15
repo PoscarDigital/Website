@@ -4,20 +4,184 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 const lang = getLangFromUrl(Astro.url);
+
+// Default SEO meta tags
+const defaultMeta = {
+  title: "POSCAR Digital - Smart Education & ERP Solutions in Cambodia",
+  description: "POSCAR Digital is a leading provider of smart education, accounting, attendance, and ERP solutions in Cambodia. Discover our innovative platforms including Wiki School and Vithean.",
+  keywords: "POSCAR Digital, digital solutions, Cambodia, Wiki School, Vithean, ERP solutions, smart education, accounting software",
+  ogImage: "/images/poscar-digital-og.jpg",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterSite: "@poscardigital",
+  twitterCreator: "@poscardigital",
+  canonical: `https://poscardigital.com${Astro.url.pathname}`,
+  robots: "index, follow",
+  viewport: "width=device-width, initial-scale=1",
+  charset: "utf-8",
+  language: lang,
+  author: "POSCAR Digital",
+  publisher: "POSCAR Digital",
+  geo: {
+    region: "KH",
+    position: "11.5564;104.9282",
+    placename: "Phnom Penh"
+  }
+};
+
+// Allow pages to override default meta tags
+const { meta = {} } = Astro.props;
+const finalMeta = { ...defaultMeta, ...meta };
+
+// Structured Data for AI and Search Engines
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://poscardigital.com/#organization",
+      "name": "POSCAR Digital",
+      "url": "https://poscardigital.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://poscardigital.com/images/poscar-digital-logo.png"
+      },
+      "sameAs": [
+        "https://www.facebook.com/poscardigital",
+        "https://twitter.com/poscardigital",
+        "https://www.linkedin.com/company/poscardigital"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "3E:Fii Building, 6-7th Floor, Vimean Akpheak Street",
+        "addressLocality": "Phnom Penh",
+        "addressRegion": "Phnom Penh",
+        "postalCode": "12000",
+        "addressCountry": "KH"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+855-95-569-568",
+        "contactType": "customer service",
+        "email": "info@poscar.com",
+        "availableLanguage": ["en", "km"]
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://poscardigital.com/#wikischool",
+      "name": "Wiki School",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Comprehensive education management platform that revolutionizes how schools and educational institutions operate.",
+      "provider": {
+        "@id": "https://poscardigital.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://poscardigital.com/#vithean",
+      "name": "Vithean",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Advanced ERP solution designed to streamline business operations and enhance productivity.",
+      "provider": {
+        "@id": "https://poscardigital.com/#organization"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://poscardigital.com/#website",
+      "url": "https://poscardigital.com",
+      "name": "POSCAR Digital",
+      "publisher": {
+        "@id": "https://poscardigital.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://poscardigital.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": lang
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${finalMeta.canonical}#webpage`,
+      "url": finalMeta.canonical,
+      "name": finalMeta.title,
+      "description": finalMeta.description,
+      "isPartOf": {
+        "@id": "https://poscardigital.com/#website"
+      },
+      "about": {
+        "@id": "https://poscardigital.com/#organization"
+      },
+      "inLanguage": lang
+    }
+  ]
+};
 ---
 
-<html lang={lang}>
+<html lang={finalMeta.language}>
   <head>
-    <meta charset="utf-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nokora&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Include Google Fonts Link for Kantumruy Pro -->
+    <meta charset={finalMeta.charset} />
+    <meta name="viewport" content={finalMeta.viewport} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{finalMeta.title}</title>
+    <meta name="title" content={finalMeta.title} />
+    <meta name="description" content={finalMeta.description} />
+    <meta name="keywords" content={finalMeta.keywords} />
+    <meta name="author" content={finalMeta.author} />
+    <meta name="publisher" content={finalMeta.publisher} />
+    <meta name="robots" content={finalMeta.robots} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={finalMeta.ogType} />
+    <meta property="og:url" content={finalMeta.canonical} />
+    <meta property="og:title" content={finalMeta.title} />
+    <meta property="og:description" content={finalMeta.description} />
+    <meta property="og:image" content={finalMeta.ogImage} />
+    <meta property="og:locale" content={finalMeta.language} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content={finalMeta.twitterCard} />
+    <meta property="twitter:url" content={finalMeta.canonical} />
+    <meta property="twitter:title" content={finalMeta.title} />
+    <meta property="twitter:description" content={finalMeta.description} />
+    <meta property="twitter:image" content={finalMeta.ogImage} />
+    <meta property="twitter:site" content={finalMeta.twitterSite} />
+    <meta property="twitter:creator" content={finalMeta.twitterCreator} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={finalMeta.canonical} />
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content={finalMeta.geo.region} />
+    <meta name="geo.position" content={finalMeta.geo.position} />
+    <meta name="ICBM" content={finalMeta.geo.position} />
+    <meta name="geo.placename" content={finalMeta.geo.placename} />
+    
+    <!-- Structured Data for AI and Search Engines -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nokora&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>POSCAR Digital</title>
+    
     <style>
       /* Global font styles */
       body {
@@ -31,7 +195,6 @@ const lang = getLangFromUrl(Astro.url);
       /* Optional: Customize font weights */
       .text-bold {
         font-weight: 700;
-        
       }
 
       .text-medium {

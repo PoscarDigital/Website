@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const content = await getContentTranslations(lang);
+---
+
+<Base>
+  <!-- Enrollment Header -->
+  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Online Enrollment & Registration</h1>
+      <p class="text-lg md:text-xl mb-8">Streamline your enrollment process with our digital solution</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Feature 1 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <h3 class="text-2xl font-bold mb-4">Student Registration</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <span class="text-slate-600 mr-2">•</span>
+              <span>Online application forms</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-slate-600 mr-2">•</span>
+              <span>Document upload</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-slate-600 mr-2">•</span>
+              <span>Application tracking</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Feature 2 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <h3 class="text-2xl font-bold mb-4">Course Management</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <span class="text-slate-600 mr-2">•</span>
+              <span>Course selection</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-slate-600 mr-2">•</span>
+              <span>Schedule management</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-slate-600 mr-2">•</span>
+              <span>Class capacity tracking</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-center mb-12">Key Benefits</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Benefit 1 -->
+        <div class="text-center">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-3">Efficiency</h3>
+            <p class="text-gray-600">Reduce manual paperwork and processing time</p>
+          </div>
+        </div>
+        <!-- Benefit 2 -->
+        <div class="text-center">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-3">Accessibility</h3>
+            <p class="text-gray-600">24/7 access to enrollment system</p>
+          </div>
+        </div>
+        <!-- Benefit 3 -->
+        <div class="text-center">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-3">Analytics</h3>
+            <p class="text-gray-600">Track enrollment trends and patterns</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold mb-8">Ready to Modernize Your Enrollment Process?</h2>
+      <a
+        href={`/${lang}/contact`}
+        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
+      >
+        {content.common.buttons.contact_us}
+      </a>
+    </div>
+  </section>
+</Base>

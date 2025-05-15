@@ -2,9 +2,33 @@
 // Import your base layout and utilities
 import Base from "../../layouts/Base.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { languages } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Get translations
+const title = await t('contact.title');
+const description = await t('contact.description');
+const formNameLabel = await t('contact.form.name.label');
+const formNamePlaceholder = await t('contact.form.name.placeholder');
+const formEmailLabel = await t('contact.form.email.label');
+const formEmailPlaceholder = await t('contact.form.email.placeholder');
+const formMessageLabel = await t('contact.form.message.label');
+const formMessagePlaceholder = await t('contact.form.message.placeholder');
+const formSubmit = await t('contact.form.submit');
+const detailsTitle = await t('contact.details.title');
+const detailsDescription = await t('contact.details.description');
+const addressLabel = await t('contact.details.address.label');
+const addressValue = await t('contact.details.address.value');
+const phoneLabel = await t('contact.details.phone.label');
+const phoneValue = await t('contact.details.phone.value');
+const emailLabel = await t('contact.details.email.label');
+const emailValue = await t('contact.details.email.value');
 ---
 
 <Base>
@@ -14,10 +38,10 @@ const t = useTranslations(lang);
   >
     <div class="container mx-auto">
       <h2 class="text-3xl md:text-4xl font-semibold text-center mb-6">
-        Contact Us
+        {title}
       </h2>
       <p class="text-lg md:text-xl text-center mb-8">
-        We'd love to hear from you! Reach out with any questions or inquiries.
+        {description}
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -32,13 +56,13 @@ const t = useTranslations(lang);
             <label
               for="name"
               class="block text-lg font-medium text-gray-700 mb-2"
-              >Your Name</label
+              >{formNameLabel}</label
             >
             <input
               type="text"
               id="name"
               name="name"
-              placeholder="Enter your name"
+              placeholder={formNamePlaceholder}
               required
               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-600"
             />
@@ -48,13 +72,13 @@ const t = useTranslations(lang);
             <label
               for="email"
               class="block text-lg font-medium text-gray-700 mb-2"
-              >Email Address</label
+              >{formEmailLabel}</label
             >
             <input
               type="email"
               id="email"
               name="email"
-              placeholder="example@example.com"
+              placeholder={formEmailPlaceholder}
               required
               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-600"
             />
@@ -64,12 +88,12 @@ const t = useTranslations(lang);
             <label
               for="message"
               class="block text-lg font-medium text-gray-700 mb-2"
-              >Message</label
+              >{formMessageLabel}</label
             >
             <textarea
               id="message"
               name="message"
-              placeholder="message"
+              placeholder={formMessagePlaceholder}
               rows="5"
               required
               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-600"
@@ -78,35 +102,35 @@ const t = useTranslations(lang);
 
           <button
             type="submit"
-            class="w-full border-2 border-slate-600 text-slate-600 py-3 rounded-lg text-lg font-semibold hover:bg-slate-600 hover:text-white transition-colors duration-300"
+            class="w-full bg-slate-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
           >
-            Send Message
+            {formSubmit}
           </button>
         </form>
 
         <!-- Contact Details -->
-        <div class="bg-gray-100 shadow-md rounded-lg p-8">
-          <h3 class="text-2xl font-semibold mb-4">Get in Touch</h3>
-          <p class="text-lg mb-4">
-            For any inquiries, please use the contact form or reach out through
-            the details below:
+        <div class="bg-white shadow-md rounded-lg p-8">
+          <h3 class="text-2xl font-semibold mb-4">{detailsTitle}</h3>
+          <p class="text-lg mb-6">
+            {detailsDescription}
           </p>
 
-          <ul class="text-lg">
-            <li class="mb-4">
-              <strong>Address:</strong><br />
-              3E:Fii Building 6th-7th Floor,<br />
-              Street Vimean Ahha, Kien Klaing Village,<br />
-              Sangkat Chroy Changva, Khan Chroy Changvar,<br />
-              Phnom Penh, Cambodia.
-            </li>
-            <li class="mb-4">
-              <strong>Phone:</strong>
-              095 569 568 | 081 569 568
+          <ul class="space-y-4 text-lg">
+            <li>
+              <strong class="block text-gray-700 mb-1">{addressLabel}:</strong>
+              <span class="text-gray-600">{addressValue}</span>
             </li>
             <li>
-              <strong>Email:</strong>
-              info@poscar.com
+              <strong class="block text-gray-700 mb-1">{phoneLabel}:</strong>
+              <a href="tel:+85595569568" class="text-slate-600 hover:text-slate-800">
+                {phoneValue}
+              </a>
+            </li>
+            <li>
+              <strong class="block text-gray-700 mb-1">{emailLabel}:</strong>
+              <a href="mailto:info@poscar.com" class="text-slate-600 hover:text-slate-800">
+                {emailValue}
+              </a>
             </li>
           </ul>
 
@@ -114,7 +138,7 @@ const t = useTranslations(lang);
           <div class="mt-8">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.3501001134096!2d104.92547577370833!3d11.594652843571561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310953acc34f48bd%3A0xdc7731a1497fa17b!2sPOSCAR%20Digital%20Co.%2C%20Ltd.!5e1!3m2!1skm!2skh!4v1731403925110!5m2!1skm!2skh"
-              style="width: 100%; aspect-ratio: 16/9; border: 0;"
+              style="width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 0.5rem;"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
