@@ -56,19 +56,98 @@ const blogItems = [
 
   <!-- Solutions Section -->
   <section id="solutions" class="py-16 max-w-7xl mx-auto px-4">
-    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{t('home.products.title')}</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-white shadow rounded-xl p-6">
-        <h4 class="text-lg font-semibold mb-2">{t('home.products.items.k12.title')}</h4>
-        <p class="text-sm text-gray-600">{t('home.products.items.k12.description')}</p>
+    <div class="text-center mb-12">
+      <h3 class="text-3xl font-bold mb-4 text-[#C1272D]">{t('products_services.hero.title')}</h3>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+        {t('products_services.hero.description')}
+      </p>
+      <a 
+        href={`/${lang}/solutions`}
+        class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
+      >
+        {t('common.buttons.explore_more')} →
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Education Solutions -->
+      <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="aspect-w-16 aspect-h-9">
+          <img 
+            src="/images/education-solutions.jpg" 
+            alt="Education Solutions" 
+            class="w-full h-48 object-cover"
+          />
+        </div>
+        <div class="p-6">
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{t('products_services.education.title')}</h4>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {t('products_services.education.items.k12.title')}
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {t('products_services.education.items.university.title')}
+            </li>
+          </ul>
+          <a 
+            href={`/${lang}/education-sms-solution`}
+            class="mt-4 inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
+          >
+            {t('common.buttons.learn_more')} →
+          </a>
+        </div>
       </div>
-      <div class="bg-white shadow rounded-xl p-6">
-        <h4 class="text-lg font-semibold mb-2">{t('home.products.items.university.title')}</h4>
-        <p class="text-sm text-gray-600">{t('home.products.items.university.description')}</p>
+
+      <!-- Vithean -->
+      <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="aspect-w-16 aspect-h-9">
+          <img 
+            src="/images/vithean-solution.jpg" 
+            alt="Vithean Solution" 
+            class="w-full h-48 object-cover"
+          />
+        </div>
+        <div class="p-6">
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{t('products_services.enterprise.items.vithean.title')}</h4>
+          <p class="text-gray-600 mb-4">
+            {t('products_services.enterprise.items.vithean.description')}
+          </p>
+          <a 
+            href={`/${lang}/accounting-erp-vithean`}
+            class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
+          >
+            {t('common.buttons.learn_more')} →
+          </a>
+        </div>
       </div>
-      <div class="bg-white shadow rounded-xl p-6">
-        <h4 class="text-lg font-semibold mb-2">{t('home.products.items.hrm.title')}</h4>
-        <p class="text-sm text-gray-600">{t('home.products.items.hrm.description')}</p>
+
+      <!-- Bakan Elite -->
+      <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div class="aspect-w-16 aspect-h-9">
+          <img 
+            src="/images/bakan-elite.jpg" 
+            alt="Bakan Elite" 
+            class="w-full h-48 object-cover"
+          />
+        </div>
+        <div class="p-6">
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{t('bakan_elite.title')}</h4>
+          <p class="text-gray-600 mb-4">
+            {t('bakan_elite.subtitle')}
+          </p>
+          <a 
+            href={`/${lang}/bakan-elite`}
+            class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
+          >
+            {t('common.buttons.learn_more')} →
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -136,6 +215,14 @@ const blogItems = [
           </a>
         </div>
       ))}
+    </div>
+    <div class="text-right mt-8">
+      <a 
+        href={`/${lang}/blogs`}
+        class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
+      >
+        {t('common.buttons.explore_more')} →
+      </a>
     </div>
   </section>
 
