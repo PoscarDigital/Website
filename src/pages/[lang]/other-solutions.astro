@@ -1,0 +1,130 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Sample custom solutions data
+const customSolutions = [
+  {
+    title: "E-Commerce Platform",
+    description: "Custom-built online marketplace with advanced inventory management and payment integration",
+    technologies: ["React", "Node.js", "MongoDB", "AWS"]
+  },
+  {
+    title: "Mobile Banking App",
+    description: "Secure mobile banking application with biometric authentication and real-time transaction processing",
+    technologies: ["Flutter", "Firebase", "Node.js", "PostgreSQL"]
+  },
+  {
+    title: "Healthcare Management System",
+    description: "Comprehensive healthcare platform for patient management, appointment scheduling, and medical records",
+    technologies: ["Vue.js", "Python", "Django", "PostgreSQL"]
+  }
+];
+
+// Get all translations upfront
+const translations = {
+  title: "Other Solutions",
+  explore_solutions: "Explore all of our solutions",
+  custom_solutions: {
+    title: await t('products_services.custom_solution.title'),
+    description: await t('products_services.custom_solution.items.tailored.description'),
+    examples: [
+      {
+        title: "E-Commerce Platform",
+        description: "Custom-built online marketplace with advanced inventory management and payment integration",
+        technologies: ["React", "Node.js", "MongoDB", "AWS"]
+      },
+      {
+        title: "Mobile Banking App",
+        description: "Secure mobile banking application with biometric authentication and real-time transaction processing",
+        technologies: ["Flutter", "Firebase", "Node.js", "PostgreSQL"]
+      },
+      {
+        title: "Healthcare Management System",
+        description: "Comprehensive healthcare platform for patient management, appointment scheduling, and medical records",
+        technologies: ["Vue.js", "Python", "Django", "PostgreSQL"]
+      }
+    ]
+  },
+  outsourcing: {
+    title: await t('products_services.outsourcing.title'),
+    description: await t('products_services.outsourcing.items.services.description'),
+    services: [
+      {
+        title: "Software Development",
+        description: "End-to-end software development services from requirements gathering to deployment and maintenance",
+        icon: "💻"
+      },
+      {
+        title: "System Integration",
+        description: "Seamless integration of new and existing systems to create unified business solutions",
+        icon: "🔄"
+      },
+      {
+        title: "Technical Support",
+        description: "24/7 technical support and maintenance services for your critical business applications",
+        icon: "🔧"
+      },
+      {
+        title: "Quality Assurance",
+        description: "Comprehensive testing and quality assurance to ensure reliable and secure software",
+        icon: "✅"
+      }
+    ]
+  }
+};
+---
+
+<Base>
+  <!-- Header Section -->
+  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">{t('products_services.custom_solution.title')}</h1>
+      <p class="text-lg md:text-xl mb-8">{t('products_services.custom_solution.items.tailored.description')}</p>
+    </div>
+  </section>
+
+  <!-- Custom Solutions Section -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold mb-8 text-center">Explore Our Custom Solutions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {customSolutions.map((solution) => (
+          <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-semibold mb-3">{solution.title}</h3>
+            <p class="text-gray-600 mb-4">{solution.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {solution.technologies.map((tech) => (
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold mb-8">Ready to Build Your Custom Solution?</h2>
+      <p class="text-lg mb-8">Let's discuss how we can help transform your ideas into reality.</p>
+      <a
+        href={`/${lang}/contact`}
+        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
+      >
+        {t('common.buttons.contact_us')}
+      </a>
+    </div>
+  </section>
+</Base> 

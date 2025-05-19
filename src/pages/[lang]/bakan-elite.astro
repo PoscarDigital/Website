@@ -1,0 +1,87 @@
+---
+// src/pages/[lang]/bakan-elite.astro
+import Base from '../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Base>
+  <!-- Bakan Elite Header -->
+  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">{t('bakan_elite.title')}</h1>
+      <p class="text-lg md:text-xl mb-8">{t('bakan_elite.subtitle')}</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-4">{t('bakan_elite.features.title')}</h3>
+          <ul class="space-y-2">
+            <li>• {t('bakan_elite.features.items.event_creation')}</li>
+            <li>• {t('bakan_elite.features.items.geofence')}</li>
+            <li>• {t('bakan_elite.features.items.qr_code')}</li>
+            <li>• {t('bakan_elite.features.items.registration')}</li>
+            <li>• {t('bakan_elite.features.items.tracking')}</li>
+            <li>• {t('bakan_elite.features.items.branding')}</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-4">{t('bakan_elite.capabilities.title')}</h3>
+          <ul class="space-y-2">
+            <li>• {t('bakan_elite.capabilities.items.app_access')}</li>
+            <li>• {t('bakan_elite.capabilities.items.guest_management')}</li>
+            <li>• {t('bakan_elite.capabilities.items.analytics')}</li>
+            <li>• {t('bakan_elite.capabilities.items.checkin')}</li>
+            <li>• {t('bakan_elite.capabilities.items.schedules')}</li>
+            <li>• {t('bakan_elite.capabilities.items.multi_event')}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold mb-8 text-center">{t('bakan_elite.benefits.title')}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <h3 class="text-xl font-semibold mb-3">{t('bakan_elite.benefits.security.title')}</h3>
+          <p class="text-gray-600">{t('bakan_elite.benefits.security.description')}</p>
+        </div>
+        <div class="text-center">
+          <h3 class="text-xl font-semibold mb-3">{t('bakan_elite.benefits.management.title')}</h3>
+          <p class="text-gray-600">{t('bakan_elite.benefits.management.description')}</p>
+        </div>
+        <div class="text-center">
+          <h3 class="text-xl font-semibold mb-3">{t('bakan_elite.benefits.experience.title')}</h3>
+          <p class="text-gray-600">{t('bakan_elite.benefits.experience.description')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold mb-8">{t('bakan_elite.cta.title')}</h2>
+      <a
+        href={`/${lang}/contact`}
+        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
+      >
+        {t('bakan_elite.cta.button')}
+      </a>
+    </div>
+  </section>
+</Base> 

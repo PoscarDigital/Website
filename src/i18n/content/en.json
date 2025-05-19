@@ -10,23 +10,23 @@
       "description": "Watch our story and see what drives us every day to innovate and inspire.",
       "vision": {
         "title": "Vision",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere ipsa exercitationem laudantium ab ratione! Debitis voluptatum esse mollitia itaque porro, non nihil! Ullam veniam, temporibus officiis delectus doloribus recusandae sapiente!"
+        "content": "To establish a complete digital eco-platform for education and business operation to support SMEs in Cambodia"
       }
     },
     "products": {
       "title": "Featured Products & Services",
       "items": {
         "k12": {
-          "title": "Kindergarten & K12",
-          "description": "Providing quality education from kindergarten through K12 levels."
+          "title": "School Management System (SMS)",
+          "description": "Providing quality education from kindergarten through K12 levels. WikiSchool, the software is offering an effective communicational channel that helps the institute to contact parents and staff."
         },
         "university": {
-          "title": "University Solutions",
-          "description": "Empowering higher education with innovative solutions."
+          "title": "University Management System (UMS)",
+          "description": "Wiki College, Empowering higher education with innovative solutions."
         },
         "hrm": {
-          "title": "HRM Solutions",
-          "description": "Transforming human resources management with smart technology."
+          "title": "Enterprise Solutions",
+          "description": "Solutions from Human Resource Management (HRM) to Enterprise Resource Planning (ERP) such as Vithean, an online accounting software and ERP. Online Registration System (ORS) and other custom solutions."
         }
       }
     },

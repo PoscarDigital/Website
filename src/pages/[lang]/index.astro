@@ -1,8 +1,8 @@
 ---
 // src/pages/[lang]/index.astro
-import Base from "../../layouts/Base.astro";
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
-import { ui, defaultLang } from '../../i18n/ui';
+import Base from '../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
 
 export async function getStaticPaths() {
   return Object.keys(ui).map((lang) => ({ params: { lang } }));
@@ -10,121 +10,145 @@ export async function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const content = await getContentTranslations(lang);
+
+// Sample blog data - replace with actual content from your CMS or data source
+const blogItems = [
+  {
+    date: "May 2025",
+    author: "Admin",
+    title: "POSCAR Supports MoEYS with AI-Ready Solutions",
+    description: "How we're building next-gen education systems for Cambodia's Ministry of Education.",
+    link: `/${lang}/blogs/ai-solutions`
+  },
+  {
+    date: "April 2025",
+    author: "Tech Team",
+    title: "Behind the Scenes of Vithean",
+    description: "A look into how our cloud accounting platform reshapes SME operations.",
+    link: `/${lang}/blogs/vithean-behind-scenes`
+  },
+  {
+    date: "March 2025",
+    author: "UX Lead",
+    title: "Why Digital Document Flow Matters",
+    description: "Discover how BluePinn DocFlow improves traceability in approvals.",
+    link: `/${lang}/blogs/digital-document-flow`
+  }
+];
 ---
 
 <Base>
-  <!-- Welcome Section -->
-  <section class="bg-slate-600 text-white py-16">
-    <div class="container mx-auto text-center">
-      <h1 class="text-5xl font-extrabold mb-4">{content.home.hero.title}</h1>
-      <p class="text-xl mb-8">{content.home.hero.subtitle}</p>
-      <p class="text-xl mb-8">{content.home.hero.description}</p>
-      <a
-      href={`/${lang}/product-services/`} 
-        class="bg-transparent border-2 border-white text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-white hover:text-slate-600 transition-colors duration-300"
+  <!-- Hero Section -->
+  <section id="home" class="bg-red-50 py-20 text-center text-[#C1272D]">
+    <div class="container mx-auto">
+      <h2 class="text-4xl font-bold mb-4">{t('home.hero.title')}</h2>
+      <p class="text-lg text-gray-700 mb-6 max-w-xl mx-auto">
+        {t('home.hero.description')}
+      </p>
+      <a 
+        href={`/${lang}/contact/`}
+        class="px-6 py-3 bg-[#C1272D] text-white rounded-full hover:bg-[#991B1F] transition-colors duration-300"
       >
-        {content.common.buttons.get_started}
+        {t('common.buttons.get_started')}
       </a>
     </div>
   </section>
 
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-      
-      <!-- Text Section: About Us Content (on the left) -->
-      <div class="text-center md:text-left">
-        <h2 class="text-3xl md:text-4xl font-semibold mb-6">{content.home.about.title}</h2>
-        <p class="text-lg md:text-xl mb-8">
-          {content.home.about.description}
-        </p>
-        <div class="text-center md:text-left">
-          <h2 class="text-1xl md:text-2xl font-semibold mb-6">{content.home.about.vision.title}</h2>
-          <p class="text-lg md:text-xl mb-8">
-            {content.home.about.vision.content}
-          </p>
-        </div>
+  <!-- Solutions Section -->
+  <section id="solutions" class="py-16 max-w-7xl mx-auto px-4">
+    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{t('home.products.title')}</h3>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white shadow rounded-xl p-6">
+        <h4 class="text-lg font-semibold mb-2">{t('home.products.items.k12.title')}</h4>
+        <p class="text-sm text-gray-600">{t('home.products.items.k12.description')}</p>
       </div>
-  
-      <!-- Video Section: Embedded YouTube Video (on the right) -->
-      <div class="flex justify-center items-center shadow-xl">
-        <div class="w-full max-w-3xl">
-          <!-- Adjusted iframe for a larger video -->
-          <iframe
-            class="w-full h-[400px] md:h-[300px]"
-            src="https://www.youtube.com/embed/SUGhEr_7B3c"
-            title="Our Vision Video"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        </div>
+      <div class="bg-white shadow rounded-xl p-6">
+        <h4 class="text-lg font-semibold mb-2">{t('home.products.items.university.title')}</h4>
+        <p class="text-sm text-gray-600">{t('home.products.items.university.description')}</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-6">
+        <h4 class="text-lg font-semibold mb-2">{t('home.products.items.hrm.title')}</h4>
+        <p class="text-sm text-gray-600">{t('home.products.items.hrm.description')}</p>
       </div>
     </div>
   </section>
-  
-  <!-- Featured Products & Services Section -->
-  <section class="py-16 bg-gray-100 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6">
-        {content.home.products.title}
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Example of Product/Service Card -->
-        <div class="bg-white shadow-xl rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{content.home.products.items.k12.title}</h3>
-          <p class="text-lg mb-4">
-            {content.home.products.items.k12.description}
-          </p>
-          <a
-            href={`/${lang}/product-services`}
-            class="text-red-600 font-semibold hover:underline transition-colors duration-300"
-          >
-            {content.common.buttons.learn_more}
-          </a>
+
+  <!-- Impact Section -->
+  <section id="impact" class="bg-red-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h3 class="text-2xl font-bold mb-10 text-[#C1272D]">{t('home.impact.title')}</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <p class="text-4xl font-bold text-[#C1272D]">25+</p>
+          <p class="text-sm">{t('home.impact.government_partners')}</p>
         </div>
-        <div class="bg-white shadow-xl rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{content.home.products.items.university.title}</h3>
-          <p class="text-lg mb-4">
-            {content.home.products.items.university.description}
-          </p>
-          <a
-            href={`/${lang}/product-services`}
-            class="text-red-600 font-semibold hover:underline transition-colors duration-300"
-          >
-            {content.common.buttons.learn_more}
-          </a>
+        <div>
+          <p class="text-4xl font-bold text-[#C1272D]">3M+</p>
+          <p class="text-sm">{t('home.impact.users_engaged')}</p>
         </div>
-        <div class="bg-white shadow-xl rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{content.home.products.items.hrm.title}</h3>
-          <p class="text-lg mb-4">
-            {content.home.products.items.hrm.description}
-          </p>
-          <a
-            href={`/${lang}/product-services`}
-            class="text-red-600 font-semibold hover:underline transition-colors duration-300"
-          >
-            {content.common.buttons.learn_more}
-          </a>
+        <div>
+          <p class="text-4xl font-bold text-[#C1272D]">99.9%</p>
+          <p class="text-sm">{t('home.impact.system_uptime')}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Call to Action Section -->
-  <section class="py-16 text-black text-center px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-4">
-        {content.home.contact.title}
-      </h2>
-      <p class="text-lg md:text-xl mb-6">
-        {content.home.contact.description}
-      </p>
-      <a
-      href={`/${lang}/contact/`} 
-        class="border-2 border-slate-600  text-slate-600 py-3 px-8 rounded-lg text-lg font-semibold hover:bg-slate-600 hover:text-white transition-colors duration-300"
+  <!-- Industries Section -->
+  <section id="industries" class="py-16 max-w-7xl mx-auto px-4">
+    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{t('home.industries.title')}</h3>
+    <div class="grid md:grid-cols-4 gap-6 text-center">
+      <div><p class="font-medium">🎓 {t('home.industries.education')}</p></div>
+      <div><p class="font-medium">🏛 {t('home.industries.government')}</p></div>
+      <div><p class="font-medium">💼 {t('home.industries.enterprise')}</p></div>
+      <div><p class="font-medium">🏥 {t('home.industries.healthcare')}</p></div>
+    </div>
+  </section>
+
+  <!-- Company Section -->
+  <section id="company" class="bg-red-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h3 class="text-2xl font-bold mb-6 text-[#C1272D]">{t('home.about.title')}</h3>
+      <p class="text-gray-700 max-w-2xl mx-auto mb-6">{t('home.about.description')}</p>
+      <a 
+        href={`/${lang}/about/`}
+        class="text-[#C1272D] underline hover:text-[#991B1F] transition-colors duration-300"
       >
-        {content.common.buttons.contact_us}
+        {t('common.buttons.learn_more')} →
+      </a>
+    </div>
+  </section>
+
+  <!-- Blogs Section -->
+  <section id="blogs" class="py-16 max-w-7xl mx-auto px-4">
+    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{t('home.blogs.title')}</h3>
+    <div class="grid md:grid-cols-3 gap-6">
+      {blogItems.map((blog) => (
+        <div class="bg-white shadow rounded-xl p-6">
+          <p class="text-xs text-gray-400 mb-1">{blog.date} • {blog.author}</p>
+          <h4 class="font-semibold text-[#C1272D] mb-2">{blog.title}</h4>
+          <p class="text-sm text-gray-600">{blog.description}</p>
+          <a 
+            href={blog.link}
+            class="text-sm text-[#C1272D] mt-2 inline-block hover:text-[#991B1F] transition-colors duration-300"
+          >
+            {t('common.buttons.read_more')} →
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-red-50 py-16 text-center">
+    <div class="max-w-2xl mx-auto px-4">
+      <h3 class="text-2xl font-bold mb-4 text-[#C1272D]">{t('home.contact.title')}</h3>
+      <p class="text-gray-700 mb-6">{t('home.contact.description')}</p>
+      <a 
+        href={`/${lang}/contact/`}
+        class="bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+      >
+        {t('common.buttons.contact_us')}
       </a>
     </div>
   </section>

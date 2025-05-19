@@ -1,136 +1,143 @@
 ---
-import LanguagePicker from '../components/LanguagePicker.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguagePicker from './LanguagePicker.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<ul class="flex flex-col md:flex-row items-center justify-between bg-white bg-opacity-80 backdrop-blur-sm text-gray-800 p-4 md:p-6 shadow-lg md:px-12 border-b border-gray-200 z-10">
-  <li class="flex items-center justify-between w-full md:w-auto">
-    <a href={`/${lang}/`} class="flex items-center space-x-3">
-      <img 
-        src="../../public/poscar-logo.png" 
-        alt="Company Logo" 
-        class="w-22 h-12 object-center rounded-full transition-transform duration-300 hover:scale-105"
-      />
-      <span class="text-2xl font-bold text-gray-800 hover:text-cyan-500 transition-colors duration-300"></span>
-    </a>
-    <button 
-      class="md:hidden text-gray-800 focus:outline-none transition-transform duration-300 hover:scale-110"
-      aria-label="Toggle Navigation"
-      aria-expanded="false"
-      aria-controls="nav-links"
-      id="menu-toggle"
-    >
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
-  </li>
+<header class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <nav class="flex justify-between items-center">
+      <!-- Logo -->
+      <a href={`/${lang}`} class="text-2xl font-bold text-[#C1272D]">POSCAR Digital</a>
 
-  <!-- Menu Items -->
-  <div id="nav-links" class="hidden md:flex flex-col md:flex-row items-center mt-4 md:mt-0 transition-all duration-300 space-y-4 md:space-y-0 md:space-x-8">
-    <a href={`/${lang}/`} class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-slate-100">
-      {t('nav.home')}
-    </a>
-
-    <!-- Products & Services with Dropdown -->
-    <div class="relative">
-      <button class="flex items-center text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100" id="products-dropdown-toggle">
-        {t('nav.products_services')}
-        <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M5.5 7.5l4 4 4-4" />
-        </svg>
-      </button>
-      <div id="products-dropdown" class="absolute hidden bg-white shadow-xl p-6 rounded-lg w-full md:w-80 left-0 top-full mt-2 transition duration-300 opacity-0 z-20">
-        <div class="grid grid-cols-1 gap-6">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.education')}</h3>
-            <ul>
-              <li><a href={`/${lang}/education-k12/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.kindergarten_k12')}</a></li>
-              <li><a href={`/${lang}/education-university/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.university_solution')}</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.enterprise')}</h3>
-            <ul>
-              <li><a href={`/${lang}/accounting-erp-vithean/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.vithean_page')}</a></li>
-              <li><a href={`/${lang}/attendance-solution/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.attendance_card_device')}</a></li>
-              <li><a href={`/${lang}/hrm-solution/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.hrm_solution')}</a></li>
-              <li><a href={`/${lang}/enrollment-online-registration/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.enrollment')}</a></li>
-              <li><a href={`/${lang}/custom-solutions/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.custom_solution')}</a></li>
-            </ul>
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8 text-base font-medium text-gray-700">
+        <a href={`/${lang}`} class="hover:text-[#991B1F] transition-colors duration-200">{t('nav.home')}</a>
+        
+        <!-- Solutions Dropdown -->
+        <div class="relative group">
+          <button class="hover:text-[#991B1F] flex items-center transition-colors duration-200">
+            {t('nav.solutions')}
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            <!-- Education -->
+            <div class="p-2">
+              <h3 class="text-sm font-semibold text-gray-900 mb-2">{t('nav.education.title')}</h3>
+              <a href={`/${lang}/education-sms-solution/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.education.k12')}
+              </a>
+              <a href={`/${lang}/education-ums-solution/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.education.university')}
+              </a>
+            </div>
+            <!-- Enterprise -->
+            <div class="p-2 border-t">
+              <h3 class="text-sm font-semibold text-gray-900 mb-2">{t('nav.enterprise.title')}</h3>
+              <a href={`/${lang}/accounting-erp-vithean/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.enterprise.accounting')}
+              </a>
+              <a href={`/${lang}/bakan-elite/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.enterprise.bakan')}
+              </a>
+              <a href={`/${lang}/attendance-solution/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.enterprise.attendance')}
+              </a>
+              <a href={`/${lang}/hrm-solution/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.enterprise.hrm')}
+              </a>
+              <a href={`/${lang}/enrollment-online-registration/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.enterprise.enrollment')}
+              </a>
+              <a href={`/${lang}/other-solutions/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.enterprise.other')}
+              </a>
+            </div>
           </div>
         </div>
+
+        <a href={`/${lang}#impact`} class="hover:text-[#991B1F] transition-colors duration-200">{t('nav.impact')}</a>
+        <a href={`/${lang}#industries`} class="hover:text-[#991B1F] transition-colors duration-200">{t('nav.industries')}</a>
+        
+        <!-- Company Dropdown -->
+        <div class="relative group">
+          <button class="hover:text-[#991B1F] flex items-center transition-colors duration-200">
+            {t('nav.company.title')}
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            <a href={`/${lang}/about/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+              {t('nav.company.about')}
+            </a>
+            <a href={`/${lang}/customers/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+              {t('nav.company.customers')}
+            </a>
+            <div class="border-t">
+              <h3 class="px-4 py-2 text-sm font-semibold text-gray-900">{t('nav.company.legal.title')}</h3>
+              <a href={`/${lang}/privacy/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.company.privacy')}
+              </a>
+              <a href={`/${lang}/terms/`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-[#C1272D] rounded transition-colors duration-200">
+                {t('nav.company.terms')}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href={`/${lang}/blogs/`} class="hover:text-[#991B1F] transition-colors duration-200">{t('nav.blogs')}</a>
+        <a href={`/${lang}/contact/`} class="hover:text-[#991B1F] transition-colors duration-200">{t('nav.contact')}</a>
       </div>
-    </div>
 
-    <!-- Blogs -->
-    <a href={`/${lang}/blogs/`} class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100">{t('nav.blogs')}</a>
+      <!-- Language Picker -->
+      <div class="flex items-center space-x-4">
+        <LanguagePicker />
+      </div>
 
-    <!-- About with Dropdown -->
-    <div class="relative">
-      <button class="flex items-center text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100" id="about-dropdown-toggle">
-        {t('nav.about')}
-        <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M5.5 7.5l4 4 4-4" />
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-[#C1272D]" x-data="{ open: false }" @click="open = !open">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <div id="about-dropdown" class="absolute hidden bg-white shadow-xl p-4 rounded-lg w-full md:w-56 left-0 top-full mt-2 transition duration-300 opacity-0 z-20">
-        <ul>
-          <li><a href={`/${lang}/about/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.about')}</a></li>
-          <li><a href={`/${lang}/customers/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.our_customers')}</a></li>
-          <li class="mt-4 pt-4 border-t border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-600 mb-3">{t('nav.legal')}</h3>
-            <ul>
-              <li><a href={`/${lang}/privacy/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.privacy')}</a></li>
-              <li><a href={`/${lang}/toc/`} class="text-slate-600 hover:text-red-600 transition">{t('nav.terms_conditions')}</a></li>
-            </ul>
-          </li>
-        </ul>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden" x-show="open" @click.away="open = false">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href={`/${lang}`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.home')}
+        </a>
+        <a href={`/${lang}/solutions/`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.solutions')}
+        </a>
+        <a href={`/${lang}#impact`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.impact')}
+        </a>
+        <a href={`/${lang}#industries`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.industries')}
+        </a>
+        <a href={`/${lang}/about/`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.company.about')}
+        </a>
+        <a href={`/${lang}/customers/`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.company.customers')}
+        </a>
+        <a href={`/${lang}/blogs/`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.blogs')}
+        </a>
+        <a href={`/${lang}/contact/`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
+          {t('nav.contact')}
+        </a>
       </div>
     </div>
-
-    <!-- Contact Us -->
-    <a href={`/${lang}/contact/`} class="text-gray-800 font-medium px-3 py-2 rounded-lg transition duration-300 hover:bg-slate-100 hover:text-red-600 focus:bg-cyan-100">{t('nav.contact_us')}</a>
-
-    <!-- Language Picker -->
-    <div class="ml-3">
-      <LanguagePicker/>
-    </div>
   </div>
-</ul>
-
-<!-- JavaScript to Handle Click for Dropdowns -->
-<script lang="en">
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
-    const productsDropdownToggle = document.getElementById('products-dropdown-toggle');
-    const productsDropdown = document.getElementById('products-dropdown');
-    const aboutDropdownToggle = document.getElementById('about-dropdown-toggle');
-    const aboutDropdown = document.getElementById('about-dropdown');
-
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('visible');
-      const isExpanded = navLinks.classList.contains('visible');
-      menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-    });
-
-    productsDropdownToggle.addEventListener('click', () => {
-      productsDropdown.classList.toggle('hidden');
-      productsDropdown.classList.toggle('opacity-0');
-      productsDropdown.classList.toggle('opacity-100');
-    });
-
-    aboutDropdownToggle.addEventListener('click', () => {
-      aboutDropdown.classList.toggle('hidden');
-      aboutDropdown.classList.toggle('opacity-0');
-      aboutDropdown.classList.toggle('opacity-100');
-    });
-  });
-</script>
+</header>
 
 <style>
   #nav-links {

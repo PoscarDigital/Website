@@ -1,10 +1,88 @@
 ---
 import { languages } from '../i18n/ui';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const currentLang = languages[lang];
 ---
-<ul class="flex flex-col md:flex-row items-center md:space-x-3 space-y-3 md:space-y-0 bg-gradient-to-r  rounded-full md:px-8">
-  {Object.entries(languages).map(([lang, label]) => (
-    <li>
-      <a href={`/${lang}/`}>{label}</a>
-    </li>
-  ))}
-</ul>
+
+<div class="relative" id="language-picker">
+  <button 
+    class="flex items-center space-x-1 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <span class="font-medium">{currentLang}</span>
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      class="h-4 w-4 transition-transform duration-200"
+      viewBox="0 0 20 20" 
+      fill="currentColor"
+    >
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
+  </button>
+  
+  <div 
+    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 z-50 opacity-0 invisible"
+    id="language-dropdown"
+  >
+    <div class="py-1" role="menu" aria-orientation="vertical">
+      {Object.entries(languages).map(([code, label]) => (
+        <a
+          href={`/${code}/`}
+          class={`block px-4 py-2 text-sm transition-colors ${
+            code === lang 
+              ? 'text-[#C1272D] font-medium bg-red-50' 
+              : 'text-gray-700 hover:bg-gray-50'
+          }`}
+          role="menuitem"
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const picker = document.getElementById('language-picker');
+  const button = picker?.querySelector('button');
+  const dropdown = document.getElementById('language-dropdown');
+  const chevron = button?.querySelector('svg');
+
+  function toggleDropdown() {
+    if (!dropdown || !button || !chevron) return;
+    
+    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', (!isOpen).toString());
+    
+    if (!isOpen) {
+      dropdown.classList.remove('opacity-0', 'invisible');
+      dropdown.classList.add('opacity-100', 'visible');
+      chevron.classList.add('rotate-180');
+      button.classList.add('bg-white/20');
+    } else {
+      dropdown.classList.add('opacity-0', 'invisible');
+      dropdown.classList.remove('opacity-100', 'visible');
+      chevron.classList.remove('rotate-180');
+      button.classList.remove('bg-white/20');
+    }
+  }
+
+  function closeDropdown(e: MouseEvent) {
+    if (!dropdown || !button || !chevron) return;
+    
+    const target = e.target as HTMLElement;
+    if (!picker?.contains(target)) {
+      button.setAttribute('aria-expanded', 'false');
+      dropdown.classList.add('opacity-0', 'invisible');
+      dropdown.classList.remove('opacity-100', 'visible');
+      chevron.classList.remove('rotate-180');
+      button.classList.remove('bg-white/20');
+    }
+  }
+
+  button?.addEventListener('click', toggleDropdown);
+  document.addEventListener('click', closeDropdown);
+</script>

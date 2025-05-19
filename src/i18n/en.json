@@ -1,22 +1,258 @@
 {
   "nav": {
     "home": "Home",
-    "products_services": "Products & Services",
-    "education": "Education",
-    "kindergarten_k12": "Kindergarten & K12",
-    "university_solution": "University Solutions",
-    "enterprise": "Enterprise",
-    "accounting_erp": "Accounting System & ERP",
-    "attendance_card_device": "Attendance / Card / Device",
-    "hrm_solution": "HRM Solution",
-    "enrollment": "Enrollment, Online Registration",
-    "blogs": "Blogs",
     "about": "About",
+    "twitter": "Twitter",
+    "products_services": "Products & Services",
+    "solutions": "Solutions",
+    "education": {
+      "title": "Education",
+      "k12": "Kindergarten & K12",
+      "university": "University Solution"
+    },
+    "enterprise": {
+      "title": "Enterprise",
+      "accounting": "Accounting, ERP Solutions",
+      "bakan": "Bakan Élite",
+      "attendance": "Attendance / Card / Device",
+      "hrm": "HRM Solutions",
+      "enrollment": "Enrollment",
+      "other": "Other Solutions"
+    },
+    "impact": "Impact",
+    "industries": "Industries",
+    "company": {
+      "title": "Company",
+      "about": "About Us",
+      "customers": "Our Customers",
+      "legal": {
+        "title": "Legal",
+        "privacy": "Privacy",
+        "terms": "Terms and Conditions"
+      }
+    },
+    "blogs": "Blogs",
+    "contact": "Contact",
+    "contact_us": "Contact Us",
+    "custom_solution": "Custom Solution",
+    "outsourcing": "Outsourcing",
     "company_profile": "Company Profile",
-    "our_customers": "Our Customers",
-    "legal": "Legal",
-    "privacy": "Privacy",
-    "terms_conditions": "Terms and Conditions",
-    "contact_us": "Contact Us"
+    "our_customers": "Our Customers"
+  },
+  "footer": {
+    "description": "To establish a complete digital eco-platform POSCAR Digital is one of the leading companies in smart systems in education, accounting, attendance, and other ERP solutions.",
+    "quick_links": "Quick Links",
+    "contact_us": "Contact Us",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "follow_us": "Follow Us"
+  },
+  "common": {
+    "buttons": {
+      "get_started": "Get Started",
+      "learn_more": "Learn More",
+      "contact_us": "Contact Us",
+      "read_more": "Read More"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Empowering Digital Transformation",
+      "description": "Building innovative solutions for education, enterprise, and government sectors in Cambodia."
+    },
+    "products": {
+      "title": "Our Solutions",
+      "items": {
+        "k12": {
+          "title": "School Management System",
+          "description": "Comprehensive solution for K-12 institutions"
+        },
+        "university": {
+          "title": "University Management System",
+          "description": "Advanced system for higher education"
+        },
+        "hrm": {
+          "title": "HR Management System",
+          "description": "Streamlined HR processes and management"
+        }
+      }
+    },
+    "about": {
+      "title": "About POSCAR Digital",
+      "description": "We are a leading technology company in Cambodia, dedicated to transforming education and enterprise through innovative digital solutions."
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "description": "Ready to transform your institution? Contact us today to learn more about our solutions."
+    },
+    "impact": {
+      "title": "Our Impact",
+      "government_partners": "Government Ministries & Partners",
+      "users_engaged": "Users Engaged",
+      "system_uptime": "System Uptime SLA"
+    },
+    "industries": {
+      "title": "Industries We Serve",
+      "education": "Education",
+      "government": "Government",
+      "enterprise": "Enterprise",
+      "healthcare": "Healthcare"
+    },
+    "blogs": {
+      "title": "Latest Updates"
+    }
+  },
+  "solutions": {
+    "education": {
+      "k12_description": "Comprehensive school management system for K-12 institutions",
+      "university_description": "Advanced university management system for higher education"
+    },
+    "enterprise": {
+      "accounting_description": "Cloud-based accounting and ERP solutions",
+      "bakan_description": "Exclusive invitation & event management platform",
+      "attendance_description": "Advanced attendance and access control systems",
+      "hrm_description": "Comprehensive human resource management solutions",
+      "enrollment_description": "Streamlined enrollment and registration system",
+      "other_description": "Additional enterprise solutions and services"
+    }
+  },
+  "bakan_elite": {
+    "title": "Bakan Elite",
+    "subtitle": "Exclusive VIP Event Management System",
+    "features": {
+      "title": "Event Management Features",
+      "items": {
+        "event_creation": "Event Creation & Configuration",
+        "geofence": "Geofence-based Access Control",
+        "qr_code": "QR Code-based Check-in",
+        "registration": "Attendee Registration System",
+        "tracking": "Real-time Attendance Tracking",
+        "branding": "Custom Event Branding"
+      }
+    },
+    "capabilities": {
+      "title": "Advanced Capabilities",
+      "items": {
+        "app_access": "Exclusive Event App Access",
+        "guest_management": "Secure VIP Guest Management",
+        "analytics": "Real-time Event Analytics",
+        "checkin": "Automated Check-in Process",
+        "schedules": "Custom Event Schedules",
+        "multi_event": "Multi-event Management"
+      }
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "security": {
+        "title": "Enhanced Security",
+        "description": "Geofence and QR code technology ensure only authorized guests can access your events"
+      },
+      "management": {
+        "title": "Streamlined Management",
+        "description": "Efficiently manage VIP events with automated check-in and real-time tracking"
+      },
+      "experience": {
+        "title": "Exclusive Experience",
+        "description": "Provide a premium experience with dedicated event apps and personalized access"
+      }
+    },
+    "cta": {
+      "title": "Ready to Elevate Your Event Management?",
+      "button": "Contact Us"
+    }
+  },
+  "blogs": {
+    "title": "Our Blog",
+    "description": "Stay updated with the latest insights, stories, and updates from Poscar Digital.",
+    "featuredTitle": "Featured Blogs",
+    "recentPosts": "Recent Posts",
+    "exploreMore": "Explore More Blogs",
+    "exploreDescription": "Dive deeper into topics that matter to you.",
+    "readMore": "Read More",
+    "viewAll": "View All Blogs",
+    "posts": {
+      "post1": {
+        "title": "The Future of Education Technology",
+        "description": "Discover how technology is transforming the education landscape and what it means for future generations."
+      },
+      "post2": {
+        "title": "Why Choose Poscar Digital for Your Enterprise Solutions",
+        "description": "Learn about our customized solutions designed to meet the unique needs of businesses."
+      },
+      "post3": {
+        "title": "Top Trends in HR Management",
+        "description": "An exploration of the latest trends and technologies shaping human resources management."
+      }
+    }
+  },
+  "privacy": {
+    "section": {
+      "introduction": "Introduction",
+      "info_collection": "Information We Collect",
+      "usage": "How We Use Your Information",
+      "sharing": "Information Sharing",
+      "security": "Data Security",
+      "rights": "Your Rights",
+      "contact": "Contact Us"
+    }
+  },
+  "products_services": {
+    "hero": {
+      "title": "Our Products & Services",
+      "description": "Discover our comprehensive range of digital solutions designed to transform education and enterprise operations."
+    },
+    "education": {
+      "title": "Education Solutions",
+      "items": {
+        "k12": {
+          "title": "School Management System",
+          "description": "Comprehensive solution for K-12 institutions, including student management, attendance tracking, and academic performance monitoring."
+        },
+        "university": {
+          "title": "University Management System",
+          "description": "Advanced system for higher education institutions, featuring course management, student enrollment, and academic planning tools."
+        },
+        "enrollment": {
+          "title": "Online Registration System",
+          "description": "Streamlined enrollment process for educational institutions, making student registration efficient and paperless."
+        }
+      }
+    },
+    "enterprise": {
+      "title": "Enterprise Solutions",
+      "items": {
+        "vithean": {
+          "title": "Vithean - Accounting & ERP",
+          "description": "Comprehensive accounting and ERP solutions for businesses of all sizes, featuring real-time financial tracking and reporting."
+        },
+        "attendance": {
+          "title": "Attendance Management",
+          "description": "Advanced attendance tracking system with biometric integration and real-time monitoring capabilities."
+        },
+        "hrm": {
+          "title": "HR Management System",
+          "description": "Complete HR solution for employee management, payroll processing, and performance tracking."
+        }
+      }
+    },
+    "custom_solution": {
+      "title": "Custom Solutions",
+      "items": {
+        "tailored": {
+          "title": "Tailored Development",
+          "description": "Custom software development services designed to meet your specific business needs and requirements."
+        }
+      }
+    },
+    "outsourcing": {
+      "title": "IT Outsourcing Services",
+      "items": {
+        "services": {
+          "title": "Professional Services",
+          "description": "Comprehensive IT outsourcing services including software development, system maintenance, and technical support."
+        }
+      }
+    }
   }
 }
