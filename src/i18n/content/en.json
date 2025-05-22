@@ -43,14 +43,6 @@
     "education": {
       "title": "Education",
       "items": {
-        "k12": {
-          "title": "Kindergarten & K12",
-          "description": "Providing quality education from kindergarten through K12 levels."
-        },
-        "university": {
-          "title": "University Solutions",
-          "description": "Empowering higher education with modern solutions."
-        },
         "enrollment": {
           "title": "Enrollment",
           "description": "Streamlining the enrollment process for institutions."
