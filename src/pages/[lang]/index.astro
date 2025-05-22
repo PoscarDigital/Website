@@ -1,55 +1,43 @@
 ---
 // src/pages/[lang]/index.astro
 import Base from '../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-import { ui } from '../../i18n/ui';
+import { getLangFromUrl } from '../../i18n/utils';
+import { getContentTranslations } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+import { ui as uiTranslations } from '../../i18n/ui';
+import blogData from '../../data/blog.json';
 
 export async function getStaticPaths() {
-  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+  return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const content = await getContentTranslations(lang);
+const ui = useTranslations(lang);
+const { posts } = blogData;
 
-// Sample blog data - replace with actual content from your CMS or data source
-const blogItems = [
-  {
-    date: "May 2025",
-    author: "Admin",
-    title: "POSCAR Supports MoEYS with AI-Ready Solutions",
-    description: "How we're building next-gen education systems for Cambodia's Ministry of Education.",
-    link: `/${lang}/blogs/ai-solutions`
-  },
-  {
-    date: "April 2025",
-    author: "Tech Team",
-    title: "Behind the Scenes of Vithean",
-    description: "A look into how our cloud accounting platform reshapes SME operations.",
-    link: `/${lang}/blogs/vithean-behind-scenes`
-  },
-  {
-    date: "March 2025",
-    author: "UX Lead",
-    title: "Why Digital Document Flow Matters",
-    description: "Discover how BluePinn DocFlow improves traceability in approvals.",
-    link: `/${lang}/blogs/digital-document-flow`
-  }
-];
+interface BlogItem {
+  date: string;
+  author: string;
+  title: string;
+  description: string;
+  link: string;
+}
 ---
 
 <Base>
   <!-- Hero Section -->
   <section id="home" class="bg-red-50 py-20 text-center text-[#C1272D]">
     <div class="container mx-auto">
-      <h2 class="text-4xl font-bold mb-4">{t('home.hero.title')}</h2>
+      <h2 class="text-4xl font-bold mb-4">{content.home.hero.title}</h2>
       <p class="text-lg text-gray-700 mb-6 max-w-xl mx-auto">
-        {t('home.hero.description')}
+        {content.home.hero.description}
       </p>
       <a 
         href={`/${lang}/contact/`}
         class="px-6 py-3 bg-[#C1272D] text-white rounded-full hover:bg-[#991B1F] transition-colors duration-300"
       >
-        {t('common.buttons.get_started')}
+        {ui('common.buttons.get_started')}
       </a>
     </div>
   </section>
@@ -57,15 +45,15 @@ const blogItems = [
   <!-- Solutions Section -->
   <section id="solutions" class="py-16 max-w-7xl mx-auto px-4">
     <div class="text-center mb-12">
-      <h3 class="text-3xl font-bold mb-4 text-[#C1272D]">{t('products_services.hero.title')}</h3>
+      <h3 class="text-3xl font-bold mb-4 text-[#C1272D]">{content.products_services.hero.title}</h3>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-        {t('products_services.hero.description')}
+        {content.products_services.hero.description}
       </p>
       <a 
         href={`/${lang}/solutions`}
         class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
       >
-        {t('common.buttons.explore_more')} →
+        {ui('common.buttons.learn_more')} →
       </a>
     </div>
 
@@ -80,19 +68,13 @@ const blogItems = [
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{t('products_services.education.title')}</h4>
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.products_services.education.title}</h4>
           <ul class="space-y-2 text-gray-600 mb-4">
             <li class="flex items-center">
               <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              {t('products_services.education.items.k12.title')}
-            </li>
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              {t('products_services.education.items.university.title')}
+              {content.products_services.education.items.enrollment.title}
             </li>
           </ul>
           <div class="flex justify-between">
@@ -122,15 +104,15 @@ const blogItems = [
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{t('products_services.enterprise.items.vithean.title')}</h4>
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.products_services.enterprise.items.vithean.title}</h4>
           <p class="text-gray-600 mb-4">
-            {t('products_services.enterprise.items.vithean.description')}
+            {content.products_services.enterprise.items.vithean.description}
           </p>
           <a 
             href={`/${lang}/accounting-erp-vithean`}
             class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
           >
-            {t('common.buttons.learn_more')} →
+            {ui('common.buttons.learn_more')} →
           </a>
         </div>
       </div>
@@ -145,15 +127,15 @@ const blogItems = [
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{t('bakan_elite.title')}</h4>
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.bakan.title}</h4>
           <p class="text-gray-600 mb-4">
-            {t('bakan_elite.subtitle')}
+            {content.bakan.subtitle}
           </p>
           <a 
             href={`/${lang}/bakan-elite`}
             class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
           >
-            {t('common.buttons.learn_more')} →
+            {ui('common.buttons.learn_more')} →
           </a>
         </div>
       </div>
@@ -163,19 +145,19 @@ const blogItems = [
   <!-- Impact Section -->
   <section id="impact" class="bg-red-50 py-16">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold mb-10 text-[#C1272D]">{t('home.impact.title')}</h3>
+      <h3 class="text-2xl font-bold mb-10 text-[#C1272D]">{content.home.impact.title}</h3>
       <div class="grid md:grid-cols-3 gap-6">
         <div>
           <p class="text-4xl font-bold text-[#C1272D]">25+</p>
-          <p class="text-sm">{t('home.impact.government_partners')}</p>
+          <p class="text-sm">{content.home.impact.government_partners}</p>
         </div>
         <div>
           <p class="text-4xl font-bold text-[#C1272D]">3M+</p>
-          <p class="text-sm">{t('home.impact.users_engaged')}</p>
+          <p class="text-sm">{content.home.impact.users_engaged}</p>
         </div>
         <div>
           <p class="text-4xl font-bold text-[#C1272D]">99.9%</p>
-          <p class="text-sm">{t('home.impact.system_uptime')}</p>
+          <p class="text-sm">{content.home.impact.system_uptime}</p>
         </div>
       </div>
     </div>
@@ -183,67 +165,70 @@ const blogItems = [
 
   <!-- Industries Section -->
   <section id="industries" class="py-16 max-w-7xl mx-auto px-4">
-    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{t('home.industries.title')}</h3>
+    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{content.home.industries.title}</h3>
     <div class="grid md:grid-cols-4 gap-6 text-center">
-      <div><p class="font-medium">🎓 {t('home.industries.education')}</p></div>
-      <div><p class="font-medium">🏛 {t('home.industries.government')}</p></div>
-      <div><p class="font-medium">💼 {t('home.industries.enterprise')}</p></div>
-      <div><p class="font-medium">🏥 {t('home.industries.healthcare')}</p></div>
+      <div><p class="font-medium">🎓 {content.home.industries.education}</p></div>
+      <div><p class="font-medium">🏛 {content.home.industries.government}</p></div>
+      <div><p class="font-medium">💼 {content.home.industries.enterprise}</p></div>
+      <div><p class="font-medium">🏥 {content.home.industries.healthcare}</p></div>
     </div>
   </section>
 
   <!-- Company Section -->
   <section id="company" class="bg-red-50 py-16">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold mb-6 text-[#C1272D]">{t('home.about.title')}</h3>
-      <p class="text-gray-700 max-w-2xl mx-auto mb-6">{t('home.about.description')}</p>
+      <h3 class="text-2xl font-bold mb-6 text-[#C1272D]">{content.home.about.title}</h3>
+      <p class="text-gray-700 max-w-2xl mx-auto mb-6">{content.home.about.description}</p>
       <a 
         href={`/${lang}/about/`}
         class="text-[#C1272D] underline hover:text-[#991B1F] transition-colors duration-300"
       >
-        {t('common.buttons.learn_more')} →
+        {ui('common.buttons.learn_more')} →
       </a>
     </div>
   </section>
 
   <!-- Blogs Section -->
-  <section id="blogs" class="py-16 max-w-7xl mx-auto px-4">
-    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">{t('home.blogs.title')}</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-      {blogItems.map((blog) => (
-        <div class="bg-white shadow rounded-xl p-6">
-          <p class="text-xs text-gray-400 mb-1">{blog.date} • {blog.author}</p>
-          <h4 class="font-semibold text-[#C1272D] mb-2">{blog.title}</h4>
-          <p class="text-sm text-gray-600">{blog.description}</p>
-          <a 
-            href={blog.link}
-            class="text-sm text-[#C1272D] mt-2 inline-block hover:text-[#991B1F] transition-colors duration-300"
-          >
-            {t('common.buttons.read_more')} →
-          </a>
-        </div>
-      ))}
-    </div>
-    <div class="text-right mt-8">
-      <a 
-        href={`/${lang}/blogs`}
-        class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
-      >
-        {t('common.buttons.explore_more')} →
-      </a>
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">{content.home.blogs.title}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map((item) => (
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
+              <div class="flex items-center text-sm text-gray-600 mb-4">
+                <span>{item.date}</span>
+                <span class="mx-2">•</span>
+                <span>{item.author}</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-3">{item.title}</h3>
+              <p class="text-gray-600 mb-4">{item.description}</p>
+              <a 
+                href={`/${lang}${item.link}`}
+                class="text-[#C1272D] hover:text-[#991B1F] font-medium inline-flex items-center"
+              >
+                {ui('common.buttons.read_more')}
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
   <!-- Contact Section -->
   <section id="contact" class="bg-red-50 py-16 text-center">
     <div class="max-w-2xl mx-auto px-4">
-      <h3 class="text-2xl font-bold mb-4 text-[#C1272D]">{t('home.contact.title')}</h3>
-      <p class="text-gray-700 mb-6">{t('home.contact.description')}</p>
+      <h3 class="text-2xl font-bold mb-4 text-[#C1272D]">{content.home.contact.title}</h3>
+      <p class="text-gray-700 mb-6">{content.home.contact.description}</p>
       <a 
         href={`/${lang}/contact/`}
         class="bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
       >
-        {t('common.buttons.contact_us')}
+        {ui('common.buttons.contact_us')}
       </a>
     </div>
   </section>

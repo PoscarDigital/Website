@@ -1,16 +1,22 @@
 ---
 // src/pages/[lang]/bakan-elite.astro
 import Base from '../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
-import { ui } from '../../i18n/ui';
+import { getLangFromUrl } from '../../i18n/utils';
+import { getContentTranslations } from '../../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
+import { ui as uiTranslations } from '../../i18n/ui';
 
 export async function getStaticPaths() {
-  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+  return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const content = await getContentTranslations(lang);
+const { t } = await getContentTranslations(lang);
+const ui = useTranslations(lang);
+
+const content = await t('bakan');
+const ctaTitle = content.cta.title;
+const ctaButton = content.cta.button;
 
 // Get translations
 const title = content.bakan.title;
@@ -21,11 +27,9 @@ const learningTitle = content.bakan.learning.title;
 const learningItems = content.bakan.learning.items;
 const benefitsTitle = content.bakan.benefits.title;
 const benefits = content.bakan.benefits.items;
-const ctaTitle = content.bakan.cta.title;
-const ctaButton = content.bakan.cta.button;
 ---
 
-<Base>
+<Base title={t('bakan.title')} description={t('bakan.description')}>
   <!-- Hero Section -->
   <section class="bg-slate-600 text-white py-20 text-center">
     <h1 class="text-4xl font-bold mb-4">{title}</h1>
@@ -77,12 +81,12 @@ const ctaButton = content.bakan.cta.button;
       </div>
       <div class="mt-12">
         <a 
-          href="https://bakanelite.com" 
+          href={await t('bakan.website.url')}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
         >
-          Explore Bakan Elite
+          {await t('bakan.website.button')}
         </a>
       </div>
     </div>

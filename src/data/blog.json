@@ -1,0 +1,25 @@
+{
+  "posts": [
+    {
+      "date": "May 2025",
+      "author": "Admin",
+      "title": "POSCAR Supports MoEYS with AI-Ready Solutions",
+      "description": "How we're building next-gen education systems for Cambodia's Ministry of Education.",
+      "link": "/blogs/ai-solutions"
+    },
+    {
+      "date": "April 2025",
+      "author": "Tech Team",
+      "title": "Behind the Scenes of Vithean",
+      "description": "A look into how our cloud accounting platform reshapes SME operations.",
+      "link": "/blogs/vithean-behind-scenes"
+    },
+    {
+      "date": "March 2025",
+      "author": "UX Lead",
+      "title": "Why Digital Document Flow Matters",
+      "description": "Discover how BluePinn DocFlow improves traceability in approvals.",
+      "link": "/blogs/digital-document-flow"
+    }
+  ]
+} 

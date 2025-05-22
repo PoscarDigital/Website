@@ -13,6 +13,19 @@
         "content": "To establish a complete digital eco-platform for education and business operation to support SMEs in Cambodia"
       }
     },
+    "impact": {
+      "title": "Our Impact",
+      "government_partners": "Government Partners",
+      "users_engaged": "Users Engaged",
+      "system_uptime": "System Uptime"
+    },
+    "industries": {
+      "title": "Industries We Serve",
+      "education": "Education",
+      "government": "Government",
+      "enterprise": "Enterprise",
+      "healthcare": "Healthcare"
+    },
     "products": {
       "title": "Featured Products & Services",
       "items": {
@@ -33,6 +46,16 @@
     "contact": {
       "title": "Get in Touch with Us",
       "description": "Have questions or need assistance? We're here to help!"
+    },
+    "blogs": {
+      "title": "Latest News & Updates",
+      "subtitle": "Stay informed about our latest developments and industry insights",
+      "newsletter": {
+        "title": "Subscribe to Our Newsletter",
+        "subtitle": "Stay updated with our latest news and insights",
+        "email_placeholder": "Enter your email",
+        "subscribe_button": "Subscribe"
+      }
     }
   },
   "products_services": {
@@ -536,6 +559,10 @@
     "cta": {
       "title": "Ready to Elevate Your Event Management?",
       "button": "Contact Us"
+    },
+    "website": {
+      "url": "https://bakanelite.com",
+      "button": "Explore Bakan Elite"
     }
   }
 } 
