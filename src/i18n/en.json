@@ -8,7 +8,50 @@
     "education": {
       "title": "Education",
       "k12": "Kindergarten & K12",
-      "university": "University Solution"
+      "university": "University Solution",
+      "sms": {
+        "title": "Wiki School",
+        "subtitle": "Modern Education Management System for K12",
+        "operations": {
+          "title": "School Operations",
+          "items": [
+            "Announcements & Academic Calendar",
+            "Student, Teacher, and Parent Profiles",
+            "Enrolment Management & Scheduling",
+            "Inventory, HR, and Facility Management"
+          ]
+        },
+        "learning": {
+          "title": "Learning & Administration",
+          "items": [
+            "Lessons, Homework, and Attendance",
+            "Grade Entry & Report Cards",
+            "Payment Tracking & Financial Reports",
+            "Parent Access & Communication Portal"
+          ]
+        },
+        "benefits": {
+          "title": "Key Benefits",
+          "items": [
+            {
+              "title": "Centralized Student Information",
+              "description": "All student, teacher, and academic data in one secure and accessible place."
+            },
+            {
+              "title": "Smart Attendance & Grading",
+              "description": "Streamline classroom management through digital tracking tools and real-time scoring."
+            },
+            {
+              "title": "Parental Engagement",
+              "description": "Parents receive timely reports, progress updates, and school announcements online."
+            }
+          ]
+        },
+        "cta": {
+          "title": "Interested in Transforming Your School?",
+          "button": "Contact Us"
+        }
+      }
     },
     "enterprise": {
       "title": "Enterprise",

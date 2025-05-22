@@ -87,23 +87,20 @@ const meta = {
     </div>
   </section>
 
-  <!-- Our Products Section -->
+  <!-- Our Solutions Section -->
   <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto text-center">
-      <h2 class="text-4xl md:text-5xl font-semibold mb-6">Our Products</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="p-8 bg-gray-50 rounded-lg shadow-md">
-          <h3 class="text-2xl font-semibold mb-4">Wiki School</h3>
-          <p class="text-lg">
-            Our comprehensive education management platform that revolutionizes how schools and educational institutions operate.
-          </p>
-        </div>
-        <div class="p-8 bg-gray-50 rounded-lg shadow-md">
-          <h3 class="text-2xl font-semibold mb-4">Vithean</h3>
-          <p class="text-lg">
-            An advanced ERP solution designed to streamline business operations and enhance productivity.
-          </p>
-        </div>
+      <h2 class="text-4xl md:text-5xl font-semibold mb-6">Our Solutions</h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        {t('products_services.hero.description')}
+      </p>
+      <div class="mt-8">
+        <a 
+          href={`/${lang}/solutions`} 
+          class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300 text-lg"
+        >
+          Explore Our Solutions →
+        </a>
       </div>
     </div>
   </section>
