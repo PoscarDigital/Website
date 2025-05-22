@@ -10,53 +10,91 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const content = await getContentTranslations(lang);
+
+// Get translations
+const title = content.hrm.title;
+const subtitle = content.hrm.subtitle;
+const operationsTitle = content.hrm.operations.title;
+const operationsItems = content.hrm.operations.items;
+const learningTitle = content.hrm.learning.title;
+const learningItems = content.hrm.learning.items;
+const benefitsTitle = content.hrm.benefits.title;
+const benefits = content.hrm.benefits.items;
+const ctaTitle = content.hrm.cta.title;
+const ctaButton = content.hrm.cta.button;
 ---
 
 <Base>
-  <!-- HRM Solutions Header -->
-  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">HRM Solutions</h1>
-      <p class="text-lg md:text-xl mb-8">Comprehensive human resource management system</p>
-    </div>
+  <!-- Hero Section -->
+  <section class="bg-slate-600 text-white py-20 text-center">
+    <h1 class="text-4xl font-bold mb-4">{title}</h1>
+    <p class="text-lg">{subtitle}</p>
   </section>
 
-  <!-- Features Section -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Employee Management</h3>
-          <ul class="space-y-2">
-            <li>• Employee Information</li>
-            <li>• Attendance Tracking</li>
-            <li>• Leave Management</li>
-            <li>• Performance Reviews</li>
-          </ul>
-        </div>
-        <div class="bg-gray-50 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Payroll & Benefits</h3>
-          <ul class="space-y-2">
-            <li>• Salary Management</li>
-            <li>• Benefits Administration</li>
-            <li>• Tax Management</li>
-            <li>• Reports Generation</li>
-          </ul>
-        </div>
+  <!-- Overview Features -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-10 text-center">
+      <div>
+        <h3 class="text-xl font-semibold mb-4">{operationsTitle}</h3>
+        <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
+          {Array.isArray(operationsItems) && operationsItems.map((item: string) => (
+            <li>• {item}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4">{learningTitle}</h3>
+        <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
+          {Array.isArray(learningItems) && learningItems.map((item: string) => (
+            <li>• {item}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Contact CTA -->
-  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl text-center">
-      <h2 class="text-3xl font-bold mb-8">Ready to Streamline Your HR Processes?</h2>
-      <a
-        href={`/${lang}/contact`}
-        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
-      >
-        {content.common.buttons.contact_us}
-      </a>
+  <!-- Promotion Banner -->
+  <section class="py-10 text-[#C1272D] text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <h3 class="text-3xl font-bold mb-4">Transform Your HR Management</h3>
+      <p class="text-lg mb-6">Our HRM solution streamlines employee management, automates processes, and provides powerful insights for better decision-making.</p>
+      <img src="/images/hrm/banner-showcase.jpg" alt="HRM System Dashboard Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
     </div>
+  </section>
+
+  <!-- Key Benefits -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h3 class="text-2xl font-bold text-[#C1272D] mb-12">{benefitsTitle}</h3>
+      <div class="grid md:grid-cols-3 gap-8">
+        {Array.isArray(benefits) && benefits.map((benefit: { title: string; description: string }) => (
+          <div>
+            <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
+            <p class="text-sm text-gray-600">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-12">
+        <a 
+          href="https://hrm.poscardigital.com" 
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+        >
+          Explore HRM Solution
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 text-center bg-white">
+    <h3 class="text-2xl font-bold mb-4">{ctaTitle}</h3>
+    <a 
+      href={`/${lang}/contact`} 
+      class="mt-4 inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+    >
+      {ctaButton}
+    </a>
   </section>
 </Base>

@@ -10,101 +10,91 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const content = await getContentTranslations(lang);
+
+// Get translations
+const title = content.enrollment.title;
+const subtitle = content.enrollment.subtitle;
+const operationsTitle = content.enrollment.operations.title;
+const operationsItems = content.enrollment.operations.items;
+const learningTitle = content.enrollment.learning.title;
+const learningItems = content.enrollment.learning.items;
+const benefitsTitle = content.enrollment.benefits.title;
+const benefits = content.enrollment.benefits.items;
+const ctaTitle = content.enrollment.cta.title;
+const ctaButton = content.enrollment.cta.button;
 ---
 
 <Base>
-  <!-- Enrollment Header -->
-  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Online Enrollment & Registration</h1>
-      <p class="text-lg md:text-xl mb-8">Streamline your enrollment process with our digital solution</p>
-    </div>
+  <!-- Hero Section -->
+  <section class="bg-slate-600 text-white py-20 text-center">
+    <h1 class="text-4xl font-bold mb-4">{title}</h1>
+    <p class="text-lg">{subtitle}</p>
   </section>
 
-  <!-- Features -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-6xl">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <!-- Feature 1 -->
-        <div class="bg-gray-50 p-8 rounded-lg">
-          <h3 class="text-2xl font-bold mb-4">Student Registration</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start">
-              <span class="text-slate-600 mr-2">•</span>
-              <span>Online application forms</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-slate-600 mr-2">•</span>
-              <span>Document upload</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-slate-600 mr-2">•</span>
-              <span>Application tracking</span>
-            </li>
-          </ul>
-        </div>
-        <!-- Feature 2 -->
-        <div class="bg-gray-50 p-8 rounded-lg">
-          <h3 class="text-2xl font-bold mb-4">Course Management</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start">
-              <span class="text-slate-600 mr-2">•</span>
-              <span>Course selection</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-slate-600 mr-2">•</span>
-              <span>Schedule management</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-slate-600 mr-2">•</span>
-              <span>Class capacity tracking</span>
-            </li>
-          </ul>
-        </div>
+  <!-- Overview Features -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-10 text-center">
+      <div>
+        <h3 class="text-xl font-semibold mb-4">{operationsTitle}</h3>
+        <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
+          {Array.isArray(operationsItems) && operationsItems.map((item: string) => (
+            <li>• {item}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4">{learningTitle}</h3>
+        <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
+          {Array.isArray(learningItems) && learningItems.map((item: string) => (
+            <li>• {item}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Benefits -->
-  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-3xl font-bold text-center mb-12">Key Benefits</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Benefit 1 -->
-        <div class="text-center">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-3">Efficiency</h3>
-            <p class="text-gray-600">Reduce manual paperwork and processing time</p>
+  <!-- Promotion Banner -->
+  <section class="py-10 text-[#C1272D] text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <h3 class="text-3xl font-bold mb-4">Streamline Your Enrollment Process</h3>
+      <p class="text-lg mb-6">Our online registration system simplifies the enrollment process, making it easier for students to register and for administrators to manage applications.</p>
+      <img src="/images/enrollment/banner-showcase.jpg" alt="Online Registration System Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
+    </div>
+  </section>
+
+  <!-- Key Benefits -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h3 class="text-2xl font-bold text-[#C1272D] mb-12">{benefitsTitle}</h3>
+      <div class="grid md:grid-cols-3 gap-8">
+        {Array.isArray(benefits) && benefits.map((benefit: { title: string; description: string }) => (
+          <div>
+            <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
+            <p class="text-sm text-gray-600">{benefit.description}</p>
           </div>
-        </div>
-        <!-- Benefit 2 -->
-        <div class="text-center">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-3">Accessibility</h3>
-            <p class="text-gray-600">24/7 access to enrollment system</p>
-          </div>
-        </div>
-        <!-- Benefit 3 -->
-        <div class="text-center">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-3">Analytics</h3>
-            <p class="text-gray-600">Track enrollment trends and patterns</p>
-          </div>
-        </div>
+        ))}
+      </div>
+      <div class="mt-12">
+        <a 
+          href="https://enrollment.poscardigital.com" 
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+        >
+          Try Our Registration System
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Contact CTA -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl text-center">
-      <h2 class="text-3xl font-bold mb-8">Ready to Modernize Your Enrollment Process?</h2>
-      <a
-        href={`/${lang}/contact`}
-        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
-      >
-        {content.common.buttons.contact_us}
-      </a>
-    </div>
+  <!-- CTA Section -->
+  <section class="py-16 text-center bg-white">
+    <h3 class="text-2xl font-bold mb-4">{ctaTitle}</h3>
+    <a 
+      href={`/${lang}/contact`} 
+      class="mt-4 inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+    >
+      {ctaButton}
+    </a>
   </section>
 </Base>

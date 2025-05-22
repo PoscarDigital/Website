@@ -243,6 +243,307 @@
         "title": "Interested in Transforming Your School?",
         "button": "Contact Us"
       }
+    },
+    "ums": {
+      "title": "Wiki College",
+      "subtitle": "Advanced University Management System",
+      "operations": {
+        "title": "Academic Management",
+        "items": [
+          "Course Management & Registration",
+          "Faculty & Department Administration",
+          "Student Information System",
+          "Resource & Facility Management"
+        ]
+      },
+      "learning": {
+        "title": "Learning & Administration",
+        "items": [
+          "Online Learning Platform",
+          "Grade Management & Transcripts",
+          "Research Project Tracking",
+          "Student Portal & Communication"
+        ]
+      },
+      "benefits": {
+        "title": "Key Benefits",
+        "items": [
+          {
+            "title": "Streamlined Academic Operations",
+            "description": "Efficiently manage courses, faculty, and student records in one integrated platform."
+          },
+          {
+            "title": "Enhanced Learning Experience",
+            "description": "Provide students with easy access to courses, grades, and academic resources."
+          },
+          {
+            "title": "Data-Driven Decision Making",
+            "description": "Access comprehensive analytics and reports to improve academic performance."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ready to Transform Your University?",
+        "button": "Contact Us"
+      }
+    },
+    "enrollment": {
+      "title": "Online Enrollment & Registration",
+      "subtitle": "Streamline your enrollment process with our digital solution",
+      "operations": {
+        "title": "Student Registration",
+        "items": [
+          "Online application forms",
+          "Document upload",
+          "Application tracking",
+          "Payment processing"
+        ]
+      },
+      "learning": {
+        "title": "Course Management",
+        "items": [
+          "Course selection",
+          "Schedule management",
+          "Class capacity tracking",
+          "Waitlist management"
+        ]
+      },
+      "benefits": {
+        "title": "Key Benefits",
+        "items": [
+          {
+            "title": "Efficiency",
+            "description": "Reduce manual paperwork and processing time with automated workflows"
+          },
+          {
+            "title": "Accessibility",
+            "description": "24/7 access to enrollment system for students and administrators"
+          },
+          {
+            "title": "Analytics",
+            "description": "Track enrollment trends and patterns with comprehensive reporting tools"
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ready to Modernize Your Enrollment Process?",
+        "button": "Contact Us"
+      }
+    }
+  },
+  "hrm": {
+    "title": "HRM Solutions",
+    "subtitle": "Comprehensive human resource management system",
+    "operations": {
+      "title": "Employee Management",
+      "items": [
+        "Employee Information & Profiles",
+        "Attendance & Leave Tracking",
+        "Performance Reviews",
+        "Document Management"
+      ]
+    },
+    "learning": {
+      "title": "Payroll & Benefits",
+      "items": [
+        "Salary & Compensation",
+        "Benefits Administration",
+        "Tax Management",
+        "Financial Reports"
+      ]
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": [
+        {
+          "title": "Streamlined Processes",
+          "description": "Automate routine HR tasks and reduce manual paperwork"
+        },
+        {
+          "title": "Data-Driven Insights",
+          "description": "Make informed decisions with comprehensive HR analytics"
+        },
+        {
+          "title": "Employee Self-Service",
+          "description": "Empower employees with easy access to their information"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Transform Your HR Management?",
+      "button": "Contact Us"
+    }
+  },
+  "enrollment": {
+    "title": "Online Enrollment & Registration",
+    "subtitle": "Streamline your enrollment process with our digital solution",
+    "operations": {
+      "title": "Student Registration",
+      "items": [
+        "Online application forms",
+        "Document upload",
+        "Application tracking",
+        "Payment processing"
+      ]
+    },
+    "learning": {
+      "title": "Course Management",
+      "items": [
+        "Course selection",
+        "Schedule management",
+        "Class capacity tracking",
+        "Waitlist management"
+      ]
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": [
+        {
+          "title": "Efficiency",
+          "description": "Reduce manual paperwork and processing time with automated workflows"
+        },
+        {
+          "title": "Accessibility",
+          "description": "24/7 access to enrollment system for students and administrators"
+        },
+        {
+          "title": "Analytics",
+          "description": "Track enrollment trends and patterns with comprehensive reporting tools"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Modernize Your Enrollment Process?",
+      "button": "Contact Us"
+    }
+  },
+  "attendance": {
+    "title": "Attendance Management Solution",
+    "subtitle": "Streamline attendance tracking and management for your organization",
+    "operations": {
+      "title": "Biometric Integration",
+      "items": [
+        "Fingerprint recognition",
+        "Facial recognition",
+        "Card-based attendance",
+        "Mobile check-in options"
+      ]
+    },
+    "learning": {
+      "title": "Real-time Monitoring",
+      "items": [
+        "Live attendance tracking",
+        "Automated reports",
+        "Attendance analytics",
+        "Leave management"
+      ]
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": [
+        {
+          "title": "Time Saving",
+          "description": "Automate attendance tracking and reduce manual work"
+        },
+        {
+          "title": "Accuracy",
+          "description": "Eliminate human error in attendance records"
+        },
+        {
+          "title": "Compliance",
+          "description": "Maintain accurate records for regulatory requirements"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Transform Your Attendance Management?",
+      "button": "Contact Us"
+    }
+  },
+  "accounting": {
+    "title": "Accounting & ERP Solution",
+    "subtitle": "Comprehensive financial management and enterprise resource planning",
+    "operations": {
+      "title": "Core Accounting Features",
+      "items": [
+        "General Ledger",
+        "Accounts Payable",
+        "Accounts Receivable",
+        "Financial Reporting"
+      ]
+    },
+    "learning": {
+      "title": "ERP Modules",
+      "items": [
+        "Inventory Management",
+        "Sales Management",
+        "Purchase Management",
+        "Project Management"
+      ]
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": [
+        {
+          "title": "Efficiency",
+          "description": "Streamline financial operations and reduce manual work"
+        },
+        {
+          "title": "Visibility",
+          "description": "Real-time insights into your business performance"
+        },
+        {
+          "title": "Compliance",
+          "description": "Stay compliant with accounting standards and regulations"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Transform Your Financial Management?",
+      "button": "Contact Us"
+    }
+  },
+  "bakan": {
+    "title": "Bakan Elite",
+    "subtitle": "Premium and VIP Event Management Solution",
+    "operations": {
+      "title": "Event Management",
+      "items": [
+        "VIP Guest Management",
+        "Event Registration",
+        "Seating Arrangement",
+        "Guest Check-in"
+      ]
+    },
+    "learning": {
+      "title": "Premium Features",
+      "items": [
+        "QR Code Access",
+        "Digital Invitations",
+        "Event Analytics",
+        "Real-time Monitoring"
+      ]
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": [
+        {
+          "title": "Exclusivity",
+          "description": "Manage VIP events with premium features and personalized guest experience"
+        },
+        {
+          "title": "Efficiency",
+          "description": "Streamline event operations with automated check-ins and real-time tracking"
+        },
+        {
+          "title": "Security",
+          "description": "Ensure secure access control and guest verification for premium events"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Elevate Your Event Management?",
+      "button": "Contact Us"
     }
   }
 } 
