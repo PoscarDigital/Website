@@ -2,6 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
 import { ui } from '../../i18n/ui';
+import customerData from '../../data/customers.json';
+import testimonialData from '../../data/testimonial.json';
+
+// Filter active entries
+const activeCustomers: Customer[] = customerData.customers.filter((customer: Customer) => customer.status === 1);
+const activeTestimonials: Testimonial[] = testimonialData.testimonials.filter((testimonial: Testimonial) => testimonial.status === 1);
+
 
 export async function getStaticPaths() {
   return Object.keys(ui).map((lang) => ({ params: { lang } }));
@@ -25,61 +32,129 @@ const content = await getContentTranslations(lang);
   <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-6xl">
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        <!-- Customer Logo 1 -->
-        <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg">
-          <img src="/images/customer-1.png" alt="Customer 1" class="max-h-16" />
-        </div>
-        <!-- Customer Logo 2 -->
-        <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg">
-          <img src="/images/customer-2.png" alt="Customer 2" class="max-h-16" />
-        </div>
-        <!-- Customer Logo 3 -->
-        <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg">
-          <img src="/images/customer-3.png" alt="Customer 3" class="max-h-16" />
-        </div>
-        <!-- Customer Logo 4 -->
-        <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg">
-          <img src="/images/customer-4.png" alt="Customer 4" class="max-h-16" />
-        </div>
+        {activeCustomers.map((customer: Customer) => (
+          <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg hover:shadow-lg transition-shadow">
+            <img src={customer.logo} alt={customer.name} class="max-h-16" />
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- Testimonials -->
   <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <style>
+      .testimonials-slider {
+        position: relative;
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: #475569;
+        width: 4rem;
+        height: 100%;
+        top: 0;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(90deg, rgba(243,244,246,0) 0%, rgba(243,244,246,0.9) 100%);
+      }
+      .swiper-button-prev {
+        left: -4rem;
+        justify-content: flex-start;
+        padding-left: 1rem;
+        background: linear-gradient(-90deg, rgba(243,244,246,0) 0%, rgba(243,244,246,0.9) 100%);
+      }
+      .swiper-button-next {
+        right: -4rem;
+        justify-content: flex-end;
+        padding-right: 1rem;
+      }
+      .swiper-button-next:after,
+      .swiper-button-prev:after {
+        font-size: 2rem;
+      }
+      @media (max-width: 1280px) {
+        .swiper-button-next {
+          right: -2rem;
+        }
+        .swiper-button-prev {
+          left: -2rem;
+        }
+      }
+      @media (max-width: 768px) {
+        .swiper-button-next {
+          right: -1rem;
+        }
+        .swiper-button-prev {
+          left: -1rem;
+        }
+      }
+      .swiper-pagination-bullet-active {
+        background: #475569;
+      }
+    </style>
     <div class="container mx-auto max-w-4xl">
       <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Testimonial 1 -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <p class="text-gray-600 mb-4">
-            "POSCAR's solutions have transformed our educational institution. The system is intuitive and has greatly
-            improved our administrative efficiency."
-          </p>
-          <div class="flex items-center">
-            <img src="/images/testimonial-1.jpg" alt="Testimonial 1" class="w-12 h-12 rounded-full mr-4" />
-            <div>
-              <h4 class="font-semibold">John Doe</h4>
-              <p class="text-sm text-gray-500">School Director</p>
+      
+      <!-- Swiper Container -->
+      <div class="swiper-container testimonials-slider">
+        <div class="swiper-wrapper">
+          {activeTestimonials.map((testimonial: Testimonial) => (
+            <div class="swiper-slide">
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-600 mb-4">"{testimonial.quote}"</p>
+                <div class="flex items-center">
+                  <img src={testimonial.image} alt={testimonial.name} class="w-12 h-12 rounded-full mr-4" />
+                  <div>
+                    <h4 class="font-semibold">{testimonial.name}</h4>
+                    <p class="text-sm text-gray-500">{testimonial.position}</p>
+                    <p class="text-sm text-gray-500">{testimonial.organization}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-        <!-- Testimonial 2 -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <p class="text-gray-600 mb-4">
-            "The HRM solution has streamlined our HR processes and made employee management much more efficient. Highly
-            recommended!"
-          </p>
-          <div class="flex items-center">
-            <img src="/images/testimonial-2.jpg" alt="Testimonial 2" class="w-12 h-12 rounded-full mr-4" />
-            <div>
-              <h4 class="font-semibold">Jane Smith</h4>
-              <p class="text-sm text-gray-500">HR Manager</p>
-            </div>
-          </div>
-        </div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
       </div>
     </div>
+
+    <script>
+      import Swiper from 'swiper';
+      import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+      import 'swiper/css';
+      import 'swiper/css/navigation';
+      import 'swiper/css/pagination';
+
+      // Initialize Swiper
+      new Swiper('.testimonials-slider', {
+        modules: [Navigation, Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+          },
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    </script>
   </section>
 
   <!-- Contact CTA -->

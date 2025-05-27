@@ -1,0 +1,52 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Royal University of Phnom Penh",
+      "logo": "/images/customers/rupp.png",
+      "status": 1
+    },
+    {
+      "id": 2,
+      "name": "National University of Management",
+      "logo": "/images/customers/num.png",
+      "status": 1
+    },
+    {
+      "id": 3,
+      "name": "Institute of Technology of Cambodia",
+      "logo": "/images/customers/itc.png",
+      "status": 1
+    },
+    {
+      "id": 4,
+      "name": "Norton University",
+      "logo": "/images/customers/norton.png",
+      "status": 1
+    },
+    {
+      "id": 5,
+      "name": "Beltei International University",
+      "logo": "/images/customers/beltei.png",
+      "status": 1
+    },
+    {
+      "id": 6,
+      "name": "ACLEDA Bank",
+      "logo": "/images/customers/acleda.png",
+      "status": 1
+    },
+    {
+      "id": 7,
+      "name": "Prince Bank",
+      "logo": "/images/customers/prince.png",
+      "status": 1
+    },
+    {
+      "id": 8,
+      "name": "Chip Mong Bank",
+      "logo": "/images/customers/chipmong.png",
+      "status": 1
+    }
+  ]
+}

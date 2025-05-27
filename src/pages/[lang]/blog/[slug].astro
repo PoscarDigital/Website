@@ -1,31 +1,83 @@
 ---
-import Base from "../../../layouts/Base.astro";
+import Base from '../../../layouts/Base.astro';
+import { useTranslations } from '../../../i18n/utils';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { ui } from '../../../i18n/ui';
 
-// Fetch all blog posts
+type Languages = keyof typeof ui;
+
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob('../../content/blog/en/*.md');
-  return allPosts.map((post) => {
-    const slug = post.file.split('/').pop().replace('.md', ''); // Extract slug
-    return { params: { slug } };
+  const blogEntries = await getCollection('blog');
+  return Object.keys(ui).flatMap((lang) => {
+    return blogEntries.map((entry) => ({
+      params: { lang, slug: entry.slug },
+      props: { entry },
+    }));
   });
 }
 
-// Get the current slug and fetch the corresponding post
-const { slug } = Astro.params;
-const allPosts = await Astro.glob('../../content/blog/en/*.md');
-const post = allPosts.find((p) => p.file.includes(`${slug}.md`));
+const { lang } = Astro.params as { lang: Languages };
+const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
+const { Content } = await entry.render();
+const t = useTranslations(lang);
 
-if (!post) {
-  throw new Error(`Post not found for slug: ${slug}`);
-}
+const formattedDate = entry.data.date.toLocaleDateString(lang === 'km' ? 'km-KH' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
 ---
 
-<Base pageTitle={post.frontmatter.title}>
-  <section class="bg-gray-50 py-12">
-    <div class="max-w-6xl mx-auto px-6">
-      <h1 class="text-5xl font-bold text-gray-800 mb-4">{post.frontmatter.title}</h1>
-      <p class="text-gray-500 text-sm mb-4">{post.frontmatter.date}</p>
-      <div class="prose lg:prose-xl" set:html={post.compiledContent()}></div>
+<Base>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Blog Header -->
+    <header class="mb-12 text-center">
+      {entry.data.thumbnail && (
+        <img 
+          src={entry.data.thumbnail}
+          alt={entry.data.title} 
+          class="w-full h-96 object-cover rounded-xl mb-8"
+        />
+      )}
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{entry.data.title}</h1>
+      <div class="flex items-center justify-center text-gray-600 mb-6 space-x-4">
+        <span>{formattedDate}</span>
+        <span>•</span>
+        <span>{entry.data.author}</span>
+        {entry.data.category && (
+          <>
+            <span>•</span>
+            <span>{entry.data.category}</span>
+          </>
+        )}
+      </div>
+      {entry.data.tags && (
+        <div class="flex flex-wrap gap-2 justify-center">
+          {entry.data.tags.map((tag: string) => (
+            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Blog Content -->
+    <div class="prose prose-slate prose-lg max-w-none prose-headings:font-kantumruy prose-headings:font-bold prose-p:text-justify prose-a:text-[#C1272D] hover:prose-a:text-[#991B1F]">
+      <Content />
     </div>
-  </section>
+
+    <!-- Navigation -->
+    <div class="mt-12 pt-8 border-t">
+      <a 
+        href={`/${lang}/blogs/1`}
+        class="text-[#C1272D] hover:text-[#991B1F] font-medium inline-flex items-center"
+      >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        {t('common.buttons.view_all')}
+      </a>
+    </div>
+  </article>
 </Base>

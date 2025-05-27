@@ -1,22 +1,16 @@
 ---
 // src/pages/[lang]/bakan-elite.astro
 import Base from '../../layouts/Base.astro';
-import { getLangFromUrl } from '../../i18n/utils';
-import { getContentTranslations } from '../../i18n/utils';
-import { useTranslations } from '../../i18n/utils';
-import { ui as uiTranslations } from '../../i18n/ui';
+import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
+import { ui } from '../../i18n/ui';
 
 export async function getStaticPaths() {
-  return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
+  return Object.keys(ui).map((lang) => ({ params: { lang } }));
 }
 
 const lang = getLangFromUrl(Astro.url);
-const { t } = await getContentTranslations(lang);
-const ui = useTranslations(lang);
-
-const content = await t('bakan');
-const ctaTitle = content.cta.title;
-const ctaButton = content.cta.button;
+const t = useTranslations(lang);
+const content = await getContentTranslations(lang);
 
 // Get translations
 const title = content.bakan.title;
@@ -27,9 +21,13 @@ const learningTitle = content.bakan.learning.title;
 const learningItems = content.bakan.learning.items;
 const benefitsTitle = content.bakan.benefits.title;
 const benefits = content.bakan.benefits.items;
+const ctaTitle = content.bakan.cta.title;
+const ctaButton = content.bakan.cta.button;
+const websiteUrl = content.bakan.website.url;
+const websiteButton = content.bakan.website.button;
 ---
 
-<Base title={t('bakan.title')} description={t('bakan.description')}>
+<Base title={title} description={subtitle}>
   <!-- Hero Section -->
   <section class="bg-slate-600 text-white py-20 text-center">
     <h1 class="text-4xl font-bold mb-4">{title}</h1>
@@ -42,7 +40,7 @@ const benefits = content.bakan.benefits.items;
       <div>
         <h3 class="text-xl font-semibold mb-4">{operationsTitle}</h3>
         <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
-          {Array.isArray(operationsItems) && operationsItems.map((item: string) => (
+          {operationsItems.map((item: string) => (
             <li>• {item}</li>
           ))}
         </ul>
@@ -50,7 +48,7 @@ const benefits = content.bakan.benefits.items;
       <div>
         <h3 class="text-xl font-semibold mb-4">{learningTitle}</h3>
         <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
-          {Array.isArray(learningItems) && learningItems.map((item: string) => (
+          {learningItems.map((item: string) => (
             <li>• {item}</li>
           ))}
         </ul>
@@ -58,12 +56,22 @@ const benefits = content.bakan.benefits.items;
     </div>
   </section>
 
-  <!-- Promotion Banner -->
+  <!-- Event Preview -->
   <section class="py-10 text-[#C1272D] text-center">
     <div class="max-w-4xl mx-auto px-4">
-      <h3 class="text-3xl font-bold mb-4">Premium Event Management</h3>
-      <p class="text-lg mb-6">Our VIP event management solution provides comprehensive tools for managing exclusive events, from guest registration to real-time monitoring.</p>
+      <h3 class="text-3xl font-bold mb-4">{title}</h3>
+      <p class="text-lg mb-6">{subtitle}</p>
       <img src="/images/bakan/banner-showcase.jpg" alt="Event Management System Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
+      <div class="mt-6">
+        <a
+          href={websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+        >
+          {websiteButton}
+        </a>
+      </div>
     </div>
   </section>
 
@@ -72,7 +80,7 @@ const benefits = content.bakan.benefits.items;
     <div class="max-w-6xl mx-auto px-4 text-center">
       <h3 class="text-2xl font-bold text-[#C1272D] mb-12">{benefitsTitle}</h3>
       <div class="grid md:grid-cols-3 gap-8">
-        {Array.isArray(benefits) && benefits.map((benefit: { title: string; description: string }) => (
+        {benefits.map((benefit: { title: string; description: string }) => (
           <div>
             <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
             <p class="text-sm text-gray-600">{benefit.description}</p>
@@ -81,12 +89,10 @@ const benefits = content.bakan.benefits.items;
       </div>
       <div class="mt-12">
         <a 
-          href={await t('bakan.website.url')}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/${lang}/contact`}
           class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
         >
-          {await t('bakan.website.button')}
+          {ctaButton}
         </a>
       </div>
     </div>
@@ -102,4 +108,4 @@ const benefits = content.bakan.benefits.items;
       {ctaButton}
     </a>
   </section>
-</Base> 
+</Base>

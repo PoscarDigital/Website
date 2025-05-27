@@ -5,7 +5,7 @@ import { getLangFromUrl } from '../../i18n/utils';
 import { getContentTranslations } from '../../i18n/utils';
 import { useTranslations } from '../../i18n/utils';
 import { ui as uiTranslations } from '../../i18n/ui';
-import blogData from '../../data/blog.json';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
@@ -14,15 +14,22 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const content = await getContentTranslations(lang);
 const ui = useTranslations(lang);
-const { posts } = blogData;
 
-interface BlogItem {
-  date: string;
-  author: string;
-  title: string;
-  description: string;
-  link: string;
+interface BlogPost {
+  data: {
+    date: Date;
+    title: string;
+    description: string;
+    author: string;
+    thumbnail?: string;
+  };
+  slug: string;
 }
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
 <Base>
@@ -45,9 +52,9 @@ interface BlogItem {
   <!-- Solutions Section -->
   <section id="solutions" class="py-16 max-w-7xl mx-auto px-4">
     <div class="text-center mb-12">
-      <h3 class="text-3xl font-bold mb-4 text-[#C1272D]">{content.products_services.hero.title}</h3>
+      <h3 class="text-3xl font-bold mb-4 text-[#C1272D]">{content.solutions.hero.title}</h3>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-        {content.products_services.hero.description}
+        {content.solutions.hero.description}
       </p>
       <a 
         href={`/${lang}/solutions`}
@@ -68,14 +75,16 @@ interface BlogItem {
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.products_services.education.title}</h4>
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.solutions.education.title}</h4>
           <ul class="space-y-2 text-gray-600 mb-4">
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              {content.products_services.education.items.enrollment.title}
-            </li>
+            {content.solutions.education.features.map((feature: string) => (
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
           </ul>
           <div class="flex justify-between">
             <a 
@@ -94,20 +103,27 @@ interface BlogItem {
         </div>
       </div>
 
-      <!-- Vithean -->
+      <!-- Enterprise Solutions -->
       <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
         <div class="aspect-w-16 aspect-h-9">
           <img 
             src="/images/vithean-solution.jpg" 
-            alt="Vithean Solution" 
+            alt="Enterprise Solutions" 
             class="w-full h-48 object-cover"
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.products_services.enterprise.items.vithean.title}</h4>
-          <p class="text-gray-600 mb-4">
-            {content.products_services.enterprise.items.vithean.description}
-          </p>
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.solutions.enterprise.title}</h4>
+          <ul class="space-y-2 text-gray-600 mb-4">
+            {content.solutions.enterprise.features.map((feature: string) => (
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
           <a 
             href={`/${lang}/accounting-erp-vithean`}
             class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
@@ -117,20 +133,27 @@ interface BlogItem {
         </div>
       </div>
 
-      <!-- Bakan Elite -->
+      <!-- Event Management -->
       <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
         <div class="aspect-w-16 aspect-h-9">
           <img 
             src="/images/bakan-elite.jpg" 
-            alt="Bakan Elite" 
+            alt="Event Management" 
             class="w-full h-48 object-cover"
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.bakan.title}</h4>
-          <p class="text-gray-600 mb-4">
-            {content.bakan.subtitle}
-          </p>
+          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.solutions.event.title}</h4>
+          <ul class="space-y-2 text-gray-600 mb-4">
+            {content.solutions.event.features.map((feature: string) => (
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
           <a 
             href={`/${lang}/bakan-elite`}
             class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
@@ -193,18 +216,25 @@ interface BlogItem {
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-12">{content.home.blogs.title}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((item) => (
+        {posts.map((post: BlogPost) => (
           <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            {post.data.thumbnail && (
+              <img 
+                src={post.data.thumbnail} 
+                alt={post.data.title}
+                class="w-full h-48 object-cover"
+              />
+            )}
             <div class="p-6">
               <div class="flex items-center text-sm text-gray-600 mb-4">
-                <span>{item.date}</span>
+                <span>{post.data.date.toLocaleDateString()}</span>
                 <span class="mx-2">•</span>
-                <span>{item.author}</span>
+                <span>{post.data.author}</span>
               </div>
-              <h3 class="text-xl font-semibold mb-3">{item.title}</h3>
-              <p class="text-gray-600 mb-4">{item.description}</p>
+              <h3 class="text-xl font-semibold mb-3">{post.data.title}</h3>
+              <p class="text-gray-600 mb-4">{post.data.description}</p>
               <a 
-                href={`/${lang}${item.link}`}
+                href={`/${lang}/blog/${post.slug}`}
                 class="text-[#C1272D] hover:text-[#991B1F] font-medium inline-flex items-center"
               >
                 {ui('common.buttons.read_more')}
@@ -232,4 +262,4 @@ interface BlogItem {
       </a>
     </div>
   </section>
-</Base> 
+</Base>

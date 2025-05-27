@@ -39,13 +39,13 @@ const content = await getContentTranslations(lang);
         <p>{content.privacy.sections.usage.content}</p>
         <ul>
           {(content.privacy.sections.usage.list || []).map((item: string) => <li>{item}</li>)}
-        </ul>
+      </ul>
 
         <h2>4. {content.privacy.sections.sharing.title}</h2>
         <p>{content.privacy.sections.sharing.content}</p>
         <ul>
           {(content.privacy.sections.sharing.list || []).map((item: string) => <li>{item}</li>)}
-        </ul>
+      </ul>
 
         <h2>5. {content.privacy.sections.security.title}</h2>
         <p>{content.privacy.sections.security.content}</p>
@@ -54,7 +54,7 @@ const content = await getContentTranslations(lang);
         <p>{content.privacy.sections.rights.content}</p>
         <ul>
           {(content.privacy.sections.rights.list || []).map((item: string) => <li>{item}</li>)}
-        </ul>
+      </ul>
 
         <h2>7. {content.privacy.sections.contact.title}</h2>
         <p>{content.privacy.sections.contact.content}</p>
