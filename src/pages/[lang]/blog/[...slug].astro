@@ -1,19 +1,48 @@
 ---
 import Base from "../../../layouts/Base.astro";
-import { getEntry } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  lang: string;
+}
+
+export async function getStaticPaths() {
+  const languages = ['en', 'km'];
+  const posts = await getCollection('blog');
+  
+  return posts.flatMap((post: CollectionEntry<'blog'>) => {
+    return languages.map((lang) => ({
+      params: { lang, slug: post.slug },
+      props: { post, lang }
+    }));
+  });
+}
 
 const { lang, slug } = Astro.params;
-const page = await getEntry('blog', `${lang}/${slug}`);
+if (!lang || !['en', 'km'].includes(lang)) {
+  return Astro.redirect('/en');
+}
 
-if (!page) {
+const { post } = Astro.props as Props;
+if (!post) {
   return Astro.redirect('/404');
 }
 
-const formattedDate = page.data.date.toLocaleString(lang);
-const { Content, headings } = await page.render();
+const formattedDate = post.data.date.toLocaleString(lang);
+const { Content, headings } = await post.render();
 ---
 <Base>
-  <h1>{page.data.title}</h1>
-  <p>by {page.data.author} • {formattedDate}</p>
-  <Content/>
+  <div class="container mx-auto px-4 py-8">
+    <article class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+      <div class="text-gray-600 mb-8">
+        <span>{post.data.author}</span> • <span>{formattedDate}</span>
+      </div>
+      <div class="prose prose-lg">
+        <Content />
+      </div>
+    </article>
+  </div>
 </Base>

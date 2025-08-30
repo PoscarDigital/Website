@@ -97,44 +97,56 @@
       "learn_more": "Learn More",
       "contact_us": "Contact Us",
       "read_more": "Read More",
-      "explore_more": "Explore More"
+      "explore_more": "Explore More",
+      "view_all": "View All Posts",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "pagination": {
+      "page": "Page",
+      "of": "of"
     }
   },
   "home": {
     "hero": {
-      "title": "Empowering Digital Transformation",
-      "description": "Building innovative solutions for education, enterprise, and government sectors in Cambodia."
+      "title": "Welcome to Our Platform",
+      "subtitle": "Empowering Education Through Technology",
+      "description": "We provide innovative solutions for educational institutions to enhance learning experiences and streamline administrative processes."
     },
     "products": {
-      "title": "Our Solutions",
+      "title": "Our Products",
       "items": {
         "k12": {
-          "title": "School Management System",
-          "description": "Comprehensive solution for K-12 institutions"
+          "title": "K-12 Education",
+          "description": "Comprehensive learning management system for primary and secondary schools."
         },
         "university": {
-          "title": "University Management System",
-          "description": "Advanced system for higher education"
+          "title": "University Solutions",
+          "description": "Advanced academic management system for higher education institutions."
         },
         "hrm": {
-          "title": "HR Management System",
-          "description": "Streamlined HR processes and management"
+          "title": "HR Management",
+          "description": "Integrated human resource management system for educational institutions."
         }
       }
     },
     "about": {
-      "title": "About POSCAR Digital",
-      "description": "We are a leading technology company in Cambodia, dedicated to transforming education and enterprise through innovative digital solutions."
+      "title": "About Us",
+      "description": "We are dedicated to transforming education through technology, making learning more accessible and effective for everyone.",
+      "vision": {
+        "title": "Our Vision",
+        "content": "To be the leading provider of educational technology solutions in Southeast Asia, empowering institutions to deliver quality education."
+      }
     },
     "contact": {
       "title": "Get in Touch",
-      "description": "Ready to transform your institution? Contact us today to learn more about our solutions."
+      "description": "Ready to transform your educational institution? Contact us today to learn more about our solutions."
     },
     "impact": {
       "title": "Our Impact",
-      "government_partners": "Government Ministries & Partners",
+      "government_partners": "Government Partners",
       "users_engaged": "Users Engaged",
-      "system_uptime": "System Uptime SLA"
+      "system_uptime": "System Uptime"
     },
     "industries": {
       "title": "Industries We Serve",
@@ -144,7 +156,14 @@
       "healthcare": "Healthcare"
     },
     "blogs": {
-      "title": "Latest Updates"
+      "title": "Latest News & Updates",
+      "subtitle": "Stay informed about the latest developments in education technology",
+      "newsletter": {
+        "title": "Subscribe to Our Newsletter",
+        "subtitle": "Get the latest updates and news directly in your inbox",
+        "email_placeholder": "Enter your email address",
+        "subscribe_button": "Subscribe"
+      }
     }
   },
   "solutions": {

@@ -1,0 +1,162 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getLangFromUrl, useTranslations, getContentTranslations } from '../../../i18n/utils';
+import type { GetStaticPaths } from 'astro';
+import { ui, defaultLang } from '../../../i18n/ui';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type Languages = keyof typeof ui;
+
+interface PageData {
+  data: CollectionEntry<'blog'>[];
+  currentPage: number;
+  lastPage: number;
+  url: {
+    prev: string | null;
+    next: string | null;
+  };
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const blogEntries = await getCollection('blog');
+  const sortedEntries = blogEntries.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => 
+    b.data.date.valueOf() - a.data.date.valueOf()
+  );
+  
+  // Calculate the number of pages needed
+  const pageSize = 9;
+  const totalPages = Math.ceil(sortedEntries.length / pageSize);
+  
+  // Generate all possible combinations of lang and page
+  const paths = [];
+  for (const lang of Object.keys(ui) as Languages[]) {
+    for (let page = 1; page <= totalPages; page++) {
+      const start = (page - 1) * pageSize;
+      const end = start + pageSize;
+      const pageEntries = sortedEntries.slice(start, end);
+      
+      paths.push({
+        params: { lang, page: String(page) },
+        props: {
+          page: {
+            data: pageEntries,
+            currentPage: page,
+            lastPage: totalPages,
+            url: {
+              prev: page > 1 ? `/${lang}/blogs/${page - 1}` : null,
+              next: page < totalPages ? `/${lang}/blogs/${page + 1}` : null
+            }
+          }
+        }
+      });
+    }
+  }
+  
+  return paths;
+}
+
+const { page } = Astro.props as { page: PageData };
+const { lang } = Astro.params as { lang: Languages };
+const t = useTranslations(lang);
+const content = await getContentTranslations(lang);
+---
+
+<Base>
+  <!-- Blogs Header -->
+  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">{content.home.blogs.title}</h1>
+      <p class="text-lg md:text-xl mb-8">{content.home.blogs.subtitle}</p>
+    </div>
+  </section>
+
+  <!-- Blog Posts Grid -->
+  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {page.data.map((post: CollectionEntry<'blog'>) => (
+          <article class="bg-white rounded-lg shadow-md overflow-hidden">
+            {post.data.thumbnail && (
+              <img 
+                src={post.data.thumbnail}
+                alt={post.data.title} 
+                class="w-full h-48 object-cover" 
+              />
+            )}
+            <div class="p-6">
+              <div class="flex items-center text-sm text-gray-600 mb-4">
+                <span>{post.data.date.toLocaleDateString()}</span>
+                <span class="mx-2">•</span>
+                <span>{post.data.author}</span>
+                {post.data.category && (
+                  <>
+                    <span class="mx-2">•</span>
+                    <span>{post.data.category}</span>
+                  </>
+                )}
+              </div>
+              <h3 class="text-xl font-semibold mb-2">{post.data.title}</h3>
+              <p class="text-gray-600 mb-4">{post.data.description}</p>
+              <a 
+                href={`/${lang}/blog/${post.slug}`}
+                class="text-slate-600 font-semibold hover:text-slate-800 inline-flex items-center"
+              >
+          {t('common.buttons.read_more')}
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* Pagination Controls */}
+      <div class="mt-12 flex justify-center gap-4">
+        {page.url.prev && (
+          <a 
+            href={page.url.prev} 
+            class="px-4 py-2 bg-slate-600 text-white rounded hover:bg-slate-700 transition-colors"
+          >
+            &larr; {t('common.buttons.previous')}
+          </a>
+        )}
+        <span class="px-4 py-2">
+          {t('common.pagination.page')} {page.currentPage} {t('common.pagination.of')} {page.lastPage}
+        </span>
+        {page.url.next && (
+          <a 
+            href={page.url.next}
+            class="px-4 py-2 bg-slate-600 text-white rounded hover:bg-slate-700 transition-colors"
+          >
+            {t('common.buttons.next')} &rarr;
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold mb-8">{content.home.blogs.newsletter.title}</h2>
+      <p class="text-lg mb-8">{content.home.blogs.newsletter.subtitle}</p>
+      <form class="max-w-md mx-auto">
+        <div class="flex gap-4">
+          <input
+            type="email"
+            placeholder={content.home.blogs.newsletter.email_placeholder}
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+          <button
+            type="submit"
+            class="bg-slate-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-slate-700 transition-colors duration-300"
+          >
+            {content.home.blogs.newsletter.subscribe_button}
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>

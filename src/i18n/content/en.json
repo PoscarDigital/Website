@@ -1,9 +1,9 @@
 {
   "home": {
     "hero": {
-      "title": "POSCAR Digital Co., LTD.",
-      "subtitle": "To establish a complete digital eco-platform",
-      "description": "POSCAR Digital is one of the leading company in smart system in education, accounting, attendance and other ERP solutions."
+      "title": "Powering Cambodia’s Digital Future",
+      "subtitle": "POSCAR Digital Co., Ltd.",
+      "description": "We build transformative digital solutions for education, finance, government, and enterprise sectors in Cambodia and beyond."
     },
     "about": {
       "title": "About Us",
@@ -58,54 +58,37 @@
       }
     }
   },
-  "products_services": {
+  "solutions": {
     "hero": {
-      "title": "Products & Services",
-      "description": "Explore the innovative solutions we offer to support your needs."
+      "title": "Solutions",
+      "description": "Explore our innovative digital solutions designed to transform your business"
     },
     "education": {
-      "title": "Education",
-      "items": {
-        "enrollment": {
-          "title": "Enrollment",
-          "description": "Streamlining the enrollment process for institutions."
-        }
-      }
+      "title": "Education Solutions",
+      "features": [
+        "School Management System (SMS)",
+        "University Management System (UMS)",
+        "Digital Learning Platform"
+      ],
+      "description": "Comprehensive solutions for educational institutions"
     },
     "enterprise": {
-      "title": "Enterprise",
-      "items": {
-        "vithean": {
-          "title": "Vithean Page",
-          "description": "A comprehensive platform for enterprise management."
-        },
-        "attendance": {
-          "title": "Attendance / Card / Device",
-          "description": "Innovative devices and systems for attendance management."
-        },
-        "hrm": {
-          "title": "HRM Solutions",
-          "description": "Transforming human resources management with smart technology."
-        }
-      }
+      "title": "Enterprise Solutions",
+      "features": [
+        "Accounting & ERP (Vithean)",
+        "HR Management System",
+        "Attendance Management"
+      ],
+      "description": "Integrated business management solutions"
     },
-    "custom_solution": {
-      "title": "Custom Solution",
-      "items": {
-        "tailored": {
-          "title": "Tailored Solutions",
-          "description": "Customized solutions designed to fit your unique business requirements."
-        }
-      }
-    },
-    "outsourcing": {
-      "title": "Outsourcing",
-      "items": {
-        "services": {
-          "title": "Outsourcing Services",
-          "description": "Flexible outsourcing solutions to support your business operations."
-        }
-      }
+    "event": {
+      "title": "Event Management",
+      "features": [
+        "VIP Event Management (Bakan Elite)",
+        "Digital Invitations",
+        "Guest Registration & Management"
+      ],
+      "description": "Premium event management solutions"
     }
   },
   "common": {
@@ -516,6 +499,10 @@
     "cta": {
       "title": "Ready to Transform Your Financial Management?",
       "button": "Contact Us"
+    },
+    "website": {
+      "url": "https://vithean.com",
+      "button": "Explore Accounting Solution"
     }
   },
   "bakan": {
@@ -565,4 +552,4 @@
       "button": "Explore Bakan Elite"
     }
   }
-} 
+}

@@ -23,9 +23,11 @@ const benefitsTitle = content.accounting.benefits.title;
 const benefits = content.accounting.benefits.items;
 const ctaTitle = content.accounting.cta.title;
 const ctaButton = content.accounting.cta.button;
+const websiteUrl = content.accounting.website.url;
+const websiteButton = content.accounting.website.button;
 ---
 
-<Base>
+<Base title={title} description={subtitle}>
   <!-- Hero Section -->
   <section class="bg-slate-600 text-white py-20 text-center">
     <h1 class="text-4xl font-bold mb-4">{title}</h1>
@@ -57,9 +59,17 @@ const ctaButton = content.accounting.cta.button;
   <!-- Promotion Banner -->
   <section class="py-10 text-[#C1272D] text-center">
     <div class="max-w-4xl mx-auto px-4">
-      <h3 class="text-3xl font-bold mb-4">Comprehensive Financial Management</h3>
-      <p class="text-lg mb-6">Our accounting ERP solution provides end-to-end financial management capabilities for businesses of all sizes.</p>
-      <img src="/images/accounting/banner-showcase.jpg" alt="Accounting System Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
+      <h3 class="text-3xl font-bold mb-4">{title}</h3>
+      <p class="text-lg mb-6">{subtitle}</p>
+      <img src="/images/vithean/banner-showcase.jpg" alt="Accounting System Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
+      <div class="mt-6">
+        <a
+          href={`/${lang}/contact`}
+          class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+        >
+          {ctaButton}
+        </a>
+      </div>
     </div>
   </section>
 
@@ -77,12 +87,12 @@ const ctaButton = content.accounting.cta.button;
       </div>
       <div class="mt-12">
         <a 
-          href="https://accounting.poscardigital.com" 
+          href={websiteUrl} 
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
         >
-          Explore Accounting Solution
+          {websiteButton}
         </a>
       </div>
     </div>
@@ -98,4 +108,4 @@ const ctaButton = content.accounting.cta.button;
       {ctaButton}
     </a>
   </section>
-</Base> 
+</Base>

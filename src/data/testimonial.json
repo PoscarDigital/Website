@@ -1,0 +1,40 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Mr. Dara Sok",
+      "position": "School Director",
+      "organization": "Norton University",
+      "image": "/images/testimonials/dara.jpg",
+      "quote": "POSCAR's educational management solutions have transformed how we operate. The system is intuitive and has greatly improved our administrative efficiency.",
+      "status": 1
+    },
+    {
+      "id": 2,
+      "name": "Ms. Bopha Chea",
+      "position": "HR Manager",
+      "organization": "ACLEDA Bank",
+      "image": "/images/testimonials/bopha.jpg",
+      "quote": "The HRM solution has streamlined our HR processes and made employee management much more efficient. Highly recommended!",
+      "status": 1
+    },
+    {
+      "id": 3,
+      "name": "Mr. Vuthy Pich",
+      "position": "IT Director",
+      "organization": "Beltei International University",
+      "image": "/images/testimonials/vuthy.jpg",
+      "quote": "We've been using POSCAR's solutions for over 3 years now. Their support team is excellent and the system reliability is outstanding.",
+      "status": 1
+    },
+    {
+      "id": 4,
+      "name": "Ms. Sophea Kim",
+      "position": "Academic Director",
+      "organization": "Royal University of Phnom Penh",
+      "image": "/images/testimonials/sophea.jpg",
+      "quote": "The student management system has helped us digitize our entire academic process. It's a game-changer for modern education management.",
+      "status": 1
+    }
+  ]
+}
