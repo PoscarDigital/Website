@@ -1,8 +1,12 @@
 ---
 // src/pages/[lang]/accounting-erp-vithean.astro
-import Base from '../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
-import { ui } from '../../i18n/ui';
+import Base from "../../layouts/Base.astro";
+import {
+  getLangFromUrl,
+  useTranslations,
+  getContentTranslations,
+} from "../../i18n/utils";
+import { ui } from "../../i18n/ui";
 
 export async function getStaticPaths() {
   return Object.keys(ui).map((lang) => ({ params: { lang } }));
@@ -40,17 +44,19 @@ const websiteButton = content.accounting.website.button;
       <div>
         <h3 class="text-xl font-semibold mb-4">{operationsTitle}</h3>
         <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
-          {Array.isArray(operationsItems) && operationsItems.map((item: string) => (
-            <li>• {item}</li>
-          ))}
+          {
+            Array.isArray(operationsItems) &&
+              operationsItems.map((item: string) => <li>• {item}</li>)
+          }
         </ul>
       </div>
       <div>
         <h3 class="text-xl font-semibold mb-4">{learningTitle}</h3>
         <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
-          {Array.isArray(learningItems) && learningItems.map((item: string) => (
-            <li>• {item}</li>
-          ))}
+          {
+            Array.isArray(learningItems) &&
+              learningItems.map((item: string) => <li>• {item}</li>)
+          }
         </ul>
       </div>
     </div>
@@ -78,12 +84,15 @@ const websiteButton = content.accounting.website.button;
     <div class="max-w-6xl mx-auto px-4 text-center">
       <h3 class="text-2xl font-bold text-[#C1272D] mb-12">{benefitsTitle}</h3>
       <div class="grid md:grid-cols-3 gap-8">
-        {Array.isArray(benefits) && benefits.map((benefit: { title: string; description: string }) => (
-          <div>
-            <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
-            <p class="text-sm text-gray-600">{benefit.description}</p>
-          </div>
-        ))}
+        {
+          Array.isArray(benefits) &&
+            benefits.map((benefit: { title: string; description: string }) => (
+              <div>
+                <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
+                <p class="text-sm text-gray-600">{benefit.description}</p>
+              </div>
+            ))
+        }
       </div>
       <div class="mt-12">
         <a 
@@ -101,8 +110,8 @@ const websiteButton = content.accounting.website.button;
   <!-- CTA Section -->
   <section class="py-16 text-center bg-white">
     <h3 class="text-2xl font-bold mb-4">{ctaTitle}</h3>
-    <a 
-      href={`/${lang}/contact`} 
+    <a
+      href={`/${lang}/contact`}
       class="mt-4 inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
     >
       {ctaButton}

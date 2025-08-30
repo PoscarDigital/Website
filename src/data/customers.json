@@ -2,50 +2,116 @@
   "customers": [
     {
       "id": 1,
-      "name": "Royal University of Phnom Penh",
-      "logo": "/images/customers/rupp.png",
+      "name": "3E-Fii Company",
+      "logo": "/images/customers/3e-fii.jpg",
       "status": 1
     },
     {
       "id": 2,
-      "name": "National University of Management",
-      "logo": "/images/customers/num.png",
+      "name": "Business Development Center",
+      "logo": "/images/customers/BDC.jpg",
       "status": 1
     },
     {
       "id": 3,
-      "name": "Institute of Technology of Cambodia",
-      "logo": "/images/customers/itc.png",
+      "name": "CI Cold Chain",
+      "logo": "/images/customers/cicoldchain.jpg",
       "status": 1
     },
     {
       "id": 4,
-      "name": "Norton University",
-      "logo": "/images/customers/norton.png",
+      "name": "FESC",
+      "logo": "/images/customers/FESC.png",
       "status": 1
     },
     {
       "id": 5,
-      "name": "Beltei International University",
-      "logo": "/images/customers/beltei.png",
+      "name": "Fresh News",
+      "logo": "/images/customers/freshnews.png",
       "status": 1
     },
     {
       "id": 6,
-      "name": "ACLEDA Bank",
-      "logo": "/images/customers/acleda.png",
+      "name": "ERA",
+      "logo": "/images/customers/gov-era.png",
       "status": 1
     },
     {
       "id": 7,
-      "name": "Prince Bank",
-      "logo": "/images/customers/prince.png",
+      "name": "Ministry of Civil Service",
+      "logo": "/images/customers/gov-MCS.jpg",
       "status": 1
     },
     {
       "id": 8,
-      "name": "Chip Mong Bank",
-      "logo": "/images/customers/chipmong.png",
+      "name": "Ministry of Economy and Finance",
+      "logo": "/images/customers/gov-mef.png",
+      "status": 1
+    },
+    {
+      "id": 9,
+      "name": "Ministry of Education, Youth and Sport",
+      "logo": "/images/customers/gov-moeys.png",
+      "status": 1
+    },
+    {
+      "id": 10,
+      "name": "Ministry of Health",
+      "logo": "/images/customers/gov-moh.jpg",
+      "status": 1
+    },
+    {
+      "id": 11,
+      "name": "National Institute of Education",
+      "logo": "/images/customers/gov-NIE.png",
+      "status": 1
+    },
+    {
+      "id": 12,
+      "name": "Office of the Council of Ministers",
+      "logo": "/images/customers/gov-ocm.png",
+      "status": 1
+    },
+    {
+      "id": 13,
+      "name": "Royal University of Agriculture",
+      "logo": "/images/customers/gov-rua.png",
+      "status": 1
+    },
+    {
+      "id": 14,
+      "name": "Royal University of Fine Arts",
+      "logo": "/images/customers/gov-rufa.png",
+      "status": 1
+    },
+    {
+      "id": 15,
+      "name": "KH Home",
+      "logo": "/images/customers/kh_home.jpg",
+      "status": 1
+    },
+    {
+      "id": 16,
+      "name": "KH Polypack",
+      "logo": "/images/customers/khpolypack.jpg",
+      "status": 1
+    },
+    {
+      "id": 17,
+      "name": "Metamed",
+      "logo": "/images/customers/Metamed.jpg",
+      "status": 1
+    },
+    {
+      "id": 18,
+      "name": "Star HR",
+      "logo": "/images/customers/star_hr.jpg",
+      "status": 1
+    },
+    {
+      "id": 19,
+      "name": "Templation Angkor",
+      "logo": "/images/customers/templation-angkor.png",
       "status": 1
     }
   ]

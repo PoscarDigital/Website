@@ -1,7 +1,11 @@
 ---
-import Base from '../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
-import { ui } from '../../i18n/ui';
+import Base from "../../layouts/Base.astro";
+import {
+  getLangFromUrl,
+  useTranslations,
+  getContentTranslations,
+} from "../../i18n/utils";
+import { ui } from "../../i18n/ui";
 
 export async function getStaticPaths() {
   return Object.keys(ui).map((lang) => ({ params: { lang } }));
@@ -37,17 +41,19 @@ const ctaButton = content.attendance.cta.button;
       <div>
         <h3 class="text-xl font-semibold mb-4">{operationsTitle}</h3>
         <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
-          {Array.isArray(operationsItems) && operationsItems.map((item: string) => (
-            <li>• {item}</li>
-          ))}
+          {
+            Array.isArray(operationsItems) &&
+              operationsItems.map((item: string) => <li>• {item}</li>)
+          }
         </ul>
       </div>
       <div>
         <h3 class="text-xl font-semibold mb-4">{learningTitle}</h3>
         <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
-          {Array.isArray(learningItems) && learningItems.map((item: string) => (
-            <li>• {item}</li>
-          ))}
+          {
+            Array.isArray(learningItems) &&
+              learningItems.map((item: string) => <li>• {item}</li>)
+          }
         </ul>
       </div>
     </div>
@@ -57,8 +63,15 @@ const ctaButton = content.attendance.cta.button;
   <section class="py-10 text-[#C1272D] text-center">
     <div class="max-w-4xl mx-auto px-4">
       <h3 class="text-3xl font-bold mb-4">Smart Attendance Management</h3>
-      <p class="text-lg mb-6">Our attendance solution combines advanced hardware with intelligent software to provide accurate and efficient attendance tracking.</p>
-      <img src="/images/attendance/banner-showcase.jpg" alt="Attendance System Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
+      <p class="text-lg mb-6">
+        Our attendance solution combines advanced hardware with intelligent
+        software to provide accurate and efficient attendance tracking.
+      </p>
+      <img
+        src="/images/attendance system/attendance.png"
+        alt="Attendance System Preview"
+        class="mx-auto rounded-lg shadow-xl max-w-full h-auto"
+      />
     </div>
   </section>
 
@@ -67,16 +80,19 @@ const ctaButton = content.attendance.cta.button;
     <div class="max-w-6xl mx-auto px-4 text-center">
       <h3 class="text-2xl font-bold text-[#C1272D] mb-12">{benefitsTitle}</h3>
       <div class="grid md:grid-cols-3 gap-8">
-        {Array.isArray(benefits) && benefits.map((benefit: { title: string; description: string }) => (
-          <div>
-            <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
-            <p class="text-sm text-gray-600">{benefit.description}</p>
-          </div>
-        ))}
+        {
+          Array.isArray(benefits) &&
+            benefits.map((benefit: { title: string; description: string }) => (
+              <div>
+                <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
+                <p class="text-sm text-gray-600">{benefit.description}</p>
+              </div>
+            ))
+        }
       </div>
       <div class="mt-12">
-        <a 
-          href="https://attendance.poscardigital.com" 
+        <a
+          href="https://attendance.poscardigital.com"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
@@ -90,8 +106,8 @@ const ctaButton = content.attendance.cta.button;
   <!-- CTA Section -->
   <section class="py-16 text-center bg-white">
     <h3 class="text-2xl font-bold mb-4">{ctaTitle}</h3>
-    <a 
-      href={`/${lang}/contact`} 
+    <a
+      href={`/${lang}/contact`}
       class="mt-4 inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
     >
       {ctaButton}

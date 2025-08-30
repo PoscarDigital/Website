@@ -1,0 +1,32 @@
+{
+  "brands": [
+    {
+      "name": "POSCAR Digital Co., Ltd.",
+      "logo": "/images/brand/01-Poscar.png"
+    },
+    {
+      "name": "Wiki School - SMS Solution",
+      "logo": "/images/brand/02-WikiSchool.png"
+    },
+    {
+      "name": "Wiki College - UMS Solution",
+      "logo": "/images/brand/03-WikiCollege.png"
+    },
+    {
+      "name": "Wiki TV - Online TV",
+      "logo": "/images/brand/04-WikiTV.png"
+    },
+    {
+      "name": "Vithean Accounting System & ERP",
+      "logo": "/images/brand/05-Vithean.png"
+    },
+    {
+      "name": "Blue Pinn - Project Management Solutions",
+      "logo": "/images/brand/06-BluePinn.png"
+    },
+    {
+      "name": "Bakan Elite - Event Management Solutions",
+      "logo": "/images/brand/07-BakanElite.png"
+    }
+  ]
+}
