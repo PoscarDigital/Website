@@ -12,17 +12,17 @@ const t = useTranslations(lang);
     
     <!-- Company Info -->
     <div>
-      <h3 class="text-2xl font-semibold mb-4">Work with us</h3>
-      <p class="text-gray-200 text-sm mb-4">
-        {t('footer.description')} {/* Adjust description key as necessary */}
+      <h3 class="text-h3 mb-4">Work with us</h3>
+      <p class="text-gray-200 text-caption mb-4">
+        {t('footer.description')}
       </p>
-      <p class="text-gray-200 text-sm">© {new Date().getFullYear()} POSCAR Digital Co., LTD. All rights reserved.</p>
+      <p class="text-gray-200 text-caption">© {new Date().getFullYear()} POSCAR Digital Co., LTD. All rights reserved.</p>
     </div>
 
     <!-- Quick Links -->
     <div>
-      <h4 class="text-xl font-semibold mb-4">{t('footer.quick_links')}</h4>
-      <ul class="space-y-3">
+      <h3 class="text-h3 mb-4">{t('footer.quick_links')}</h3>
+      <ul class="space-y-3 text-caption">
         <li><a href={`/${lang}`} class="text-gray-200 hover:text-blue-300 transition-colors">{t('nav.home')}</a></li>
         <li><a href={`/${lang}/products-services/`} class="text-gray-200 hover:text-blue-300 transition-colors">{t('nav.products_services')}</a></li>
         <li><a href={`/${lang}/about/`} class="text-gray-200 hover:text-blue-300 transition-colors">{t('nav.about')}</a></li>
@@ -33,8 +33,8 @@ const t = useTranslations(lang);
 
     <!-- Contact and Social Media -->
     <div>
-      <h4 class="text-xl font-semibold mb-4">{t('footer.contact_us')}</h4>
-      <ul class="space-y-3 text-gray-200 text-sm">
+      <h3 class="text-h3 mb-4">{t('footer.contact_us')}</h3>
+      <ul class="space-y-3 text-gray-200 text-caption">
         <li>{t('footer.phone')}: +855-95-569-568</li>
         <li>{t('footer.email')}: info@poscardigital.com</li>
         <li>{t('footer.address')}: 3E:Fii Building, 6-7th Floor, Vimean Akpheak Street, Phnom Penh, Cambodia</li>

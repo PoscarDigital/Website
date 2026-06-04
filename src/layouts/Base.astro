@@ -2,6 +2,9 @@
 import { getLangFromUrl } from "../i18n/utils";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import "@fontsource/kantumruy-pro/400.css";
+import "@fontsource/kantumruy-pro/500.css";
+import "@fontsource/kantumruy-pro/700.css";
 
 const lang = getLangFromUrl(Astro.url);
 
@@ -177,33 +180,31 @@ const structuredData = {
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nokora&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <style>
-      /* Global font styles */
-      body {
-        font-family: 'Kantumruy Pro', sans-serif;
-      }
 
+    <style>
+      /* Global font stack */
+      body,
       h1, h2, h3, h4, h5, h6, p {
         font-family: 'Kantumruy Pro', sans-serif;
       }
 
-      /* Optional: Customize font weights */
-      .text-bold {
-        font-weight: 700;
+      /* Khmer needs more leading so subscripts/superscripts don't clip */
+      :lang(km) h1,
+      :lang(km) h2,
+      :lang(km) h3,
+      :lang(km) h4,
+      :lang(km) h5,
+      :lang(km) h6 {
+        line-height: 1.4;
+      }
+      :lang(km) p,
+      :lang(km) li {
+        line-height: 1.85;
       }
 
-      .text-medium {
-        font-weight: 500;
-      }
-
-      .text-regular {
-        font-weight: 400;
-      }
+      .text-bold { font-weight: 700; }
+      .text-medium { font-weight: 500; }
+      .text-regular { font-weight: 400; }
     </style>
   </head>
   <body class="bg-gray-100 text-gray-900 font-kantumruy">

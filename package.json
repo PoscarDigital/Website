@@ -5,11 +5,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview",
-    "astro": "astro",
-    "cms": "npx @staticcms/proxy-server",
-    "dev:cms": "concurrently \"npm run cms\" \"npm run dev -- --host\""
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -20,14 +19,12 @@
     "alpinejs": "^3.14.9",
     "aos": "^2.3.4",
     "astro": "^4.16.7",
-    "decap-cms-app": "^3.4.0",
     "gsap": "^3.12.5",
     "swiper": "^11.2.8",
     "tw-elements": "^2.0.0",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@staticcms/proxy-server": "^4.0.4",
     "@tailwindcss/typography": "^0.5.16"
   }
 }

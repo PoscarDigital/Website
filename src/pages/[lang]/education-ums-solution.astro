@@ -27,24 +27,24 @@ const ctaButton = content.education.ums.cta.button;
 <Base>
   <!-- Hero Section -->
   <section class="bg-slate-600 text-white py-20 text-center">
-    <h1 class="text-4xl font-bold mb-4">{title}</h1>
-    <p class="text-lg">{subtitle}</p>
+    <h1 class="text-display mb-4">{title}</h1>
+    <p class="text-lead">{subtitle}</p>
   </section>
 
   <!-- Overview Features -->
   <section class="py-16 bg-white">
     <div class="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-10 text-center">
       <div>
-        <h3 class="text-xl font-semibold mb-4">{operationsTitle}</h3>
-        <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
+        <h2 class="text-h2 mb-4">{operationsTitle}</h2>
+        <ul class="space-y-2 text-caption text-gray-700 inline-block text-left">
           {Array.isArray(operationsItems) && operationsItems.map((item: string) => (
             <li>• {item}</li>
           ))}
         </ul>
       </div>
       <div>
-        <h3 class="text-xl font-semibold mb-4">{learningTitle}</h3>
-        <ul class="space-y-2 text-sm text-gray-700 inline-block text-left">
+        <h2 class="text-h2 mb-4">{learningTitle}</h2>
+        <ul class="space-y-2 text-caption text-gray-700 inline-block text-left">
           {Array.isArray(learningItems) && learningItems.map((item: string) => (
             <li>• {item}</li>
           ))}
@@ -56,8 +56,8 @@ const ctaButton = content.education.ums.cta.button;
   <!-- Promotion Banner -->
   <section class="py-10 text-[#C1272D] text-center">
     <div class="max-w-4xl mx-auto px-4">
-      <h3 class="text-3xl font-bold mb-4">Trusted by Universities Nationwide</h3>
-      <p class="text-lg mb-6">Wiki College empowers university leaders, faculty, and students with real-time data, smart tools, and seamless coordination for academic excellence.</p>
+      <h2 class="text-h1 mb-4">Trusted by Universities Nationwide</h2>
+      <p class="text-lead mb-6">Wiki College empowers university leaders, faculty, and students with real-time data, smart tools, and seamless coordination for academic excellence.</p>
       <img src="/images/wikicollege/banner-showcase.jpg" alt="Wiki College Dashboard Preview" class="mx-auto rounded-lg shadow-xl max-w-full h-auto">
     </div>
   </section>
@@ -65,12 +65,12 @@ const ctaButton = content.education.ums.cta.button;
   <!-- Key Benefits -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold text-[#C1272D] mb-12">{benefitsTitle}</h3>
+      <h2 class="text-h1 text-[#C1272D] mb-12">{benefitsTitle}</h2>
       <div class="grid md:grid-cols-3 gap-8">
         {Array.isArray(benefits) && benefits.map((benefit: { title: string; description: string }) => (
           <div>
-            <h4 class="font-semibold text-lg mb-2">{benefit.title}</h4>
-            <p class="text-sm text-gray-600">{benefit.description}</p>
+            <h3 class="text-h3 mb-2">{benefit.title}</h3>
+            <p class="text-caption text-gray-600">{benefit.description}</p>
           </div>
         ))}
       </div>
@@ -89,7 +89,7 @@ const ctaButton = content.education.ums.cta.button;
 
   <!-- CTA Section -->
   <section class="py-16 text-center bg-white">
-    <h3 class="text-2xl font-bold mb-4">{ctaTitle}</h3>
+    <h2 class="text-h1 mb-4">{ctaTitle}</h2>
     <a 
       href={`/${lang}/contact`} 
       class="mt-4 inline-block bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"

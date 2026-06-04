@@ -35,14 +35,14 @@ const posts = allPosts
 <Base>
   <!-- Hero Section -->
   <section id="home" class="bg-red-50 py-20 text-center text-[#C1272D]">
-    <div class="container mx-auto">
-      <h2 class="text-4xl font-bold mb-4">{content.home.hero.title}</h2>
-      <p class="text-lg text-gray-700 mb-6 max-w-xl mx-auto">
+    <div class="container mx-auto px-4">
+      <h1 class="text-display mb-6">{content.home.hero.title}</h1>
+      <p class="text-lead text-gray-700 mb-8 max-w-2xl mx-auto">
         {content.home.hero.description}
       </p>
       <a
         href={`/${lang}/contact/`}
-        class="px-6 py-3 bg-[#C1272D] text-white rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+        class="inline-block px-7 py-3.5 bg-[#C1272D] text-white text-base font-semibold rounded-full hover:bg-[#991B1F] transition-colors duration-300"
       >
         {ui("common.buttons.get_started")}
       </a>
@@ -50,10 +50,10 @@ const posts = allPosts
   </section>
 
   <!-- Solutions Section -->
-  <section id="solutions" class="py-16 max-w-7xl mx-auto px-4">
-    <div class="text-center mb-12">
-      <h3 class="text-3xl font-bold mb-4 text-[#C1272D]">{content.solutions.hero.title}</h3>
-      <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+  <section id="solutions" class="py-20 max-w-7xl mx-auto px-4">
+    <div class="text-center mb-14">
+      <h2 class="text-h1 mb-4 text-[#C1272D]">{content.solutions.hero.title}</h2>
+      <p class="text-lead text-gray-600 max-w-2xl mx-auto mb-8">
         {content.solutions.hero.description}
       </p>
       <a
@@ -77,8 +77,8 @@ const posts = allPosts
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.solutions.education.title}</h4>
-          <ul class="space-y-2 text-gray-600 mb-4">
+          <h3 class="text-h3 mb-3 text-[#C1272D]">{content.solutions.education.title}</h3>
+          <ul class="space-y-2 text-body text-gray-600 mb-4">
             {content.solutions.education.features.map((feature: string) => (
               <li class="flex items-center">
                 <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,8 +115,8 @@ const posts = allPosts
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.solutions.enterprise.title}</h4>
-          <ul class="space-y-2 text-gray-600 mb-4">
+          <h3 class="text-h3 mb-3 text-[#C1272D]">{content.solutions.enterprise.title}</h3>
+          <ul class="space-y-2 text-body text-gray-600 mb-4">
             {content.solutions.enterprise.features.map((feature: string) => (
               <li class="flex items-center">
                 <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,8 +145,8 @@ const posts = allPosts
           />
         </div>
         <div class="p-6">
-          <h4 class="text-xl font-semibold mb-3 text-[#C1272D]">{content.solutions.event.title}</h4>
-          <ul class="space-y-2 text-gray-600 mb-4">
+          <h3 class="text-h3 mb-3 text-[#C1272D]">{content.solutions.event.title}</h3>
+          <ul class="space-y-2 text-body text-gray-600 mb-4">
             {content.solutions.event.features.map((feature: string) => (
               <li class="flex items-center">
                 <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,61 +168,61 @@ const posts = allPosts
   </section>
 
   <!-- Impact Section -->
-  <section id="impact" class="bg-red-50 py-16">
+  <section id="impact" class="bg-red-50 py-20">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold mb-10 text-[#C1272D]">
+      <h2 class="text-h1 mb-12 text-[#C1272D]">
         {content.home.impact.title}
-      </h3>
-      <div class="grid md:grid-cols-3 gap-6">
+      </h2>
+      <div class="grid md:grid-cols-3 gap-10">
         <div>
-          <p class="text-4xl font-bold text-[#C1272D]">25+</p>
-          <p class="text-sm">{content.home.impact.government_partners}</p>
+          <p class="text-stat text-[#C1272D] mb-2">25+</p>
+          <p class="text-lead text-gray-700">{content.home.impact.government_partners}</p>
         </div>
         <div>
-          <p class="text-4xl font-bold text-[#C1272D]">3M+</p>
-          <p class="text-sm">{content.home.impact.users_engaged}</p>
+          <p class="text-stat text-[#C1272D] mb-2">3M+</p>
+          <p class="text-lead text-gray-700">{content.home.impact.users_engaged}</p>
         </div>
         <div>
-          <p class="text-4xl font-bold text-[#C1272D]">99.9%</p>
-          <p class="text-sm">{content.home.impact.system_uptime}</p>
+          <p class="text-stat text-[#C1272D] mb-2">99.9%</p>
+          <p class="text-lead text-gray-700">{content.home.impact.system_uptime}</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Industries Section -->
-  <section id="industries" class="py-16 max-w-7xl mx-auto px-4">
-    <h3 class="text-2xl font-bold mb-10 text-center text-[#C1272D]">
+  <section id="industries" class="py-20 max-w-7xl mx-auto px-4">
+    <h2 class="text-h1 mb-12 text-center text-[#C1272D]">
       {content.home.industries.title}
-    </h3>
+    </h2>
     <div class="grid md:grid-cols-4 gap-6 text-center">
       <div>
-        <p class="font-medium">🎓 {content.home.industries.education}</p>
+        <p class="text-h4 text-gray-800">🎓 {content.home.industries.education}</p>
       </div>
       <div>
-        <p class="font-medium">🏛 {content.home.industries.government}</p>
+        <p class="text-h4 text-gray-800">🏛 {content.home.industries.government}</p>
       </div>
       <div>
-        <p class="font-medium">💼 {content.home.industries.enterprise}</p>
+        <p class="text-h4 text-gray-800">💼 {content.home.industries.enterprise}</p>
       </div>
       <div>
-        <p class="font-medium">🏥 {content.home.industries.healthcare}</p>
+        <p class="text-h4 text-gray-800">🏥 {content.home.industries.healthcare}</p>
       </div>
     </div>
   </section>
 
   <!-- Company Section -->
-  <section id="company" class="bg-red-50 py-16">
+  <section id="company" class="bg-red-50 py-20">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold mb-6 text-[#C1272D]">
+      <h2 class="text-h1 mb-6 text-[#C1272D]">
         {content.home.about.title}
-      </h3>
-      <p class="text-gray-700 max-w-2xl mx-auto mb-6">
+      </h2>
+      <p class="text-lead text-gray-700 max-w-2xl mx-auto mb-8">
         {content.home.about.description}
       </p>
       <a
         href={`/${lang}/about/`}
-        class="text-[#C1272D] underline hover:text-[#991B1F] transition-colors duration-300"
+        class="text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
       >
         {ui("common.buttons.learn_more")} →
       </a>
@@ -232,29 +232,30 @@ const posts = allPosts
   <!-- Blogs Section -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">
+      <h2 class="text-h1 text-[#C1272D] text-center mb-12">
         {content.home.blogs.title}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post: BlogPost) => (
           <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             {post.data.thumbnail && (
-              <img 
-                src={post.data.thumbnail} 
+              <img
+                src={post.data.thumbnail}
                 alt={post.data.title}
                 class="w-full h-48 object-cover"
               />
             )}
-            <div class="p-6">              <div class="flex items-center text-sm text-gray-600 mb-4">
+            <div class="p-6">
+              <div class="flex items-center text-caption text-gray-600 mb-4">
                 <span>{post.data.date.toLocaleDateString()}</span>
                 <span class="mx-2">•</span>
                 <span>{post.data.author}</span>
               </div>
-              <h3 class="text-xl font-semibold mb-3">{post.data.title}</h3>
-              <p class="text-gray-600 mb-4">{post.data.description}</p>
-              <a 
+              <h3 class="text-h3 mb-3">{post.data.title}</h3>
+              <p class="text-body text-gray-600 mb-4">{post.data.description}</p>
+              <a
                 href={`/${lang}/blog/${post.slug}`}
-                class="text-[#C1272D] hover:text-[#991B1F] font-medium inline-flex items-center"
+                class="text-[#C1272D] hover:text-[#991B1F] font-semibold inline-flex items-center"
               >
                 {ui('common.buttons.read_more')}
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -269,15 +270,15 @@ const posts = allPosts
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="bg-red-50 py-16 text-center">
+  <section id="contact" class="bg-red-50 py-20 text-center">
     <div class="max-w-2xl mx-auto px-4">
-      <h3 class="text-2xl font-bold mb-4 text-[#C1272D]">
+      <h2 class="text-h1 mb-4 text-[#C1272D]">
         {content.home.contact.title}
-      </h3>
-      <p class="text-gray-700 mb-6">{content.home.contact.description}</p>
+      </h2>
+      <p class="text-lead text-gray-700 mb-8">{content.home.contact.description}</p>
       <a
         href={`/${lang}/contact/`}
-        class="bg-[#C1272D] text-white px-6 py-3 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
+        class="inline-block bg-[#C1272D] text-white text-base font-semibold px-7 py-3.5 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
       >
         {ui("common.buttons.contact_us")}
       </a>

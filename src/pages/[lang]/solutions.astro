@@ -16,19 +16,19 @@ const t = useTranslations(lang);
   <!-- Products & Services Header Section -->
   <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">{t('products_services.hero.title')}</h1>
-      <p class="text-lg md:text-xl mb-8">{t('products_services.hero.description')}</p>
+      <h1 class="text-display mb-4">{t('products_services.hero.title')}</h1>
+      <p class="text-lead mb-8 max-w-2xl mx-auto">{t('products_services.hero.description')}</p>
     </div>
   </section>
 
   <!-- Education Section -->
   <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-4xl">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6 text-center">{t('products_services.education.title')}</h2>
+      <h2 class="text-h1 mb-6 text-center">{t('products_services.education.title')}</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{t('products_services.education.items.k12.title')}</h3>
-          <p class="text-lg mb-4">{t('products_services.education.items.k12.description')}</p>
+          <h3 class="text-h3 mb-4">{t('products_services.education.items.k12.title')}</h3>
+          <p class="text-body mb-4">{t('products_services.education.items.k12.description')}</p>
           <a 
             href={`/${lang}/education-sms-solution`}
             class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -37,8 +37,8 @@ const t = useTranslations(lang);
           </a>
         </div>
         <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{t('products_services.education.items.university.title')}</h3>
-          <p class="text-lg mb-4">{t('products_services.education.items.university.description')}</p>
+          <h3 class="text-h3 mb-4">{t('products_services.education.items.university.title')}</h3>
+          <p class="text-body mb-4">{t('products_services.education.items.university.description')}</p>
           <a 
             href={`/${lang}/education-ums-solution`}
             class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -47,8 +47,8 @@ const t = useTranslations(lang);
           </a>
         </div>
         <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{t('products_services.education.items.enrollment.title')}</h3>
-          <p class="text-lg mb-4">{t('products_services.education.items.enrollment.description')}</p>
+          <h3 class="text-h3 mb-4">{t('products_services.education.items.enrollment.title')}</h3>
+          <p class="text-body mb-4">{t('products_services.education.items.enrollment.description')}</p>
           <a 
             href={`/${lang}/enrollment-online-registration`}
             class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -63,11 +63,11 @@ const t = useTranslations(lang);
   <!-- Enterprise Section -->
   <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-4xl">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6 text-center">{t('products_services.enterprise.title')}</h2>
+      <h2 class="text-h1 mb-6 text-center">{t('products_services.enterprise.title')}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{t('products_services.enterprise.items.vithean.title')}</h3>
-          <p class="text-lg mb-4">{t('products_services.enterprise.items.vithean.description')}</p>
+          <h3 class="text-h3 mb-4">{t('products_services.enterprise.items.vithean.title')}</h3>
+          <p class="text-body mb-4">{t('products_services.enterprise.items.vithean.description')}</p>
           <a 
             href="https://vithean.com" 
             class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -76,8 +76,8 @@ const t = useTranslations(lang);
           </a>
         </div>
         <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{t('products_services.enterprise.items.attendance.title')}</h3>
-          <p class="text-lg mb-4">{t('products_services.enterprise.items.attendance.description')}</p>
+          <h3 class="text-h3 mb-4">{t('products_services.enterprise.items.attendance.title')}</h3>
+          <p class="text-body mb-4">{t('products_services.enterprise.items.attendance.description')}</p>
           <a 
             href={`/${lang}/attendance-solution`}
             class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -86,8 +86,8 @@ const t = useTranslations(lang);
           </a>
         </div>
         <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-          <h3 class="text-2xl font-semibold mb-4">{t('products_services.enterprise.items.hrm.title')}</h3>
-          <p class="text-lg mb-4">{t('products_services.enterprise.items.hrm.description')}</p>
+          <h3 class="text-h3 mb-4">{t('products_services.enterprise.items.hrm.title')}</h3>
+          <p class="text-body mb-4">{t('products_services.enterprise.items.hrm.description')}</p>
           <a 
             href={`/${lang}/hrm-solution`}
             class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -102,10 +102,10 @@ const t = useTranslations(lang);
   <!-- Custom Solutions Section -->
   <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-4xl">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6 text-center">{t('products_services.custom_solution.title')}</h2>
+      <h2 class="text-h1 mb-6 text-center">{t('products_services.custom_solution.title')}</h2>
       <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-        <h3 class="text-2xl font-semibold mb-4">{t('products_services.custom_solution.items.tailored.title')}</h3>
-        <p class="text-lg mb-4">{t('products_services.custom_solution.items.tailored.description')}</p>
+        <h3 class="text-h3 mb-4">{t('products_services.custom_solution.items.tailored.title')}</h3>
+        <p class="text-body mb-4">{t('products_services.custom_solution.items.tailored.description')}</p>
         <a 
           href={`/${lang}/other-solutions`}
           class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
@@ -119,10 +119,10 @@ const t = useTranslations(lang);
   <!-- Outsourcing Section -->
   <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-4xl">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6 text-center">{t('products_services.outsourcing.title')}</h2>
+      <h2 class="text-h1 mb-6 text-center">{t('products_services.outsourcing.title')}</h2>
       <div class="bg-gray-100 shadow-lg rounded-lg p-6">
-        <h3 class="text-2xl font-semibold mb-4">{t('products_services.outsourcing.items.services.title')}</h3>
-        <p class="text-lg mb-4">{t('products_services.outsourcing.items.services.description')}</p>
+        <h3 class="text-h3 mb-4">{t('products_services.outsourcing.items.services.title')}</h3>
+        <p class="text-body mb-4">{t('products_services.outsourcing.items.services.description')}</p>
         <a 
           href={`/${lang}/contact`}
           class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"

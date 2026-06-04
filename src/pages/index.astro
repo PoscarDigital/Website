@@ -1,4 +1,18 @@
 ---
-// Redirect to the default language
-return Astro.redirect('/en/');
---- 
+// Static root page that redirects to the default language.
+// Astro.redirect() doesn't work on static hosts (GitHub Pages), so we emit
+// a meta-refresh + JS fallback + a link for crawlers/no-JS clients.
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>POSCAR Digital</title>
+    <link rel="canonical" href="https://poscardigital.com/en/" />
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <script>window.location.replace('/en/');</script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/en/">POSCAR Digital</a>&hellip;</p>
+  </body>
+</html>
