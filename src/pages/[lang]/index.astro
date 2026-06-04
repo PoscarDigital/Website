@@ -6,6 +6,7 @@ import { getContentTranslations } from '../../i18n/utils';
 import { useTranslations } from '../../i18n/utils';
 import { ui as uiTranslations } from '../../i18n/ui';
 import { getCollection } from 'astro:content';
+import customerData from '../../data/customers.json';
 
 export async function getStaticPaths() {
   return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
@@ -22,6 +23,7 @@ interface BlogPost {
     description: string;
     author: string;
     thumbnail?: string;
+    category?: string;
   };
   slug: string;
 }
@@ -30,22 +32,104 @@ const allPosts = await getCollection('blog');
 const posts = allPosts
   .sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+
+// Featured customer logos for "Trusted by" strip — first 8 active
+const trustedLogos = customerData.customers
+  .filter((c) => c.status === 1)
+  .slice(0, 8);
+
+const industries = [
+  {
+    label: content.home.industries.education,
+    icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z',
+  },
+  {
+    label: content.home.industries.government,
+    icon: 'M4 21V10m16 11V10M4 10l8-7 8 7M9 21V13h6v8',
+  },
+  {
+    label: content.home.industries.enterprise,
+    icon: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  },
+  {
+    label: content.home.industries.healthcare,
+    icon: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+  },
+];
+
+const stats = [
+  {
+    value: '25+',
+    label: content.home.impact.government_partners,
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+  },
+  {
+    value: '3M+',
+    label: content.home.impact.users_engaged,
+    icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
+  },
+  {
+    value: '99.9%',
+    label: content.home.impact.system_uptime,
+    icon: 'M5 12l5 5L20 7',
+  },
+];
 ---
 
 <Base>
   <!-- Hero Section -->
-  <section id="home" class="bg-red-50 py-20 text-center text-[#C1272D]">
-    <div class="container mx-auto px-4">
-      <h1 class="text-display mb-6">{content.home.hero.title}</h1>
-      <p class="text-lead text-gray-700 mb-8 max-w-2xl mx-auto">
-        {content.home.hero.description}
+  <section id="home" class="relative overflow-hidden bg-gradient-to-b from-red-50 to-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Text side -->
+        <div class="text-center md:text-left">
+          <p class="eyebrow mb-5">{content.home.hero.subtitle}</p>
+          <h1 class="text-display text-[#C1272D] mb-6">{content.home.hero.title}</h1>
+          <p class="text-lead text-gray-700 mb-8 max-w-xl mx-auto md:mx-0">
+            {content.home.hero.description}
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href={`/${lang}/contact/`} class="btn btn-primary">
+              {ui("common.buttons.get_started")}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href={`/${lang}/solutions`} class="btn btn-secondary">
+              {ui("common.buttons.learn_more")}
+            </a>
+          </div>
+        </div>
+        <!-- Image side -->
+        <div class="relative">
+          <div class="absolute -inset-6 bg-[#C1272D]/10 rounded-3xl blur-2xl" aria-hidden="true"></div>
+          <img
+            src="/images/wikischool/banner-showcase.jpg"
+            alt="POSCAR Digital platform showcase"
+            class="relative w-full rounded-2xl shadow-2xl ring-1 ring-red-100"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted by — customer logo strip -->
+  <section aria-label="Trusted by" class="bg-white border-y border-gray-100 py-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="text-caption text-center text-gray-500 uppercase tracking-wider mb-8">
+        Trusted by 25+ leading organizations across Cambodia
       </p>
-      <a
-        href={`/${lang}/contact/`}
-        class="inline-block px-7 py-3.5 bg-[#C1272D] text-white text-base font-semibold rounded-full hover:bg-[#991B1F] transition-colors duration-300"
-      >
-        {ui("common.buttons.get_started")}
-      </a>
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
+        {trustedLogos.map((customer) => (
+          <img
+            src={customer.logo}
+            alt={customer.name}
+            class="h-10 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300"
+            loading="lazy"
+          />
+        ))}
+      </div>
     </div>
   </section>
 
@@ -56,24 +140,20 @@ const posts = allPosts
       <p class="text-lead text-gray-600 max-w-2xl mx-auto mb-8">
         {content.solutions.hero.description}
       </p>
-      <a
-        href={`/${lang}/solutions`}
-        class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
-      >
+      <a href={`/${lang}/solutions`} class="btn btn-ghost">
         {ui("common.buttons.learn_more")} →
       </a>
     </div>
 
     <div class="grid md:grid-cols-3 gap-8">
       <!-- Education Solutions -->
-      <div
-        class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-      >
+      <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden">
         <div class="aspect-w-16 aspect-h-9">
           <img
             src="/images/wikischool/wiki-1.png"
             alt="Education Solutions"
             class="w-full h-48 object-cover"
+            loading="lazy"
           />
         </div>
         <div class="p-6">
@@ -81,37 +161,28 @@ const posts = allPosts
           <ul class="space-y-2 text-body text-gray-600 mb-4">
             {content.solutions.education.features.map((feature: string) => (
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-2 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 {feature}
               </li>
             ))}
           </ul>
-          <div class="flex justify-between">
-            <a
-              href={`/${lang}/education-sms-solution`}
-              class="text-sm text-[#C1272D] hover:text-[#991B1F] transition-colors duration-300"
-            >
-              Wiki School →
-            </a>
-            <a
-              href={`/${lang}/education-ums-solution`}
-              class="text-sm text-[#C1272D] hover:text-[#991B1F] transition-colors duration-300"
-            >
-              Wiki College →
-            </a>
+          <div class="flex justify-between text-caption font-semibold">
+            <a href={`/${lang}/education-sms-solution`} class="text-[#C1272D] hover:text-[#991B1F] transition-colors">Wiki School →</a>
+            <a href={`/${lang}/education-ums-solution`} class="text-[#C1272D] hover:text-[#991B1F] transition-colors">Wiki College →</a>
           </div>
         </div>
       </div>
 
       <!-- Enterprise Solutions -->
-      <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
+      <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden">
         <div class="aspect-w-16 aspect-h-9">
-          <img 
-            src="/images/vithean-solution.jpg" 
-            alt="Enterprise Solutions" 
+          <img
+            src="/images/vithean-solution.jpg"
+            alt="Enterprise Solutions"
             class="w-full h-48 object-cover"
+            loading="lazy"
           />
         </div>
         <div class="p-6">
@@ -119,29 +190,27 @@ const posts = allPosts
           <ul class="space-y-2 text-body text-gray-600 mb-4">
             {content.solutions.enterprise.features.map((feature: string) => (
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-2 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 {feature}
               </li>
             ))}
           </ul>
-          <a 
-            href={`/${lang}/accounting-erp-vithean`}
-            class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
-          >
+          <a href={`/${lang}/accounting-erp-vithean`} class="text-caption font-semibold text-[#C1272D] hover:text-[#991B1F] transition-colors">
             {ui("common.buttons.learn_more")} →
           </a>
         </div>
       </div>
 
       <!-- Event Management -->
-      <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
+      <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden">
         <div class="aspect-w-16 aspect-h-9">
-          <img 
-            src="/images/bakan-elite.png" 
-            alt="Event Management" 
+          <img
+            src="/images/bakan-elite.png"
+            alt="Event Management"
             class="w-full h-48 object-cover"
+            loading="lazy"
           />
         </div>
         <div class="p-6">
@@ -149,17 +218,14 @@ const posts = allPosts
           <ul class="space-y-2 text-body text-gray-600 mb-4">
             {content.solutions.event.features.map((feature: string) => (
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-2 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-2 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 {feature}
               </li>
             ))}
           </ul>
-          <a 
-            href={`/${lang}/bakan-elite`}
-            class="inline-block text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
-          >
+          <a href={`/${lang}/bakan-elite`} class="text-caption font-semibold text-[#C1272D] hover:text-[#991B1F] transition-colors">
             {ui("common.buttons.learn_more")} →
           </a>
         </div>
@@ -168,51 +234,50 @@ const posts = allPosts
   </section>
 
   <!-- Impact Section -->
-  <section id="impact" class="bg-red-50 py-20">
+  <section id="impact" class="bg-red-50 py-20 border-t border-red-100">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-h1 mb-12 text-[#C1272D]">
+      <h2 class="text-h1 mb-14 text-[#C1272D]">
         {content.home.impact.title}
       </h2>
-      <div class="grid md:grid-cols-3 gap-10">
-        <div>
-          <p class="text-stat text-[#C1272D] mb-2">25+</p>
-          <p class="text-lead text-gray-700">{content.home.impact.government_partners}</p>
-        </div>
-        <div>
-          <p class="text-stat text-[#C1272D] mb-2">3M+</p>
-          <p class="text-lead text-gray-700">{content.home.impact.users_engaged}</p>
-        </div>
-        <div>
-          <p class="text-stat text-[#C1272D] mb-2">99.9%</p>
-          <p class="text-lead text-gray-700">{content.home.impact.system_uptime}</p>
-        </div>
+      <div class="grid md:grid-cols-3 gap-10 md:divide-x md:divide-red-200">
+        {stats.map((stat) => (
+          <div class="px-4">
+            <div class="flex justify-center mb-4">
+              <div class="w-14 h-14 rounded-full bg-[#C1272D]/10 flex items-center justify-center">
+                <svg class="w-7 h-7 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={stat.icon} />
+                </svg>
+              </div>
+            </div>
+            <p class="text-stat text-[#C1272D] mb-2">{stat.value}</p>
+            <p class="text-lead text-gray-700">{stat.label}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- Industries Section -->
   <section id="industries" class="py-20 max-w-7xl mx-auto px-4">
-    <h2 class="text-h1 mb-12 text-center text-[#C1272D]">
+    <h2 class="text-h1 mb-14 text-center text-[#C1272D]">
       {content.home.industries.title}
     </h2>
-    <div class="grid md:grid-cols-4 gap-6 text-center">
-      <div>
-        <p class="text-h4 text-gray-800">🎓 {content.home.industries.education}</p>
-      </div>
-      <div>
-        <p class="text-h4 text-gray-800">🏛 {content.home.industries.government}</p>
-      </div>
-      <div>
-        <p class="text-h4 text-gray-800">💼 {content.home.industries.enterprise}</p>
-      </div>
-      <div>
-        <p class="text-h4 text-gray-800">🏥 {content.home.industries.healthcare}</p>
-      </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {industries.map((ind) => (
+        <div class="card-lift bg-white border border-gray-100 rounded-xl p-6 text-center shadow-sm hover:shadow-lg">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-[#C1272D]/10 flex items-center justify-center">
+            <svg class="w-7 h-7 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={ind.icon} />
+            </svg>
+          </div>
+          <p class="text-h4 text-gray-800">{ind.label}</p>
+        </div>
+      ))}
     </div>
   </section>
 
   <!-- Company Section -->
-  <section id="company" class="bg-red-50 py-20">
+  <section id="company" class="bg-red-50 py-20 border-t border-red-100">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <h2 class="text-h1 mb-6 text-[#C1272D]">
         {content.home.about.title}
@@ -220,10 +285,7 @@ const posts = allPosts
       <p class="text-lead text-gray-700 max-w-2xl mx-auto mb-8">
         {content.home.about.description}
       </p>
-      <a
-        href={`/${lang}/about/`}
-        class="text-[#C1272D] font-semibold hover:text-[#991B1F] transition-colors duration-300"
-      >
+      <a href={`/${lang}/about/`} class="btn btn-ghost">
         {ui("common.buttons.learn_more")} →
       </a>
     </div>
@@ -237,28 +299,33 @@ const posts = allPosts
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post: BlogPost) => (
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="card-lift bg-white rounded-xl shadow-lg hover:shadow-xl overflow-hidden">
             {post.data.thumbnail && (
-              <img
-                src={post.data.thumbnail}
-                alt={post.data.title}
-                class="w-full h-48 object-cover"
-              />
+              <div class="relative">
+                <img
+                  src={post.data.thumbnail}
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover"
+                  loading="lazy"
+                />
+                {post.data.category && (
+                  <span class="absolute top-3 left-3 inline-block bg-[#C1272D] text-white text-micro font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                    {post.data.category}
+                  </span>
+                )}
+              </div>
             )}
             <div class="p-6">
-              <div class="flex items-center text-caption text-gray-600 mb-4">
+              <div class="flex items-center text-caption text-gray-500 mb-3">
                 <span>{post.data.date.toLocaleDateString()}</span>
                 <span class="mx-2">•</span>
                 <span>{post.data.author}</span>
               </div>
               <h3 class="text-h3 mb-3">{post.data.title}</h3>
               <p class="text-body text-gray-600 mb-4">{post.data.description}</p>
-              <a
-                href={`/${lang}/blog/${post.slug}`}
-                class="text-[#C1272D] hover:text-[#991B1F] font-semibold inline-flex items-center"
-              >
+              <a href={`/${lang}/blog/${post.slug}`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold inline-flex items-center">
                 {ui('common.buttons.read_more')}
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
               </a>
@@ -270,16 +337,13 @@ const posts = allPosts
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="bg-red-50 py-20 text-center">
+  <section id="contact" class="bg-red-50 py-20 text-center border-t border-red-100">
     <div class="max-w-2xl mx-auto px-4">
       <h2 class="text-h1 mb-4 text-[#C1272D]">
         {content.home.contact.title}
       </h2>
       <p class="text-lead text-gray-700 mb-8">{content.home.contact.description}</p>
-      <a
-        href={`/${lang}/contact/`}
-        class="inline-block bg-[#C1272D] text-white text-base font-semibold px-7 py-3.5 rounded-full hover:bg-[#991B1F] transition-colors duration-300"
-      >
+      <a href={`/${lang}/contact/`} class="btn btn-primary">
         {ui("common.buttons.contact_us")}
       </a>
     </div>

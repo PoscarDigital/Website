@@ -7,10 +7,11 @@ const currentLang = languages[lang];
 ---
 
 <div class="relative" id="language-picker">
-  <button 
-    class="flex items-center space-x-1 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+  <button
+    class="flex items-center space-x-1 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
     aria-expanded="false"
     aria-haspopup="true"
+    aria-label="Select language"
   >
     <span class="font-medium">{currentLang}</span>
     <svg 
@@ -61,25 +62,25 @@ const currentLang = languages[lang];
       dropdown.classList.remove('opacity-0', 'invisible');
       dropdown.classList.add('opacity-100', 'visible');
       chevron.classList.add('rotate-180');
-      button.classList.add('bg-white/20');
+      button.classList.add('bg-gray-200');
     } else {
       dropdown.classList.add('opacity-0', 'invisible');
       dropdown.classList.remove('opacity-100', 'visible');
       chevron.classList.remove('rotate-180');
-      button.classList.remove('bg-white/20');
+      button.classList.remove('bg-gray-200');
     }
   }
 
   function closeDropdown(e: MouseEvent) {
     if (!dropdown || !button || !chevron) return;
-    
+
     const target = e.target as HTMLElement;
     if (!picker?.contains(target)) {
       button.setAttribute('aria-expanded', 'false');
       dropdown.classList.add('opacity-0', 'invisible');
       dropdown.classList.remove('opacity-100', 'visible');
       chevron.classList.remove('rotate-180');
-      button.classList.remove('bg-white/20');
+      button.classList.remove('bg-gray-200');
     }
   }
 
