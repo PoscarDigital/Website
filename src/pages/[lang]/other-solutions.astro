@@ -10,25 +10,6 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Sample custom solutions data
-const customSolutions = [
-  {
-    title: "E-Commerce Platform",
-    description: "Custom-built online marketplace with advanced inventory management and payment integration",
-    technologies: ["React", "Node.js", "MongoDB", "AWS"]
-  },
-  {
-    title: "Mobile Banking App",
-    description: "Secure mobile banking application with biometric authentication and real-time transaction processing",
-    technologies: ["Flutter", "Firebase", "Node.js", "PostgreSQL"]
-  },
-  {
-    title: "Healthcare Management System",
-    description: "Comprehensive healthcare platform for patient management, appointment scheduling, and medical records",
-    technologies: ["Vue.js", "Python", "Django", "PostgreSQL"]
-  }
-];
-
 // Get all translations upfront
 const translations = {
   title: "Other Solutions",
@@ -81,50 +62,117 @@ const translations = {
     ]
   }
 };
+
+const heroTitle = translations.custom_solutions.title;
+const heroSubtitle = translations.custom_solutions.description;
+const ctaButton = await t('common.buttons.contact_us');
+const enterpriseCategory = await t('nav.enterprise.title');
 ---
 
-<Base>
-  <!-- Header Section -->
-  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto text-center">
-      <h1 class="text-display mb-4">{t('products_services.custom_solution.title')}</h1>
-      <p class="text-lead mb-8">{t('products_services.custom_solution.items.tailored.description')}</p>
+<Base title={heroTitle} description={heroSubtitle}>
+  <!-- Hero Section: split layout -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-red-50 to-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          <p class="eyebrow mb-5">{enterpriseCategory}</p>
+          <h1 class="text-display text-[#C1272D] mb-6">{heroTitle}</h1>
+          <p class="text-lead text-gray-700 mb-8 max-w-xl mx-auto md:mx-0">
+            {heroSubtitle}
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href={`/${lang}/contact`} class="btn btn-primary">
+              {ctaButton}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="relative isolate aspect-square max-w-md mx-auto md:ml-auto">
+          <div class="absolute -top-8 -left-8 w-64 h-64 bg-[#C1272D]/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
+          <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
+          <div class="relative z-10 h-full bg-white rounded-3xl shadow-2xl ring-1 ring-red-100 flex items-center justify-center">
+            <svg class="w-32 h-32 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Custom Solutions Section -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-h1 mb-8 text-center">Explore Our Custom Solutions</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {customSolutions.map((solution) => (
-          <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
-            <h3 class="text-h3 mb-3">{solution.title}</h3>
-            <p class="text-body text-gray-600 mb-4">{solution.description}</p>
-            <div class="flex flex-wrap gap-2">
-              {solution.technologies.map((tech) => (
-                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-caption">
-                  {tech}
-                </span>
-              ))}
+  <!-- Overview Features: two card columns -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card-lift bg-white border border-gray-200 rounded-xl p-8 shadow-md hover:shadow-xl">
+          <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h2 class="text-h2 mb-4 text-[#C1272D]">{translations.custom_solutions.title}</h2>
+          <ul class="space-y-3 text-body text-gray-700">
+            {translations.custom_solutions.examples.map((item) => (
+              <li class="flex items-start">
+                <svg class="w-5 h-5 mr-3 mt-0.5 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{item.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="card-lift bg-white border border-gray-200 rounded-xl p-8 shadow-md hover:shadow-xl">
+          <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h2 class="text-h2 mb-4 text-[#C1272D]">{translations.outsourcing.title}</h2>
+          <ul class="space-y-3 text-body text-gray-700">
+            {translations.outsourcing.services.map((item) => (
+              <li class="flex items-start">
+                <svg class="w-5 h-5 mr-3 mt-0.5 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{item.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Benefits -->
+  <section class="py-20 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-h1 text-[#C1272D] mb-14">{translations.custom_solutions.title}</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {translations.custom_solutions.examples.map((solution) => (
+          <div class="card-lift bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg text-center">
+            <div class="w-14 h-14 mx-auto mb-5 rounded-full bg-[#C1272D]/10 flex items-center justify-center">
+              <svg class="w-7 h-7 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
             </div>
+            <h3 class="text-h3 mb-3 text-gray-900">{solution.title}</h3>
+            <p class="text-body text-gray-600">{solution.description}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Contact CTA -->
-  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl text-center">
-      <h2 class="text-h1 mb-8">Ready to Build Your Custom Solution?</h2>
-      <p class="text-lead mb-8">Let's discuss how we can help transform your ideas into reality.</p>
-      <a
-        href={`/${lang}/contact`}
-        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-base font-semibold hover:bg-slate-700 transition-colors duration-300"
-      >
-        {t('common.buttons.contact_us')}
+  <!-- Final CTA -->
+  <section class="py-20 text-center bg-red-50 border-t border-red-100">
+    <div class="max-w-2xl mx-auto px-4">
+      <h2 class="text-h1 text-[#C1272D] mb-6">{translations.outsourcing.title}</h2>
+      <a href={`/${lang}/contact`} class="btn btn-primary">
+        {ctaButton}
       </a>
     </div>
   </section>
-</Base> 
+</Base>
