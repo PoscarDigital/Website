@@ -4,115 +4,134 @@
       "id": 1,
       "name": "3E-Fii Company",
       "logo": "/images/customers/3e-fii.jpg",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 2,
       "name": "Business Development Center",
       "logo": "/images/customers/BDC.jpg",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 3,
       "name": "CI Cold Chain",
       "logo": "/images/customers/cicoldchain.jpg",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 4,
       "name": "FESC",
       "logo": "/images/customers/FESC.png",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 5,
       "name": "Fresh News",
       "logo": "/images/customers/freshnews.png",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 6,
       "name": "ERA",
       "logo": "/images/customers/gov-era.png",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 7,
       "name": "Ministry of Civil Service",
       "logo": "/images/customers/gov-MCS.jpg",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 8,
       "name": "Ministry of Economy and Finance",
       "logo": "/images/customers/gov-mef.png",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 9,
       "name": "Ministry of Education, Youth and Sport",
       "logo": "/images/customers/gov-moeys.png",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 10,
       "name": "Ministry of Health",
       "logo": "/images/customers/gov-moh.jpg",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 11,
       "name": "National Institute of Education",
       "logo": "/images/customers/gov-NIE.png",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 12,
       "name": "Office of the Council of Ministers",
       "logo": "/images/customers/gov-ocm.png",
-      "status": 1
+      "status": 1,
+      "featured": true
     },
     {
       "id": 13,
       "name": "Royal University of Agriculture",
       "logo": "/images/customers/gov-rua.png",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 14,
       "name": "Royal University of Fine Arts",
       "logo": "/images/customers/gov-rufa.png",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 15,
       "name": "KH Home",
       "logo": "/images/customers/kh_home.jpg",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 16,
       "name": "KH Polypack",
       "logo": "/images/customers/khpolypack.jpg",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 17,
       "name": "Metamed",
       "logo": "/images/customers/Metamed.jpg",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 18,
       "name": "Star HR",
       "logo": "/images/customers/star_hr.jpg",
-      "status": 1
+      "status": 1,
+      "featured": false
     },
     {
       "id": 19,
       "name": "Templation Angkor",
       "logo": "/images/customers/templation-angkor.png",
-      "status": 1
+      "status": 1,
+      "featured": true
     }
   ]
 }

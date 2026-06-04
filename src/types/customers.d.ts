@@ -3,6 +3,7 @@ interface Customer {
   name: string;
   logo: string;
   status: number;
+  featured?: boolean;
 }
 
 interface CustomerData {

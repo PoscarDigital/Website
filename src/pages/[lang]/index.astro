@@ -33,10 +33,13 @@ const posts = allPosts
   .sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-// Featured customer logos for "Trusted by" strip — first 8 active
-const trustedLogos = customerData.customers
-  .filter((c) => c.status === 1)
-  .slice(0, 8);
+// Featured customer logos for the "Trusted by" strip.
+// Curated via the `featured` flag in customers.json — falls back to
+// the first 8 active customers if nothing is flagged.
+const featuredLogos = customerData.customers.filter((c) => c.status === 1 && c.featured);
+const trustedLogos = featuredLogos.length
+  ? featuredLogos
+  : customerData.customers.filter((c) => c.status === 1).slice(0, 8);
 
 const industries = [
   {
@@ -334,6 +337,53 @@ const stats = [
         ))}
       </div>
     </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section aria-label="Newsletter signup" class="bg-white py-20 border-t border-gray-100">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-h1 mb-3 text-[#C1272D]">
+        {content.home.blogs.newsletter.title}
+      </h2>
+      <p class="text-lead text-gray-600 mb-8">
+        {content.home.blogs.newsletter.subtitle}
+      </p>
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" novalidate>
+        <label for="newsletter-email" class="sr-only">Email address</label>
+        <input
+          id="newsletter-email"
+          name="email"
+          type="email"
+          required
+          placeholder={content.home.blogs.newsletter.email_placeholder}
+          class="flex-1 px-5 py-3 rounded-full border border-gray-300 bg-white text-body placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C1272D] focus:border-[#C1272D] transition"
+        />
+        <button type="submit" class="btn btn-primary">
+          {content.home.blogs.newsletter.subscribe_button}
+        </button>
+      </form>
+      <p id="newsletter-success" class="text-body text-green-700 mt-4 hidden" role="status">
+        Thanks for subscribing — we'll be in touch.
+      </p>
+    </div>
+    <script is:inline>
+      // TODO: wire to a real list service (Mailchimp, ConvertKit, Formspree, etc.)
+      (() => {
+        const form = document.getElementById('newsletter-form');
+        const success = document.getElementById('newsletter-success');
+        if (!form || !success) return;
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const input = form.querySelector('input[type=email]');
+          if (!input || !input.checkValidity()) {
+            input?.reportValidity();
+            return;
+          }
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+        });
+      })();
+    </script>
   </section>
 
   <!-- Contact Section -->

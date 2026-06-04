@@ -108,11 +108,6 @@
     }
   },
   "home": {
-    "hero": {
-      "title": "Welcome to Our Platform",
-      "subtitle": "Empowering Education Through Technology",
-      "description": "We provide innovative solutions for educational institutions to enhance learning experiences and streamline administrative processes."
-    },
     "products": {
       "title": "Our Products",
       "items": {
