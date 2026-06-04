@@ -105,64 +105,6 @@
       "contact": "Contact"
     }
   },
-  "privacy": {
-    "title": "Privacy Policy",
-    "last_updated": "Last Updated: March 2024",
-    "sections": {
-      "introduction": {
-        "title": "Introduction",
-        "content": "POSCAR Digital Co., Ltd. has created Digital Product Applications that may be free applications or \"paid\" applications and Cloud ERP. ... This document is intended to inform you and users about our policies regarding the collection, use, and disclosure of your personal information when you use our applications and services."
-      },
-      "info_collection": {
-        "title": "Information We Collect",
-        "content": "In order for our company to provide you with better services ... you should provide us with information that can identify you ...",
-        "list": [
-          "Name",
-          "Date of Birth",
-          "Gender",
-          "Phone Number",
-          "Email"
-        ]
-      },
-      "usage": {
-        "title": "How We Use Your Information",
-        "content": "We use the collected information to provide and improve our applications and services.",
-        "list": [
-          "Provide and maintain services",
-          "Process bookings and other operations",
-          "Send information and notifications",
-          "Improve services"
-        ]
-      },
-      "sharing": {
-        "title": "Information Sharing",
-        "content": "We do not sell or rent your personal information to third parties. We may share information with:",
-        "list": [
-          "Service providers",
-          "Legal authorities",
-          "Business partners (with consent)"
-        ]
-      },
-      "security": {
-        "title": "Data Security",
-        "content": "We use security measures to protect your personal information from unauthorized access."
-      },
-      "rights": {
-        "title": "Your Rights",
-        "content": "You have the right to:",
-        "list": [
-          "Access your personal information",
-          "Correct inaccurate information",
-          "Request deletion of information",
-          "Opt out of marketing communications"
-        ]
-      },
-      "contact": {
-        "title": "Contact Us",
-        "content": "If you have questions about this policy, please contact info@poscardigital.com or +855 23 123 456."
-      }
-    }
-  },
   "contact": {
     "title": "Contact Us",
     "description": "We'd love to hear from you! Reach out with any questions or inquiries.",
@@ -282,49 +224,6 @@
       },
       "cta": {
         "title": "Ready to Transform Your University?",
-        "button": "Contact Us"
-      }
-    },
-    "enrollment": {
-      "title": "Online Enrollment & Registration",
-      "subtitle": "Streamline your enrollment process with our digital solution",
-      "operations": {
-        "title": "Student Registration",
-        "items": [
-          "Online application forms",
-          "Document upload",
-          "Application tracking",
-          "Payment processing"
-        ]
-      },
-      "learning": {
-        "title": "Course Management",
-        "items": [
-          "Course selection",
-          "Schedule management",
-          "Class capacity tracking",
-          "Waitlist management"
-        ]
-      },
-      "benefits": {
-        "title": "Key Benefits",
-        "items": [
-          {
-            "title": "Efficiency",
-            "description": "Reduce manual paperwork and processing time with automated workflows"
-          },
-          {
-            "title": "Accessibility",
-            "description": "24/7 access to enrollment system for students and administrators"
-          },
-          {
-            "title": "Analytics",
-            "description": "Track enrollment trends and patterns with comprehensive reporting tools"
-          }
-        ]
-      },
-      "cta": {
-        "title": "Ready to Modernize Your Enrollment Process?",
         "button": "Contact Us"
       }
     }
