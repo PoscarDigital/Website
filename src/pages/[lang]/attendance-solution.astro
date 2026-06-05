@@ -125,7 +125,7 @@ const smartcardServiceIcons = [
   <section class="py-20 bg-gradient-to-b from-amber-50/50 to-white border-t border-gray-100">
     <div class="max-w-7xl mx-auto px-4">
       <!-- Section header with Amber brand -->
-      <div class="text-center mb-14 max-w-3xl mx-auto">
+      <div class="text-center mb-12 max-w-3xl mx-auto">
         <div class="inline-flex items-center gap-3 mb-5">
           <img src="/images/brand/08-Amber.png" alt="Amber" class="h-9 w-auto" />
           <span class="eyebrow">{smart.eyebrow}</span>
@@ -134,50 +134,36 @@ const smartcardServiceIcons = [
         <p class="text-lead text-gray-700">{smart.description}</p>
       </div>
 
-      <!-- Stats + customers (left) + card gallery (right) -->
-      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
-        <div>
-          <div class="grid grid-cols-3 gap-6 mb-10">
-            {Array.isArray(smart.stats) && smart.stats.map((stat: { value: string; label: string }) => (
-              <div>
-                <div class="text-stat text-[#C1272D] mb-1">{stat.value}</div>
-                <p class="text-caption text-gray-600 uppercase tracking-wider">{stat.label}</p>
-              </div>
-            ))}
+      <!-- Stats bar (centered) -->
+      <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-14 text-center">
+        {Array.isArray(smart.stats) && smart.stats.map((stat: { value: string; label: string }) => (
+          <div>
+            <div class="text-stat text-[#C1272D] mb-1">{stat.value}</div>
+            <p class="text-caption text-gray-600 uppercase tracking-wider">{stat.label}</p>
           </div>
-          <h3 class="text-h3 text-gray-900 mb-5">{smart.customers.title}</h3>
-          <ul class="space-y-3">
-            {Array.isArray(smart.customers.items) && smart.customers.items.map((cust: string) => (
-              <li class="flex items-center text-body text-gray-700">
-                <svg class="w-5 h-5 mr-3 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>{cust}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <!-- Stacked sample cards -->
-        <div class="relative aspect-square max-w-md mx-auto lg:ml-auto">
-          <img
-            src="/images/attendance/01-card-sample.jpg"
-            alt="Amber smart card sample"
-            class="absolute top-0 left-0 w-3/4 rounded-2xl shadow-2xl ring-1 ring-gray-200 transform -rotate-6 transition-transform hover:rotate-0 hover:-translate-y-1"
-            loading="lazy"
-          />
-          <img
-            src="/images/attendance/02-card-sample.jpg"
-            alt="Amber smart card sample"
-            class="absolute top-1/4 left-[18%] w-3/4 rounded-2xl shadow-2xl ring-1 ring-gray-200 transform rotate-2 transition-transform hover:rotate-0 hover:-translate-y-1"
-            loading="lazy"
-          />
-          <img
-            src="/images/attendance/03-card-sample.jpg"
-            alt="Amber smart card sample"
-            class="absolute bottom-0 left-[36%] w-3/4 rounded-2xl shadow-2xl ring-1 ring-gray-200 transform rotate-8 transition-transform hover:rotate-0 hover:-translate-y-1"
-            loading="lazy"
-          />
-        </div>
+        ))}
+      </div>
+
+      <!-- Stacked card gallery (centered) -->
+      <div class="relative aspect-[4/3] max-w-2xl mx-auto mb-16">
+        <img
+          src="/images/attendance/01-card-sample.jpg"
+          alt="Amber smart card sample"
+          class="absolute top-0 left-[5%] w-[55%] rounded-2xl shadow-2xl ring-1 ring-gray-200 transform -rotate-6 transition-transform hover:rotate-0 hover:-translate-y-2"
+          loading="lazy"
+        />
+        <img
+          src="/images/attendance/02-card-sample.jpg"
+          alt="Amber smart card sample"
+          class="absolute top-1/4 left-[22%] w-[55%] rounded-2xl shadow-2xl ring-1 ring-gray-200 transform rotate-2 transition-transform hover:rotate-0 hover:-translate-y-2"
+          loading="lazy"
+        />
+        <img
+          src="/images/attendance/03-card-sample.jpg"
+          alt="Amber smart card sample"
+          class="absolute bottom-0 right-[5%] w-[55%] rounded-2xl shadow-2xl ring-1 ring-gray-200 transform rotate-6 transition-transform hover:rotate-0 hover:-translate-y-2"
+          loading="lazy"
+        />
       </div>
 
       <!-- Services grid -->
