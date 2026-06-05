@@ -15,7 +15,10 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'ignore',
   build: {
-    format: 'file'
+    // 'directory' so routes build to /path/index.html. GitHub Pages
+    // (and most static hosts) serve directory-style URLs like /en/ by
+    // looking for /en/index.html, not /en.html.
+    format: 'directory'
   },
   server: {
     host: true
