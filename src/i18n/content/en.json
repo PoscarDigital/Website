@@ -58,6 +58,61 @@
       }
     }
   },
+  "about": {
+    "hero": {
+      "title": "About POSCAR Digital",
+      "description": "POSCAR Digital is a leader in smart education, accounting, attendance, and ERP solutions, creating a complete digital eco-platform to empower organizations and individuals."
+    },
+    "profile": {
+      "title": "Our Company Profile",
+      "description": "POSCAR Digital was established with a mission to reshape digital landscapes, providing end-to-end solutions for SMEs and educational institutions across Cambodia and beyond. Our innovative platforms, including Wiki School and Vithean, are transforming education and business operations."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "To establish a complete digital eco-platform for education and business operations, supporting SMEs in Cambodia through innovative solutions like Wiki School and Vithean."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "To engage educational institutions and SMEs in a complete digital eco-system, empowering them with smart technology and resources through our comprehensive platforms."
+    },
+    "values": {
+      "title": "Our Value Proposition",
+      "items": [
+        "We enable our clients to maximize their business horizon in the most convenient and secure manner.",
+        "Ensuring our clients stay connected to their operations and stakeholders at all times.",
+        "Providing innovative solutions tailored to unique business needs."
+      ]
+    },
+    "solutions": {
+      "title": "Our Solutions",
+      "cta": "Explore Our Solutions"
+    },
+    "customers": {
+      "title": "Our Customers",
+      "description": "Serving a diverse clientele across Cambodia and the region, from educational institutions to SMEs and enterprises.",
+      "cta": "Explore Our Customers"
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Our team consists of experienced professionals who are passionate about technology and dedicated to delivering the best solutions for our clients. We combine technical expertise with industry knowledge to create impactful digital solutions."
+    },
+    "achievements": {
+      "title": "Our Achievements",
+      "items": [
+        { "value": "100+", "label": "Happy Clients" },
+        { "value": "50+", "label": "Projects Completed" },
+        { "value": "15+", "label": "Years Team Experience" }
+      ]
+    },
+    "brands": {
+      "title": "Our Brands"
+    },
+    "join_cta": {
+      "title": "Join Us on Our Journey",
+      "description": "Want to learn more about our work or have any inquiries? Connect with us today!",
+      "button": "Contact Us"
+    }
+  },
   "solutions": {
     "hero": {
       "title": "Solutions",
