@@ -503,6 +503,35 @@
     "cta": {
       "title": "Ready to Transform Your Attendance Management?",
       "button": "Contact Us"
+    },
+    "smartcard": {
+      "eyebrow": "Amber Smart Cards",
+      "title": "Designing and printing smart cards since 2017",
+      "description": "Our Amber smart-card service has issued over 100,000 cards across Cambodia — for journalists, MoEYS staff, NIE personnel, state officers, students, and teachers — with end-to-end design, integration, and verification.",
+      "stats": [
+        { "value": "100K+", "label": "Cards Printed" },
+        { "value": "2017", "label": "Operating Since" },
+        { "value": "5+", "label": "Customer Groups" }
+      ],
+      "customers": {
+        "title": "Trusted by",
+        "items": [
+          "Journalists nationwide",
+          "MoEYS staff",
+          "NIE personnel",
+          "State officers",
+          "Students and teachers"
+        ]
+      },
+      "services": {
+        "title": "End-to-end smart-card services",
+        "items": [
+          { "title": "Card Design", "description": "Custom layouts with secure branding tailored to your organization." },
+          { "title": "Smart Card Integration", "description": "RFID, NFC, and chip-based cards integrated with your existing systems." },
+          { "title": "Attendance Tracking", "description": "Real-time attendance via card taps with dashboards for HR and administrators." },
+          { "title": "QR Identity Verification", "description": "Instant identity verification at events, gates, and access points." }
+        ]
+      }
     }
   },
   "accounting": {

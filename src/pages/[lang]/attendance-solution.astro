@@ -26,8 +26,21 @@ const benefitsTitle = content.attendance.benefits.title;
 const benefits = content.attendance.benefits.items;
 const ctaTitle = content.attendance.cta.title;
 const ctaButton = content.attendance.cta.button;
+const smart = content.attendance.smartcard;
 
 const enterpriseCategory = await t('nav.enterprise.title');
+
+// Service icons for the smart-card services grid
+const smartcardServiceIcons = [
+  // Card Design — pencil/edit
+  'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
+  // Smart Card Integration — credit card
+  'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
+  // Attendance Tracking — clock
+  'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+  // QR Identity Verification — shield-check
+  'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+];
 ---
 
 <Base title={title} description={subtitle}>
@@ -103,6 +116,85 @@ const enterpriseCategory = await t('nav.enterprise.title');
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amber Smart Card Service -->
+  <section class="py-20 bg-gradient-to-b from-amber-50/50 to-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <!-- Section header with Amber brand -->
+      <div class="text-center mb-14 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-3 mb-5">
+          <img src="/images/brand/08-Amber.png" alt="Amber" class="h-9 w-auto" />
+          <span class="eyebrow">{smart.eyebrow}</span>
+        </div>
+        <h2 class="text-h1 text-[#C1272D] mb-4">{smart.title}</h2>
+        <p class="text-lead text-gray-700">{smart.description}</p>
+      </div>
+
+      <!-- Stats + customers (left) + card gallery (right) -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <div class="grid grid-cols-3 gap-6 mb-10">
+            {Array.isArray(smart.stats) && smart.stats.map((stat: { value: string; label: string }) => (
+              <div>
+                <div class="text-stat text-[#C1272D] mb-1">{stat.value}</div>
+                <p class="text-caption text-gray-600 uppercase tracking-wider">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+          <h3 class="text-h3 text-gray-900 mb-5">{smart.customers.title}</h3>
+          <ul class="space-y-3">
+            {Array.isArray(smart.customers.items) && smart.customers.items.map((cust: string) => (
+              <li class="flex items-center text-body text-gray-700">
+                <svg class="w-5 h-5 mr-3 text-[#C1272D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{cust}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <!-- Stacked sample cards -->
+        <div class="relative aspect-square max-w-md mx-auto lg:ml-auto">
+          <img
+            src="/images/attendance/01-card-sample.jpg"
+            alt="Amber smart card sample"
+            class="absolute top-0 left-0 w-3/4 rounded-2xl shadow-2xl ring-1 ring-gray-200 transform -rotate-6 transition-transform hover:rotate-0 hover:-translate-y-1"
+            loading="lazy"
+          />
+          <img
+            src="/images/attendance/02-card-sample.jpg"
+            alt="Amber smart card sample"
+            class="absolute top-1/4 left-[18%] w-3/4 rounded-2xl shadow-2xl ring-1 ring-gray-200 transform rotate-2 transition-transform hover:rotate-0 hover:-translate-y-1"
+            loading="lazy"
+          />
+          <img
+            src="/images/attendance/03-card-sample.jpg"
+            alt="Amber smart card sample"
+            class="absolute bottom-0 left-[36%] w-3/4 rounded-2xl shadow-2xl ring-1 ring-gray-200 transform rotate-8 transition-transform hover:rotate-0 hover:-translate-y-1"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Services grid -->
+      <div class="pt-8 border-t border-gray-200">
+        <h3 class="text-h2 text-[#C1272D] text-center mb-10">{smart.services.title}</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {Array.isArray(smart.services.items) && smart.services.items.map((service: { title: string; description: string }, idx: number) => (
+            <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-7">
+              <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
+                <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={smartcardServiceIcons[idx]} />
+                </svg>
+              </div>
+              <h4 class="text-h3 text-gray-900 mb-2">{service.title}</h4>
+              <p class="text-body text-gray-600">{service.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
