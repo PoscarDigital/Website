@@ -9,7 +9,8 @@
     "check": "astro check",
     "preview": "astro preview",
     "astro": "astro",
-    "optimize": "node scripts/optimize-images.mjs"
+    "optimize": "node scripts/optimize-images.mjs",
+    "generate:press": "node scripts/generate-press-posts.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

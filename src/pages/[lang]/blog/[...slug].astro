@@ -1,48 +1,113 @@
 ---
-import Base from "../../../layouts/Base.astro";
-import { getEntry, getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { useTranslations } from '../../../i18n/utils';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { ui } from '../../../i18n/ui';
 
-interface Props {
-  post: CollectionEntry<'blog'>;
-  lang: string;
-}
+type Languages = keyof typeof ui;
 
 export async function getStaticPaths() {
-  const languages = ['en', 'km'];
-  const posts = await getCollection('blog');
-  
-  return posts.flatMap((post: CollectionEntry<'blog'>) => {
-    return languages.map((lang) => ({
-      params: { lang, slug: post.slug },
-      props: { post, lang }
+  const blogEntries = await getCollection('blog');
+  return Object.keys(ui).flatMap((lang) => {
+    return blogEntries.map((entry) => ({
+      params: { lang, slug: entry.slug },
+      props: { entry },
     }));
   });
 }
 
-const { lang, slug } = Astro.params;
-if (!lang || !['en', 'km'].includes(lang)) {
-  return Astro.redirect('/en');
-}
+const { lang } = Astro.params as { lang: Languages };
+const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
+const { Content } = await entry.render();
+const t = useTranslations(lang);
 
-const { post } = Astro.props as Props;
-if (!post) {
-  return Astro.redirect('/404');
-}
+const formattedDate = entry.data.date.toLocaleDateString(lang === 'km' ? 'km-KH' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
 
-const formattedDate = post.data.date.toLocaleString(lang);
-const { Content, headings } = await post.render();
+const isPress = entry.data.category === 'Press' && entry.data.source_url;
 ---
+
 <Base>
-  <div class="container mx-auto px-4 py-8">
-    <article class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-      <div class="text-gray-600 mb-8">
-        <span>{post.data.author}</span> • <span>{formattedDate}</span>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <header class="mb-10 text-center">
+      {entry.data.category && (
+        <span class="eyebrow mb-5">{entry.data.category}</span>
+      )}
+      <h1 class="text-display text-gray-900 mb-4">{entry.data.title}</h1>
+      <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-caption text-gray-600 mb-6">
+        <span>{formattedDate}</span>
+        <span>·</span>
+        <span>{entry.data.author}</span>
+        {entry.data.source_name && (
+          <>
+            <span>·</span>
+            <span>{entry.data.source_name}</span>
+          </>
+        )}
       </div>
-      <div class="prose prose-lg">
-        <Content />
+      {entry.data.tags && entry.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 justify-center">
+          {entry.data.tags.map((tag: string) => (
+            <span class="bg-red-50 text-[#C1272D] px-3 py-1 rounded-full text-caption font-medium">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Thumbnail -->
+    {entry.data.thumbnail && (
+      <div class="relative isolate mb-12">
+        <div class="absolute -inset-4 bg-[#C1272D]/10 rounded-3xl blur-2xl z-0" aria-hidden="true"></div>
+        <img
+          src={entry.data.thumbnail}
+          alt={entry.data.title}
+          class="relative z-10 w-full max-h-96 object-contain bg-white rounded-2xl shadow-2xl ring-1 ring-red-100 p-6"
+          loading="eager"
+        />
       </div>
-    </article>
-  </div>
+    )}
+
+    <!-- Content -->
+    <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-[#C1272D] hover:prose-a:text-[#991B1F] prose-blockquote:border-l-[#C1272D] prose-blockquote:not-italic">
+      <Content />
+    </div>
+
+    <!-- Source attribution (for press posts) -->
+    {isPress && (
+      <aside class="mt-12 p-8 bg-red-50 border border-red-100 rounded-2xl">
+        <p class="text-caption uppercase tracking-wider text-gray-500 mb-2">Read the original article</p>
+        <p class="text-h3 text-gray-900 mb-4">{entry.data.source_name}</p>
+        <a
+          href={entry.data.source_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >
+          Read on {entry.data.source_name}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </aside>
+    )}
+
+    <!-- Back link -->
+    <div class="mt-12 pt-8 border-t border-gray-200">
+      <a
+        href={`/${lang}/blogs/1`}
+        class="inline-flex items-center text-[#C1272D] hover:text-[#991B1F] font-semibold"
+      >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        {t('common.buttons.view_all')}
+      </a>
+    </div>
+  </article>
 </Base>

@@ -8,8 +8,10 @@ const blogCollection = defineCollection({
     date: z.date(),
     thumbnail: z.string().optional(),
     description: z.string().optional(),
-    category: z.enum(['News', 'Technology', 'Education', 'Business']).optional(),
+    category: z.enum(['News', 'Technology', 'Education', 'Business', 'Press']).optional(),
     tags: z.array(z.string()).optional(),
+    source_url: z.string().url().optional(),
+    source_name: z.string().optional(),
   }),
 });
 
