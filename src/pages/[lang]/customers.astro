@@ -123,37 +123,40 @@ const sectorBlocks = [
     </section>
   ))}
 
-  <!-- Testimonials: static grid (no carousel) -->
-  <section class="py-20 bg-red-50 border-t border-red-100">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-14 max-w-2xl mx-auto">
-        <h2 class="text-h1 text-[#C1272D] mb-4">{c.testimonials.title}</h2>
-        <p class="text-lead text-gray-600">{c.testimonials.description}</p>
+  <!-- Testimonials: static grid (no carousel). Hidden until at least one
+       testimonial has status: 1 in src/data/testimonial.json. -->
+  {activeTestimonials.length > 0 && (
+    <section class="py-20 bg-red-50 border-t border-red-100">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-14 max-w-2xl mx-auto">
+          <h2 class="text-h1 text-[#C1272D] mb-4">{c.testimonials.title}</h2>
+          <p class="text-lead text-gray-600">{c.testimonials.description}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {activeTestimonials.map((testimonial: Testimonial) => (
+            <figure class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 flex flex-col">
+              <svg class="w-10 h-10 text-[#C1272D]/30 mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 7H6a2 2 0 00-2 2v3a2 2 0 002 2h2v1a3 3 0 01-3 3v2a5 5 0 005-5V9a2 2 0 00-1-2zm10 0h-3a2 2 0 00-2 2v3a2 2 0 002 2h2v1a3 3 0 01-3 3v2a5 5 0 005-5V9a2 2 0 00-1-2z" />
+              </svg>
+              <blockquote class="text-lead text-gray-700 mb-6 flex-1">{testimonial.quote}</blockquote>
+              <figcaption class="flex items-center gap-4 pt-6 border-t border-gray-100">
+                <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 text-[#C1272D] font-bold flex items-center justify-center flex-shrink-0">
+                  {initials(testimonial.name)}
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-h4 font-semibold text-gray-900 truncate">{testimonial.name}</p>
+                  <p class="text-caption text-gray-500 truncate">{testimonial.position} · {testimonial.organization}</p>
+                  {testimonial.product && (
+                    <p class="text-caption text-[#C1272D] font-semibold mt-1">{c.testimonials.uses} {testimonial.product}</p>
+                  )}
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {activeTestimonials.map((testimonial: Testimonial) => (
-          <figure class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 flex flex-col">
-            <svg class="w-10 h-10 text-[#C1272D]/30 mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 7H6a2 2 0 00-2 2v3a2 2 0 002 2h2v1a3 3 0 01-3 3v2a5 5 0 005-5V9a2 2 0 00-1-2zm10 0h-3a2 2 0 00-2 2v3a2 2 0 002 2h2v1a3 3 0 01-3 3v2a5 5 0 005-5V9a2 2 0 00-1-2z" />
-            </svg>
-            <blockquote class="text-lead text-gray-700 mb-6 flex-1">{testimonial.quote}</blockquote>
-            <figcaption class="flex items-center gap-4 pt-6 border-t border-gray-100">
-              <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 text-[#C1272D] font-bold flex items-center justify-center flex-shrink-0">
-                {initials(testimonial.name)}
-              </div>
-              <div class="flex-1 min-w-0">
-                <p class="text-h4 font-semibold text-gray-900 truncate">{testimonial.name}</p>
-                <p class="text-caption text-gray-500 truncate">{testimonial.position} · {testimonial.organization}</p>
-                {testimonial.product && (
-                  <p class="text-caption text-[#C1272D] font-semibold mt-1">{c.testimonials.uses} {testimonial.product}</p>
-                )}
-              </div>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- Final CTA -->
   <section class="py-20 text-center bg-white border-t border-gray-100">

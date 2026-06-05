@@ -2,43 +2,43 @@
   "testimonials": [
     {
       "id": 1,
-      "name": "Mr. Dara Sok",
-      "position": "School Director",
-      "organization": "Norton University",
-      "image": "/images/testimonials/dara.jpg",
-      "quote": "POSCAR's educational management solutions have transformed how we operate. The system is intuitive and has greatly improved our administrative efficiency.",
-      "product": "Wiki College",
-      "status": 1
+      "name": "Customer Name",
+      "position": "Job Title",
+      "organization": "Customer Organization",
+      "image": "",
+      "quote": "Placeholder quote — replace with real testimonial when available.",
+      "product": "Product Name",
+      "status": 0
     },
     {
       "id": 2,
-      "name": "Ms. Bopha Chea",
-      "position": "HR Manager",
-      "organization": "ACLEDA Bank",
-      "image": "/images/testimonials/bopha.jpg",
-      "quote": "The HRM solution has streamlined our HR processes and made employee management much more efficient. Highly recommended!",
-      "product": "HRM Solution",
-      "status": 1
+      "name": "Customer Name",
+      "position": "Job Title",
+      "organization": "Customer Organization",
+      "image": "",
+      "quote": "Placeholder quote — replace with real testimonial when available.",
+      "product": "Product Name",
+      "status": 0
     },
     {
       "id": 3,
-      "name": "Mr. Vuthy Pich",
-      "position": "IT Director",
-      "organization": "Beltei International University",
-      "image": "/images/testimonials/vuthy.jpg",
-      "quote": "We've been using POSCAR's solutions for over 3 years now. Their support team is excellent and the system reliability is outstanding.",
-      "product": "Wiki College",
-      "status": 1
+      "name": "Customer Name",
+      "position": "Job Title",
+      "organization": "Customer Organization",
+      "image": "",
+      "quote": "Placeholder quote — replace with real testimonial when available.",
+      "product": "Product Name",
+      "status": 0
     },
     {
       "id": 4,
-      "name": "Ms. Sophea Kim",
-      "position": "Academic Director",
-      "organization": "Royal University of Phnom Penh",
-      "image": "/images/testimonials/sophea.jpg",
-      "quote": "The student management system has helped us digitize our entire academic process. It's a game-changer for modern education management.",
-      "product": "Wiki College",
-      "status": 1
+      "name": "Customer Name",
+      "position": "Job Title",
+      "organization": "Customer Organization",
+      "image": "",
+      "quote": "Placeholder quote — replace with real testimonial when available.",
+      "product": "Product Name",
+      "status": 0
     }
   ]
 }
