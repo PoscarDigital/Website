@@ -100,15 +100,27 @@ const t = useTranslations(lang);
       </div>
 
       <!-- Mobile Menu Button -->
-      <button class="md:hidden text-[#C1272D]" x-data="{ open: false }" @click="open = !open" aria-label="Toggle navigation menu">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6" aria-hidden="true">
+      <button
+        type="button"
+        id="mobile-menu-button"
+        class="md:hidden text-[#C1272D]"
+        aria-label="Toggle navigation menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <!-- Hamburger (shown when menu closed) -->
+        <svg data-menu-open-icon xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <!-- X (shown when menu open) -->
+        <svg data-menu-close-icon xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 hidden" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </nav>
 
-    <!-- Mobile Navigation -->
-    <div class="md:hidden" x-show="open" @click.away="open = false">
+    <!-- Mobile Navigation: hidden by default; md:hidden keeps it off on desktop -->
+    <div id="mobile-menu" class="hidden md:hidden">
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a href={`/${lang}`} class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#991B1F] transition-colors duration-200">
           {t('nav.home')}
@@ -138,6 +150,46 @@ const t = useTranslations(lang);
     </div>
   </div>
 </header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = button?.querySelector('[data-menu-open-icon]');
+  const closeIcon = button?.querySelector('[data-menu-close-icon]');
+
+  function setMenuOpen(open: boolean) {
+    if (!button || !menu || !openIcon || !closeIcon) return;
+    button.setAttribute('aria-expanded', String(open));
+    menu.classList.toggle('hidden', !open);
+    openIcon.classList.toggle('hidden', open);
+    closeIcon.classList.toggle('hidden', !open);
+  }
+
+  button?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
+  });
+
+  // Close when clicking outside the menu (and not on the toggle button)
+  document.addEventListener('click', (e) => {
+    if (!menu || !button) return;
+    if (menu.classList.contains('hidden')) return;
+    const target = e.target as Node;
+    if (button.contains(target) || menu.contains(target)) return;
+    setMenuOpen(false);
+  });
+
+  // Close after picking a link
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenuOpen(false);
+  });
+</script>
 
 <style>
   #nav-links {
