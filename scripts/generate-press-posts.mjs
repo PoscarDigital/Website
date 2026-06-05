@@ -146,6 +146,16 @@ function makeSlug(date, no) {
   return `${date}-press-${String(no).padStart(2, '0')}`;
 }
 
+// The Excel "From" column sometimes encodes a *type* of source rather than the
+// outlet itself, e.g. "page: …", "youtube: Fresh News", "Channel". Strip those
+// leading labels so the displayed source reads as the actual outlet name.
+function cleanSource(name) {
+  return String(name)
+    .replace(/^(page|youtube|channel|chanel)\s*:\s*/i, '')
+    .replace(/^(Channel|Chanel)$/i, 'POSCAR Digital')
+    .trim();
+}
+
 async function fileExists(path) {
   try {
     await access(path);
@@ -173,7 +183,8 @@ for (const entry of entries) {
   const thumbnail = pickThumbnail(entry.title);
   const category = pickCategory(entry.title);
   const tags = pickTags(entry.title);
-  const description = pickDescription(entry.title, entry.source);
+  const cleanedSource = cleanSource(entry.source);
+  const description = pickDescription(entry.title, cleanedSource);
 
   // YAML escape: quote the title and description (Khmer often contains chars
   // that YAML parses oddly; wrapping in single quotes and doubling internal
@@ -188,7 +199,7 @@ for (const entry of entries) {
     `category: '${category}'`,
     `description: ${escapeYaml(description)}`,
     `thumbnail: '${thumbnail}'`,
-    `source_name: ${escapeYaml(entry.source)}`,
+    `source_name: ${escapeYaml(cleanedSource)}`,
     `source_url: '${entry.url}'`,
     `tags: [${tags.map((t) => escapeYaml(t)).join(', ')}]`,
     '---',

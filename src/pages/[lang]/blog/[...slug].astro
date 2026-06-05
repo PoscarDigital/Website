@@ -60,48 +60,46 @@ const related = [
 
 <Base>
   <article class="bg-white">
-    <!-- Top breadcrumb bar -->
+    <!-- Top breadcrumb bar — minimal, no competing labels -->
     <nav aria-label="Article navigation" class="border-b border-gray-100 bg-white">
-      <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between text-caption">
-        <a href={`/${lang}/blogs/1`} class="inline-flex items-center text-gray-600 hover:text-[#C1272D] transition-colors font-medium">
+      <div class="max-w-4xl mx-auto px-4 py-4">
+        <a href={`/${lang}/blogs/1`} class="inline-flex items-center text-caption text-gray-600 hover:text-[#C1272D] transition-colors font-medium">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
           {t('common.buttons.view_all')}
         </a>
-        <div class="flex items-center gap-3 text-gray-500">
-          {entry.data.category && (
-            <span class="uppercase tracking-wider font-semibold text-[#C1272D]">{entry.data.category}</span>
-          )}
-          {entry.data.source_name && (
-            <>
-              <span aria-hidden="true">·</span>
-              <span>{entry.data.source_name}</span>
-            </>
-          )}
-        </div>
       </div>
     </nav>
 
-    <!-- Headline section -->
-    <header class="max-w-4xl mx-auto px-4 pt-12 pb-8">
-      <h1 class="text-h1 md:text-display text-gray-900 mb-6 tracking-tight">
+    <!-- Headline section — title is the hero; everything else is secondary -->
+    <header class="max-w-4xl mx-auto px-4 pt-14 pb-10">
+      <!-- Kicker (tiny, uppercase, brand red) -->
+      {entry.data.category && (
+        <p class="text-micro font-bold uppercase tracking-[0.18em] text-[#C1272D] mb-6">
+          {entry.data.category}
+        </p>
+      )}
+      <!-- The title — display size, extra bold, dominant -->
+      <h1 class="text-display font-extrabold text-gray-900 leading-[1.1] tracking-tight mb-8">
         {entry.data.title}
       </h1>
+      <!-- Lede subtitle — clearly subordinate (lead size, lighter color, no bold) -->
       {entry.data.description && (
-        <p class="text-lead text-gray-600 leading-relaxed mb-8">
+        <p class="text-lead font-normal text-gray-500 leading-relaxed max-w-3xl mb-10">
           {entry.data.description}
         </p>
       )}
-      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 pt-6 border-t border-gray-200 text-caption text-gray-500">
+      <!-- Byline — small, uppercase, tracked. Reads as caption metadata. -->
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 pt-6 border-t border-gray-200 text-micro uppercase tracking-wider text-gray-500">
         {entry.data.source_name && (
           <>
-            <span class="font-semibold text-gray-700">{entry.data.source_name}</span>
-            <span aria-hidden="true">·</span>
+            <span class="font-bold text-gray-700">{entry.data.source_name}</span>
+            <span aria-hidden="true" class="text-gray-300">·</span>
           </>
         )}
         <span>{formattedDate}</span>
-        <span aria-hidden="true">·</span>
+        <span aria-hidden="true" class="text-gray-300">·</span>
         <span>{minutes} min read</span>
       </div>
     </header>
