@@ -3,7 +3,7 @@
 import Base from "../../layouts/Base.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import { languages } from "../../i18n/ui";
-import { WEB3FORMS_KEY, WEB3FORMS_ENDPOINT } from "../../lib/forms";
+import { WEB3FORMS_KEY, WEB3FORMS_ENDPOINT, CONTACT_FORM_ENABLED } from "../../lib/forms";
 
 export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -46,6 +46,7 @@ const emailValue = await t('contact.details.email.value');
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {CONTACT_FORM_ENABLED ? (
         <!-- Contact Form -->
         <form
           action={WEB3FORMS_ENDPOINT}
@@ -120,6 +121,25 @@ const emailValue = await t('contact.details.email.value');
           <p id="contact-success" role="status" class="hidden mt-4 p-3 rounded-lg bg-green-50 text-green-800 text-body"></p>
           <p id="contact-error" role="alert" class="hidden mt-4 p-3 rounded-lg bg-red-50 text-red-800 text-body"></p>
         </form>
+        ) : (
+        <!-- Fallback when the contact form is disabled — keeps the contact funnel open -->
+        <div class="bg-white shadow-md rounded-lg p-8">
+          <h2 class="text-h2 mb-4">{detailsTitle}</h2>
+          <p class="text-body text-gray-700 mb-6">
+            The contact form is temporarily unavailable. Please reach us directly:
+          </p>
+          <ul class="space-y-4 text-body">
+            <li>
+              <strong class="block text-gray-700 mb-1">{emailLabel}:</strong>
+              <a href={`mailto:${emailValue}`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{emailValue}</a>
+            </li>
+            <li>
+              <strong class="block text-gray-700 mb-1">{phoneLabel}:</strong>
+              <a href={`tel:+85595569568`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{phoneValue}</a>
+            </li>
+          </ul>
+        </div>
+        )}
 
         <!-- Contact Details -->
         <div class="bg-white shadow-md rounded-lg p-8">

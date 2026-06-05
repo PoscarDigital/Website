@@ -7,7 +7,7 @@ import { useTranslations } from '../../i18n/utils';
 import { ui as uiTranslations } from '../../i18n/ui';
 import { getCollection } from 'astro:content';
 import customerData from '../../data/customers.json';
-import { WEB3FORMS_KEY, WEB3FORMS_ENDPOINT } from '../../lib/forms';
+import { WEB3FORMS_KEY, WEB3FORMS_ENDPOINT, NEWSLETTER_FORM_ENABLED } from '../../lib/forms';
 
 export async function getStaticPaths() {
   return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
@@ -357,7 +357,8 @@ const stats = [
     </div>
   </section>
 
-  <!-- Newsletter Section -->
+  <!-- Newsletter Section (hidden entirely when disabled in src/lib/forms.ts) -->
+  {NEWSLETTER_FORM_ENABLED && (
   <section aria-label="Newsletter signup" class="bg-white py-20 border-t border-gray-100">
     <div class="max-w-3xl mx-auto px-4 text-center">
       <h2 class="text-h1 mb-3 text-[#C1272D]">
@@ -436,6 +437,7 @@ const stats = [
       })();
     </script>
   </section>
+  )}
 
   <!-- Contact Section -->
   <section id="contact" class="bg-red-50 py-20 text-center border-t border-red-100">
