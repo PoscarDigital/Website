@@ -113,6 +113,45 @@
       "button": "Contact Us"
     }
   },
+  "customers": {
+    "hero": {
+      "eyebrow": "Our Customers",
+      "title": "Trusted Across Cambodia",
+      "description": "From national ministries to leading universities and growing enterprises, organizations across Cambodia rely on POSCAR Digital to run their operations.",
+      "primary_cta": "Become a Customer",
+      "secondary_cta": "See Solutions"
+    },
+    "stats": {
+      "government": "Government Partners",
+      "education": "Universities & Institutes",
+      "enterprise": "Enterprise Brands",
+      "users": "End Users"
+    },
+    "sectors": {
+      "government": {
+        "title": "Government",
+        "description": "Ministries and public institutions trust POSCAR to digitize citizen-facing services and internal operations."
+      },
+      "education": {
+        "title": "Education",
+        "description": "Schools, universities, and educational institutes rely on our platforms to manage students, staff, and academics."
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "description": "From media and hospitality to manufacturing and logistics, businesses use POSCAR to streamline operations."
+      }
+    },
+    "testimonials": {
+      "title": "What Our Customers Say",
+      "description": "Real feedback from the teams using POSCAR every day.",
+      "uses": "Uses"
+    },
+    "final_cta": {
+      "title": "Join Our Growing Customer Base",
+      "description": "Tell us about your needs and we'll show you which of our solutions fits best.",
+      "button": "Talk to Us"
+    }
+  },
   "solutions": {
     "hero": {
       "title": "Solutions",

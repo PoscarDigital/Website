@@ -5,11 +5,6 @@ import { ui } from '../../i18n/ui';
 import customerData from '../../data/customers.json';
 import testimonialData from '../../data/testimonial.json';
 
-// Filter active entries
-const activeCustomers: Customer[] = customerData.customers.filter((customer: Customer) => customer.status === 1);
-const activeTestimonials: Testimonial[] = testimonialData.testimonials.filter((testimonial: Testimonial) => testimonial.status === 1);
-
-
 export async function getStaticPaths() {
   return Object.keys(ui).map((lang) => ({ params: { lang } }));
 }
@@ -17,157 +12,156 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const content = await getContentTranslations(lang);
+const c = content.customers;
+
+const activeCustomers: Customer[] = customerData.customers.filter((customer: Customer) => customer.status === 1);
+const activeTestimonials: Testimonial[] = testimonialData.testimonials.filter((testimonial: Testimonial) => testimonial.status === 1);
+
+const government = activeCustomers.filter((cust) => cust.category === 'government');
+const education = activeCustomers.filter((cust) => cust.category === 'education');
+const enterprise = activeCustomers.filter((cust) => cust.category === 'enterprise');
+
+// First 6 logos for hero collage
+const heroLogos = [
+  ...activeCustomers.filter((cust) => cust.featured),
+].slice(0, 6);
+
+// Stats displayed in hero
+const heroStats = [
+  { value: '25+', label: c.stats.government },
+  { value: String(education.length) + '+', label: c.stats.education },
+  { value: String(enterprise.length) + '+', label: c.stats.enterprise },
+  { value: '3M+', label: c.stats.users },
+];
+
+// Initials helper: drop honorific prefix (Mr./Ms./Dr.), take first letters of remaining tokens.
+function initials(name: string): string {
+  const tokens = name
+    .replace(/^(Mr\.|Ms\.|Mrs\.|Dr\.)\s*/i, '')
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2);
+  return tokens.map((token) => token.charAt(0).toUpperCase()).join('');
+}
+
+const sectorBlocks = [
+  { key: 'government', title: c.sectors.government.title, description: c.sectors.government.description, list: government },
+  { key: 'education', title: c.sectors.education.title, description: c.sectors.education.description, list: education },
+  { key: 'enterprise', title: c.sectors.enterprise.title, description: c.sectors.enterprise.description, list: enterprise },
+];
 ---
 
 <Base>
-  <!-- Customers Header -->
-  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto text-center">
-      <h1 class="text-display mb-4">Our Customers</h1>
-      <p class="text-lead mb-8 max-w-2xl mx-auto">
-        Trusted by leading organizations across Cambodia
-      </p>
+  <!-- Hero: split layout, light gradient -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-red-50 to-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          <p class="eyebrow mb-5">{c.hero.eyebrow}</p>
+          <h1 class="text-display text-[#C1272D] mb-6">{c.hero.title}</h1>
+          <p class="text-lead text-gray-700 mb-8 max-w-xl mx-auto md:mx-0">
+            {c.hero.description}
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href={`/${lang}/contact`} class="btn btn-primary">
+              {c.hero.primary_cta}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href={`/${lang}/solutions`} class="btn btn-secondary">
+              {c.hero.secondary_cta}
+            </a>
+          </div>
+        </div>
+        <div class="relative isolate aspect-square max-w-md mx-auto md:ml-auto">
+          <div class="absolute -top-8 -left-8 w-64 h-64 bg-[#C1272D]/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
+          <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
+          <div class="relative z-10 h-full bg-white rounded-3xl shadow-2xl ring-1 ring-red-100 grid grid-cols-3 gap-3 p-6">
+            {heroLogos.map((customer) => (
+              <div class="aspect-square rounded-2xl bg-gray-50 flex items-center justify-center p-2">
+                <img src={customer.logo} alt={customer.name} class="max-w-full max-h-full object-contain" loading="eager" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Featured Customers -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-6xl">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {activeCustomers.map((customer: Customer) => (
-          <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg hover:shadow-lg transition-shadow">
-            <img src={customer.logo} alt={customer.name} class="max-h-16" />
+  <!-- Stats bar -->
+  <section aria-label="Customer reach by the numbers" class="bg-white border-y border-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {heroStats.map((stat) => (
+          <div>
+            <div class="text-stat text-[#C1272D] mb-2">{stat.value}</div>
+            <p class="text-caption text-gray-600 uppercase tracking-wider">{stat.label}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="py-16 bg-gray-100 text-gray-800 px-6 md:px-12 lg:px-16">
-    <style>
-      .testimonials-slider {
-        position: relative;
-      }
-      .swiper-button-next,
-      .swiper-button-prev {
-        color: #475569;
-        width: 4rem;
-        height: 100%;
-        top: 0;
-        margin-top: 0;
-        display: flex;
-        align-items: center;
-        background: linear-gradient(90deg, rgba(243,244,246,0) 0%, rgba(243,244,246,0.9) 100%);
-      }
-      .swiper-button-prev {
-        left: -4rem;
-        justify-content: flex-start;
-        padding-left: 1rem;
-        background: linear-gradient(-90deg, rgba(243,244,246,0) 0%, rgba(243,244,246,0.9) 100%);
-      }
-      .swiper-button-next {
-        right: -4rem;
-        justify-content: flex-end;
-        padding-right: 1rem;
-      }
-      .swiper-button-next:after,
-      .swiper-button-prev:after {
-        font-size: 2rem;
-      }
-      @media (max-width: 1280px) {
-        .swiper-button-next {
-          right: -2rem;
-        }
-        .swiper-button-prev {
-          left: -2rem;
-        }
-      }
-      @media (max-width: 768px) {
-        .swiper-button-next {
-          right: -1rem;
-        }
-        .swiper-button-prev {
-          left: -1rem;
-        }
-      }
-      .swiper-pagination-bullet-active {
-        background: #475569;
-      }
-    </style>
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-h1 text-center mb-12">What Our Customers Say</h2>
-      
-      <!-- Swiper Container -->
-      <div class="swiper-container testimonials-slider">
-        <div class="swiper-wrapper">
-          {activeTestimonials.map((testimonial: Testimonial) => (
-            <div class="swiper-slide">
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                <p class="text-body text-gray-700 mb-4 italic">"{testimonial.quote}"</p>
-                <div class="flex items-center">
-                  <img src={testimonial.image} alt={testimonial.name} class="w-12 h-12 rounded-full mr-4" />
-                  <div>
-                    <h3 class="text-h4 font-semibold">{testimonial.name}</h3>
-                    <p class="text-caption text-gray-500">{testimonial.position}</p>
-                    <p class="text-caption text-gray-500">{testimonial.organization}</p>
-                  </div>
-                </div>
-              </div>
+  <!-- Sector sections -->
+  {sectorBlocks.map((block, idx) => (
+    <section class={idx % 2 === 0 ? 'py-20 bg-gray-50' : 'py-20 bg-white'}>
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12 max-w-2xl mx-auto">
+          <h2 class="text-h1 text-[#C1272D] mb-4">{block.title}</h2>
+          <p class="text-lead text-gray-600">{block.description}</p>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {block.list.map((customer) => (
+            <div class="group card-lift bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center aspect-square shadow-sm hover:shadow-lg" title={customer.name}>
+              <img src={customer.logo} alt={customer.name} class="max-w-full max-h-16 object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-300" loading="lazy" />
+              <p class="text-caption text-gray-600 text-center mt-3 opacity-0 group-hover:opacity-100 transition-opacity">{customer.name}</p>
             </div>
           ))}
         </div>
-        <!-- Add Navigation -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Testimonials: static grid (no carousel) -->
+  <section class="py-20 bg-red-50 border-t border-red-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-14 max-w-2xl mx-auto">
+        <h2 class="text-h1 text-[#C1272D] mb-4">{c.testimonials.title}</h2>
+        <p class="text-lead text-gray-600">{c.testimonials.description}</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {activeTestimonials.map((testimonial: Testimonial) => (
+          <figure class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 flex flex-col">
+            <svg class="w-10 h-10 text-[#C1272D]/30 mb-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 7H6a2 2 0 00-2 2v3a2 2 0 002 2h2v1a3 3 0 01-3 3v2a5 5 0 005-5V9a2 2 0 00-1-2zm10 0h-3a2 2 0 00-2 2v3a2 2 0 002 2h2v1a3 3 0 01-3 3v2a5 5 0 005-5V9a2 2 0 00-1-2z" />
+            </svg>
+            <blockquote class="text-lead text-gray-700 mb-6 flex-1">{testimonial.quote}</blockquote>
+            <figcaption class="flex items-center gap-4 pt-6 border-t border-gray-100">
+              <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 text-[#C1272D] font-bold flex items-center justify-center flex-shrink-0">
+                {initials(testimonial.name)}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-h4 font-semibold text-gray-900 truncate">{testimonial.name}</p>
+                <p class="text-caption text-gray-500 truncate">{testimonial.position} · {testimonial.organization}</p>
+                {testimonial.product && (
+                  <p class="text-caption text-[#C1272D] font-semibold mt-1">{c.testimonials.uses} {testimonial.product}</p>
+                )}
+              </div>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
-
-    <script>
-      import Swiper from 'swiper';
-      import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-      import 'swiper/css';
-      import 'swiper/css/navigation';
-      import 'swiper/css/pagination';
-
-      // Initialize Swiper
-      new Swiper('.testimonials-slider', {
-        modules: [Navigation, Pagination, Autoplay],
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-        },
-        breakpoints: {
-          768: {
-            slidesPerView: 2,
-          },
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      });
-    </script>
   </section>
 
-  <!-- Contact CTA -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl text-center">
-      <h2 class="text-h1 mb-8">Join Our Growing Customer Base</h2>
-      <a
-        href={`/${lang}/contact`}
-        class="inline-block bg-slate-600 text-white py-3 px-8 rounded-lg text-base font-semibold hover:bg-slate-700 transition-colors duration-300"
-      >
-        {content.common.buttons.contact_us}
+  <!-- Final CTA -->
+  <section class="py-20 text-center bg-white border-t border-gray-100">
+    <div class="max-w-2xl mx-auto px-4">
+      <h2 class="text-h1 text-[#C1272D] mb-4">{c.final_cta.title}</h2>
+      <p class="text-lead text-gray-700 mb-8">{c.final_cta.description}</p>
+      <a href={`/${lang}/contact`} class="btn btn-primary">
+        {c.final_cta.button}
       </a>
     </div>
   </section>

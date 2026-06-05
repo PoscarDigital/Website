@@ -4,6 +4,7 @@ interface Customer {
   logo: string;
   status: number;
   featured?: boolean;
+  category?: 'government' | 'education' | 'enterprise';
 }
 
 interface CustomerData {
@@ -18,6 +19,7 @@ interface Testimonial {
   image: string;
   quote: string;
   status: number;
+  product?: string;
 }
 
 interface TestimonialData {
