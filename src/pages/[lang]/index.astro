@@ -103,22 +103,30 @@ const stats = [
             </a>
           </div>
         </div>
-        <!-- Image side: fanned brand-card stack (same pattern as the Amber sample cards) -->
+        <!-- Image side: fanned brand-card cascade (5 cards, same pattern family as the Amber samples) -->
         <div class="relative isolate w-full aspect-[4/3] max-w-md mx-auto md:ml-auto md:mr-0">
           <div class="absolute -top-8 -left-8 w-64 h-64 bg-[#C1272D]/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
           <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
 
-          <!-- Back card: POSCAR (parent brand) -->
-          <div class="absolute top-0 left-[5%] w-[55%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-5 transform -rotate-6 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
+          <!-- 1 (back): POSCAR -->
+          <div class="absolute top-0 left-0 w-[42%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-4 transform -rotate-12 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
             <img src="/images/brand/01-Poscar.png" alt="POSCAR Digital" class="max-w-full max-h-full object-contain" loading="eager" />
           </div>
-          <!-- Middle card: Wiki School (flagship education product) -->
-          <div class="absolute top-[28%] left-[22%] w-[55%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-5 transform rotate-2 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
+          <!-- 2: Wiki School -->
+          <div class="absolute top-[15%] left-[15%] w-[42%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-4 transform -rotate-6 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
             <img src="/images/brand/02-WikiSchool.png" alt="Wiki School" class="max-w-full max-h-full object-contain" loading="eager" />
           </div>
-          <!-- Front card: Vithean (flagship business product) -->
-          <div class="absolute bottom-0 right-[5%] w-[55%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-5 transform rotate-6 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
+          <!-- 3 (middle, straight): Vithean -->
+          <div class="absolute top-[30%] left-[29%] w-[42%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-4 transform transition-transform duration-300 hover:-translate-y-2">
             <img src="/images/brand/05-Vithean.png" alt="Vithean" class="max-w-full max-h-full object-contain" loading="eager" />
+          </div>
+          <!-- 4: Wiki TV -->
+          <div class="absolute top-[45%] left-[43%] w-[42%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-4 transform rotate-6 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
+            <img src="/images/brand/04-WikiTV.png" alt="Wiki TV" class="max-w-full max-h-full object-contain" loading="eager" />
+          </div>
+          <!-- 5 (front): Amber -->
+          <div class="absolute top-[60%] left-[57%] w-[42%] aspect-[5/3] bg-white rounded-2xl shadow-2xl ring-1 ring-gray-200 flex items-center justify-center p-4 transform rotate-12 transition-transform duration-300 hover:rotate-0 hover:-translate-y-2">
+            <img src="/images/brand/08-Amber.png" alt="Amber" class="max-w-full max-h-full object-contain" loading="eager" />
           </div>
         </div>
       </div>
