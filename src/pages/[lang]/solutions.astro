@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import { ui } from '../../i18n/ui';
+import customerData from '../../data/customers.json';
 
 export async function getStaticPaths() {
   return Object.keys(ui).map((lang) => ({ params: { lang } }));
@@ -10,126 +11,257 @@ export async function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const featuredLogos = customerData.customers.filter((c) => c.status === 1 && c.featured);
+const trustedLogos = featuredLogos.length
+  ? featuredLogos
+  : customerData.customers.filter((c) => c.status === 1).slice(0, 8);
+
+// Icon paths (Heroicons outline)
+const icons = {
+  // Education
+  k12: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+  university: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222',
+  enrollment: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
+  // Enterprise
+  vithean: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+  attendance: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+  hrm: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+  bakan: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
+  // Beyond
+  custom: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+  outsourcing: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  // Hero decoration
+  catalog: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z',
+};
+
+const educationCards = [
+  {
+    icon: icons.k12,
+    title: t('products_services.education.items.k12.title'),
+    description: t('products_services.education.items.k12.description'),
+    href: `/${lang}/education-sms-solution`,
+  },
+  {
+    icon: icons.university,
+    title: t('products_services.education.items.university.title'),
+    description: t('products_services.education.items.university.description'),
+    href: `/${lang}/education-ums-solution`,
+  },
+  {
+    icon: icons.enrollment,
+    title: t('products_services.education.items.enrollment.title'),
+    description: t('products_services.education.items.enrollment.description'),
+    href: `/${lang}/enrollment-online-registration`,
+  },
+];
+
+const enterpriseCards = [
+  {
+    icon: icons.vithean,
+    title: t('products_services.enterprise.items.vithean.title'),
+    description: t('products_services.enterprise.items.vithean.description'),
+    href: `/${lang}/accounting-erp-vithean`,
+    external: 'https://vithean.com',
+  },
+  {
+    icon: icons.attendance,
+    title: t('products_services.enterprise.items.attendance.title'),
+    description: t('products_services.enterprise.items.attendance.description'),
+    href: `/${lang}/attendance-solution`,
+  },
+  {
+    icon: icons.hrm,
+    title: t('products_services.enterprise.items.hrm.title'),
+    description: t('products_services.enterprise.items.hrm.description'),
+    href: `/${lang}/hrm-solution`,
+  },
+  {
+    icon: icons.bakan,
+    title: t('products_services.enterprise.items.bakan.title'),
+    description: t('products_services.enterprise.items.bakan.description'),
+    href: `/${lang}/bakan-elite`,
+    external: 'https://bakanelite.com',
+  },
+];
+
+const beyondCards = [
+  {
+    icon: icons.custom,
+    title: t('products_services.custom_solution.items.tailored.title'),
+    description: t('products_services.custom_solution.items.tailored.description'),
+    href: `/${lang}/other-solutions`,
+  },
+  {
+    icon: icons.outsourcing,
+    title: t('products_services.outsourcing.items.services.title'),
+    description: t('products_services.outsourcing.items.services.description'),
+    href: `/${lang}/contact`,
+  },
+];
 ---
 
 <Base>
-  <!-- Products & Services Header Section -->
-  <section class="bg-slate-600 text-white py-16 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto text-center">
-      <h1 class="text-display mb-4">{t('products_services.hero.title')}</h1>
-      <p class="text-lead mb-8 max-w-2xl mx-auto">{t('products_services.hero.description')}</p>
+  <!-- Hero: split layout, light gradient -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-red-50 to-white py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          <p class="eyebrow mb-5">{t('products_services.hero.eyebrow')}</p>
+          <h1 class="text-display text-[#C1272D] mb-6">{t('products_services.hero.title')}</h1>
+          <p class="text-lead text-gray-700 mb-8 max-w-xl mx-auto md:mx-0">
+            {t('products_services.hero.description')}
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href={`/${lang}/contact`} class="btn btn-primary">
+              {t('common.buttons.contact_us')}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#education" class="btn btn-secondary">
+              {t('common.buttons.learn_more')}
+            </a>
+          </div>
+        </div>
+        <div class="relative isolate aspect-square max-w-md mx-auto md:ml-auto">
+          <div class="absolute -top-8 -left-8 w-64 h-64 bg-[#C1272D]/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
+          <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
+          <div class="relative z-10 h-full bg-white rounded-3xl shadow-2xl ring-1 ring-red-100 grid grid-cols-3 gap-3 p-6">
+            {[icons.k12, icons.university, icons.enrollment, icons.vithean, icons.attendance, icons.hrm, icons.bakan, icons.custom, icons.outsourcing].map((path) => (
+              <div class="aspect-square rounded-2xl bg-red-50 flex items-center justify-center">
+                <svg class="w-8 h-8 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={path} />
+                </svg>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Education Section -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-h1 mb-6 text-center">{t('products_services.education.title')}</h2>
+  <!-- Education -->
+  <section id="education" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-14 max-w-2xl mx-auto">
+        <h2 class="text-h1 text-[#C1272D] mb-4">{t('products_services.education.title')}</h2>
+        <p class="text-lead text-gray-600">{t('products_services.education.description')}</p>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-          <h3 class="text-h3 mb-4">{t('products_services.education.items.k12.title')}</h3>
-          <p class="text-body mb-4">{t('products_services.education.items.k12.description')}</p>
-          <a 
-            href={`/${lang}/education-sms-solution`}
-            class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-          >
-            {t('common.buttons.learn_more')}
+        {educationCards.map((card) => (
+          <a href={card.href} class="card-lift block bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 group">
+            <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={card.icon} />
+              </svg>
+            </div>
+            <h3 class="text-h3 mb-3 text-gray-900">{card.title}</h3>
+            <p class="text-body text-gray-600 mb-5">{card.description}</p>
+            <span class="inline-flex items-center text-[#C1272D] font-semibold group-hover:text-[#991B1F] transition-colors">
+              {t('common.buttons.learn_more')}
+              <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
           </a>
-        </div>
-        <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-          <h3 class="text-h3 mb-4">{t('products_services.education.items.university.title')}</h3>
-          <p class="text-body mb-4">{t('products_services.education.items.university.description')}</p>
-          <a 
-            href={`/${lang}/education-ums-solution`}
-            class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-          >
-            {t('common.buttons.learn_more')}
-          </a>
-        </div>
-        <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-          <h3 class="text-h3 mb-4">{t('products_services.education.items.enrollment.title')}</h3>
-          <p class="text-body mb-4">{t('products_services.education.items.enrollment.description')}</p>
-          <a 
-            href={`/${lang}/enrollment-online-registration`}
-            class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-          >
-            {t('common.buttons.learn_more')}
-          </a>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Enterprise Section -->
-  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-h1 mb-6 text-center">{t('products_services.enterprise.title')}</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-          <h3 class="text-h3 mb-4">{t('products_services.enterprise.items.vithean.title')}</h3>
-          <p class="text-body mb-4">{t('products_services.enterprise.items.vithean.description')}</p>
-          <a 
-            href="https://vithean.com" 
-            class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-          >
-            {t('common.buttons.visit_site')}
-          </a>
-        </div>
-        <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-          <h3 class="text-h3 mb-4">{t('products_services.enterprise.items.attendance.title')}</h3>
-          <p class="text-body mb-4">{t('products_services.enterprise.items.attendance.description')}</p>
-          <a 
-            href={`/${lang}/attendance-solution`}
-            class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-          >
-            {t('common.buttons.learn_more')}
-          </a>
-        </div>
-        <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-          <h3 class="text-h3 mb-4">{t('products_services.enterprise.items.hrm.title')}</h3>
-          <p class="text-body mb-4">{t('products_services.enterprise.items.hrm.description')}</p>
-          <a 
-            href={`/${lang}/hrm-solution`}
-            class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-          >
-            {t('common.buttons.learn_more')}
-          </a>
-        </div>
+  <!-- Enterprise -->
+  <section id="enterprise" class="py-20 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-14 max-w-2xl mx-auto">
+        <h2 class="text-h1 text-[#C1272D] mb-4">{t('products_services.enterprise.title')}</h2>
+        <p class="text-lead text-gray-600">{t('products_services.enterprise.description')}</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {enterpriseCards.map((card) => (
+          <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-7 flex flex-col">
+            <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={card.icon} />
+              </svg>
+            </div>
+            <h3 class="text-h3 mb-3 text-gray-900">{card.title}</h3>
+            <p class="text-body text-gray-600 mb-5 flex-1">{card.description}</p>
+            <div class="flex flex-wrap gap-x-5 gap-y-2 text-caption font-semibold">
+              <a href={card.href} class="inline-flex items-center text-[#C1272D] hover:text-[#991B1F] transition-colors">
+                {t('common.buttons.learn_more')} →
+              </a>
+              {card.external && (
+                <a href={card.external} target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-gray-600 hover:text-[#C1272D] transition-colors">
+                  {t('common.buttons.visit_site')}
+                  <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Custom Solutions Section -->
-  <section class="py-16 bg-white text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-h1 mb-6 text-center">{t('products_services.custom_solution.title')}</h2>
-      <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-        <h3 class="text-h3 mb-4">{t('products_services.custom_solution.items.tailored.title')}</h3>
-        <p class="text-body mb-4">{t('products_services.custom_solution.items.tailored.description')}</p>
-        <a 
-          href={`/${lang}/other-solutions`}
-          class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-        >
-          {t('common.buttons.learn_more')}
-        </a>
+  <!-- Trust strip -->
+  <section aria-label="Trusted by" class="bg-white border-t border-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="text-caption text-center text-gray-500 uppercase tracking-wider mb-8">
+        {t('products_services.trust.caption')}
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
+        {trustedLogos.map((customer) => (
+          <img
+            src={customer.logo}
+            alt={customer.name}
+            class="h-10 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300"
+            loading="lazy"
+          />
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Outsourcing Section -->
-  <section class="py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-h1 mb-6 text-center">{t('products_services.outsourcing.title')}</h2>
-      <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-lg p-6">
-        <h3 class="text-h3 mb-4">{t('products_services.outsourcing.items.services.title')}</h3>
-        <p class="text-body mb-4">{t('products_services.outsourcing.items.services.description')}</p>
-        <a 
-          href={`/${lang}/contact`}
-          class="text-blue-600 font-semibold hover:text-blue-400 transition-colors duration-300"
-        >
-          {t('common.buttons.learn_more')}
-        </a>
+  <!-- Beyond Standard Solutions -->
+  <section id="beyond" class="py-20 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-14 max-w-2xl mx-auto">
+        <h2 class="text-h1 text-[#C1272D] mb-4">{t('products_services.beyond.title')}</h2>
+        <p class="text-lead text-gray-600">{t('products_services.beyond.description')}</p>
       </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {beyondCards.map((card) => (
+          <a href={card.href} class="card-lift block bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 group">
+            <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={card.icon} />
+              </svg>
+            </div>
+            <h3 class="text-h3 mb-3 text-gray-900">{card.title}</h3>
+            <p class="text-body text-gray-600 mb-5">{card.description}</p>
+            <span class="inline-flex items-center text-[#C1272D] font-semibold group-hover:text-[#991B1F] transition-colors">
+              {t('common.buttons.learn_more')}
+              <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 text-center bg-red-50 border-t border-red-100">
+    <div class="max-w-2xl mx-auto px-4">
+      <h2 class="text-h1 text-[#C1272D] mb-4">{t('products_services.final_cta.title')}</h2>
+      <p class="text-lead text-gray-700 mb-8">{t('products_services.final_cta.description')}</p>
+      <a href={`/${lang}/contact`} class="btn btn-primary">
+        {t('products_services.final_cta.button')}
+      </a>
     </div>
   </section>
 </Base>

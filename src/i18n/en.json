@@ -66,11 +66,13 @@
   },
   "products_services": {
     "hero": {
+      "eyebrow": "All Solutions",
       "title": "Our Products & Services",
       "description": "Discover our comprehensive range of digital solutions designed to transform education and enterprise operations."
     },
     "education": {
       "title": "Education Solutions",
+      "description": "Modern platforms for schools, universities, and enrollment teams.",
       "items": {
         "k12": {
           "title": "School Management System",
@@ -88,6 +90,7 @@
     },
     "enterprise": {
       "title": "Enterprise Solutions",
+      "description": "Integrated software for accounting, people, attendance, and event operations.",
       "items": {
         "vithean": {
           "title": "Vithean - Accounting & ERP",
@@ -100,8 +103,24 @@
         "hrm": {
           "title": "HR Management System",
           "description": "Complete HR solution for employee management, payroll processing, and performance tracking."
+        },
+        "bakan": {
+          "title": "Bakan Elite",
+          "description": "Premium VIP event management with QR access control, real-time attendance tracking, and custom event branding."
         }
       }
+    },
+    "beyond": {
+      "title": "Beyond Standard Solutions",
+      "description": "Need something tailored? We build custom software and provide IT outsourcing to extend your team."
+    },
+    "final_cta": {
+      "title": "Not sure which solution fits?",
+      "description": "Tell us about your goals and our team will guide you to the right product or build something custom.",
+      "button": "Talk to us"
+    },
+    "trust": {
+      "caption": "Trusted by 25+ leading organizations across Cambodia"
     },
     "custom_solution": {
       "title": "Custom Solutions",
