@@ -3,6 +3,7 @@
 import Base from "../../layouts/Base.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import { languages } from "../../i18n/ui";
+import { WEB3FORMS_KEY, WEB3FORMS_ENDPOINT } from "../../lib/forms";
 
 export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -47,11 +48,18 @@ const emailValue = await t('contact.details.email.value');
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Contact Form -->
         <form
-          action="#"
+          action={WEB3FORMS_ENDPOINT}
           method="POST"
           class="bg-white shadow-md rounded-lg p-8"
           id="contact-form"
         >
+          <!-- Web3Forms required + helpful hidden fields -->
+          <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+          <input type="hidden" name="subject" value="New contact from poscardigital.com" />
+          <input type="hidden" name="from_name" value="POSCAR Digital Website" />
+          <!-- Honeypot (bots fill it; real users don't see it) -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
           <div class="mb-6">
             <label
               for="name"
@@ -64,7 +72,7 @@ const emailValue = await t('contact.details.email.value');
               name="name"
               placeholder={formNamePlaceholder}
               required
-              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-600"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C1272D]"
             />
           </div>
 
@@ -80,7 +88,7 @@ const emailValue = await t('contact.details.email.value');
               name="email"
               placeholder={formEmailPlaceholder}
               required
-              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-600"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C1272D]"
             />
           </div>
 
@@ -96,16 +104,21 @@ const emailValue = await t('contact.details.email.value');
               placeholder={formMessagePlaceholder}
               rows="5"
               required
-              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-600"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C1272D]"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full bg-slate-600 text-white py-3 rounded-lg text-base font-semibold hover:bg-slate-700 transition-colors duration-300"
+            id="contact-submit"
+            class="w-full bg-[#C1272D] text-white py-3 rounded-lg text-base font-semibold hover:bg-[#991B1F] transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {formSubmit}
           </button>
+
+          <!-- Status messages (hidden until JS toggles them) -->
+          <p id="contact-success" role="status" class="hidden mt-4 p-3 rounded-lg bg-green-50 text-green-800 text-body"></p>
+          <p id="contact-error" role="alert" class="hidden mt-4 p-3 rounded-lg bg-red-50 text-red-800 text-body"></p>
         </form>
 
         <!-- Contact Details -->

@@ -7,6 +7,7 @@ import { useTranslations } from '../../i18n/utils';
 import { ui as uiTranslations } from '../../i18n/ui';
 import { getCollection } from 'astro:content';
 import customerData from '../../data/customers.json';
+import { WEB3FORMS_KEY, WEB3FORMS_ENDPOINT } from '../../lib/forms';
 
 export async function getStaticPaths() {
   return Object.keys(uiTranslations).map((lang) => ({ params: { lang } }));
@@ -365,7 +366,11 @@ const stats = [
       <p class="text-lead text-gray-600 mb-8">
         {content.home.blogs.newsletter.subtitle}
       </p>
-      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" novalidate>
+      <form id="newsletter-form" action={WEB3FORMS_ENDPOINT} method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" novalidate>
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="POSCAR newsletter signup" />
+        <input type="hidden" name="from_name" value="POSCAR Digital Website" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
         <label for="newsletter-email" class="sr-only">Email address</label>
         <input
           id="newsletter-email"
@@ -375,29 +380,58 @@ const stats = [
           placeholder={content.home.blogs.newsletter.email_placeholder}
           class="flex-1 px-5 py-3 rounded-full border border-gray-300 bg-white text-body placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C1272D] focus:border-[#C1272D] transition"
         />
-        <button type="submit" class="btn btn-primary">
+        <button id="newsletter-submit" type="submit" class="btn btn-primary disabled:opacity-60 disabled:cursor-not-allowed">
           {content.home.blogs.newsletter.subscribe_button}
         </button>
       </form>
       <p id="newsletter-success" class="text-body text-green-700 mt-4 hidden" role="status">
         Thanks for subscribing — we'll be in touch.
       </p>
+      <p id="newsletter-error" class="text-body text-red-700 mt-4 hidden" role="alert">
+        Something went wrong. Please try again later.
+      </p>
     </div>
     <script is:inline>
-      // TODO: wire to a real list service (Mailchimp, ConvertKit, Formspree, etc.)
       (() => {
         const form = document.getElementById('newsletter-form');
         const success = document.getElementById('newsletter-success');
-        if (!form || !success) return;
-        form.addEventListener('submit', (e) => {
+        const errorEl = document.getElementById('newsletter-error');
+        const submit = document.getElementById('newsletter-submit');
+        if (!form || !success || !errorEl || !submit) return;
+
+        form.addEventListener('submit', async (e) => {
           e.preventDefault();
           const input = form.querySelector('input[type=email]');
           if (!input || !input.checkValidity()) {
             input?.reportValidity();
             return;
           }
-          form.classList.add('hidden');
-          success.classList.remove('hidden');
+          success.classList.add('hidden');
+          errorEl.classList.add('hidden');
+
+          const originalLabel = submit.textContent;
+          submit.disabled = true;
+          submit.textContent = '…';
+
+          try {
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { Accept: 'application/json' },
+            });
+            const data = await res.json().catch(() => ({}));
+            if (res.ok && data.success !== false) {
+              form.classList.add('hidden');
+              success.classList.remove('hidden');
+            } else {
+              errorEl.classList.remove('hidden');
+            }
+          } catch (_e) {
+            errorEl.classList.remove('hidden');
+          } finally {
+            submit.disabled = false;
+            submit.textContent = originalLabel;
+          }
         });
       })();
     </script>
