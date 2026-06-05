@@ -60,12 +60,34 @@
   },
   "about": {
     "hero": {
+      "eyebrow": "About Us",
       "title": "About POSCAR Digital",
-      "description": "POSCAR Digital is a leader in smart education, accounting, attendance, and ERP solutions, creating a complete digital eco-platform to empower organizations and individuals."
+      "description": "POSCAR Digital is a leader in smart education, accounting, attendance, and ERP solutions, creating a complete digital eco-platform to empower organizations and individuals.",
+      "primary_cta": "Talk to us",
+      "secondary_cta": "See solutions"
+    },
+    "stats": {
+      "items": [
+        { "value": "1st", "label": "National Education TV (WikiTV)" },
+        { "value": "25+", "label": "Government Partners" },
+        { "value": "3M+", "label": "Students & End Users" },
+        { "value": "2018", "label": "Operating Since" }
+      ]
     },
     "profile": {
       "title": "Our Company Profile",
       "description": "POSCAR Digital was established with a mission to reshape digital landscapes, providing end-to-end solutions for SMEs and educational institutions across Cambodia and beyond. Our innovative platforms, including Wiki School and Vithean, are transforming education and business operations."
+    },
+    "story": {
+      "title": "Our Story",
+      "description": "From a Phnom Penh startup to a national digital partner.",
+      "timeline": [
+        { "year": "2018", "title": "WikiSchool launches", "description": "School management for kindergarten and K12 institutions across Cambodia." },
+        { "year": "2019", "title": "National exam scoring under MoEYS", "description": "Begin annual operation of the high school national exam scoring system." },
+        { "year": "2020", "title": "WikiTV during COVID-19", "description": "Launch Cambodia's first national education broadcast as a public-good contribution to MoEYS." },
+        { "year": "2021", "title": "Vithean goes to AWS", "description": "First SaaS product on AWS — accounting and ERP for SMEs across Cambodia." },
+        { "year": "2023", "title": "Full cloud migration", "description": "All major platforms running on AWS with high availability and horizontal scaling." }
+      ]
     },
     "vision": {
       "title": "Our Vision",
@@ -75,6 +97,24 @@
       "title": "Our Mission",
       "description": "To engage educational institutions and SMEs in a complete digital eco-system, empowering them with smart technology and resources through our comprehensive platforms."
     },
+    "wikitv": {
+      "eyebrow": "National Impact",
+      "title": "Reaching the nation: WikiTV",
+      "paragraphs": [
+        "When schools across Cambodia closed during COVID-19, POSCAR launched WikiTV — a fully managed national education broadcast platform — as a direct contribution to MoEYS and the Cambodian public.",
+        "WikiTV wasn't just a media response. It was an end-to-end digital broadcast solution built and operated entirely in-house, using POSCAR's own infrastructure and broadcast engineering. Today, WikiTV continues to operate as one of Cambodia's dedicated education TV channels — reaching students and schools nationwide."
+      ]
+    },
+    "tech": {
+      "title": "Built on real infrastructure",
+      "description": "From in-house data centers to AWS-native deployment, we run the foundations that other companies outsource.",
+      "items": [
+        { "title": "In-house data center", "description": "We designed and ran our own data center — 13+ enterprise servers across 3 racks, with redundancy and security engineered for production loads." },
+        { "title": "AWS-native by 2023", "description": "Migrated Vithean to AWS in 2021. By 2023, all major platforms — including WikiSchool and WikiCollege — were running in the cloud with horizontal scaling." },
+        { "title": "National-scale operations", "description": "Annual operation of the national high school exam scoring system under MoEYS since 2019." },
+        { "title": "ISO 9001 + ITIL aligned", "description": "Sprint-based delivery, change management, incident response, and quality audits aligned with international service-management standards." }
+      ]
+    },
     "values": {
       "title": "Our Value Proposition",
       "items": [
@@ -82,6 +122,19 @@
         "Ensuring our clients stay connected to their operations and stakeholders at all times.",
         "Providing innovative solutions tailored to unique business needs."
       ]
+    },
+    "explore": {
+      "title": "Explore further",
+      "solutions": {
+        "title": "All solutions",
+        "description": "See the platforms we build, deploy, and operate at national scale.",
+        "cta": "View solutions"
+      },
+      "customers": {
+        "title": "Our customers",
+        "description": "Meet the organizations across Cambodia that rely on POSCAR every day.",
+        "cta": "See customers"
+      }
     },
     "solutions": {
       "title": "Our Solutions",
@@ -108,9 +161,9 @@
       "title": "Our Brands"
     },
     "join_cta": {
-      "title": "Join Us on Our Journey",
-      "description": "Want to learn more about our work or have any inquiries? Connect with us today!",
-      "button": "Contact Us"
+      "title": "Let's build something together",
+      "description": "Talk to our team about digitizing your operations, or explore the platforms we already run at national scale.",
+      "button": "Talk to us"
     }
   },
   "customers": {
