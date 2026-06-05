@@ -13,7 +13,7 @@ const defaultMeta = {
   title: "POSCAR Digital - Smart Education & ERP Solutions in Cambodia",
   description: "POSCAR Digital is a leading provider of smart education, accounting, attendance, and ERP solutions in Cambodia. Discover our innovative platforms including Wiki School and Vithean.",
   keywords: "POSCAR Digital, digital solutions, Cambodia, Wiki School, Vithean, ERP solutions, smart education, accounting software",
-  ogImage: "/images/poscar-digital-og.jpg",
+  ogImage: "/og-image.png",
   ogType: "website",
   twitterCard: "summary_large_image",
   twitterSite: "@poscardigital",
@@ -178,8 +178,13 @@ const structuredData = {
     <!-- Structured Data for AI and Search Engines -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     
-    <!-- Favicon -->
+    <!-- Favicons + manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#C1272D" />
 
     <style is:global>
       /* Global font stack */
