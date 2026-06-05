@@ -71,7 +71,7 @@
         { "value": "1st", "label": "National Education TV (WikiTV)" },
         { "value": "25+", "label": "Government Partners" },
         { "value": "3M+", "label": "Students & End Users" },
-        { "value": "2018", "label": "Operating Since" }
+        { "value": "2017", "label": "Operating Since" }
       ]
     },
     "profile": {
@@ -82,7 +82,8 @@
       "title": "Our Story",
       "description": "From a Phnom Penh startup to a national digital partner.",
       "timeline": [
-        { "year": "2018", "title": "WikiSchool launches", "description": "School management for kindergarten and K12 institutions across Cambodia." },
+        { "year": "2017", "title": "POSCAR Digital is founded", "description": "The team establishes POSCAR Digital in Phnom Penh — building the foundation for what would become Cambodia's digital eco-platforms." },
+        { "year": "2018", "title": "WikiSchool launches", "description": "Our first product — school management for kindergarten and K12 institutions across Cambodia." },
         { "year": "2019", "title": "National exam scoring under MoEYS", "description": "Begin annual operation of the high school national exam scoring system." },
         { "year": "2020", "title": "WikiTV during COVID-19", "description": "Launch Cambodia's first national education broadcast as a public-good contribution to MoEYS." },
         { "year": "2021", "title": "Vithean goes to AWS", "description": "First SaaS product on AWS — accounting and ERP for SMEs across Cambodia." },
