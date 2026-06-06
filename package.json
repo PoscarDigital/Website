@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "node scripts/build-blog-index.mjs",
     "build": "astro build",
     "check": "astro check",
     "preview": "astro preview",
     "astro": "astro",
     "optimize": "node scripts/optimize-images.mjs",
     "generate:press": "node scripts/generate-press-posts.mjs",
+    "build:index": "node scripts/build-blog-index.mjs",
     "icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {

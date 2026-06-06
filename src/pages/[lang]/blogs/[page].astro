@@ -59,28 +59,16 @@ const { lang } = Astro.params as { lang: Languages };
 const t = useTranslations(lang);
 const content = await getContentTranslations(lang);
 
-// Build the client-side search index — every post in date-desc order.
-// Inlined per page via define:vars below. Small enough (~30 posts) to ship
-// in the HTML and search via plain substring; no fetch, no library.
-const allPosts = (await getCollection('blog'))
-  .sort(
-    (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
-      b.data.date.valueOf() - a.data.date.valueOf(),
-  )
-  .map((p: CollectionEntry<'blog'>) => ({
-    slug: p.slug,
-    title: p.data.title,
-    description: p.data.description ?? '',
-    date: p.data.date.toLocaleDateString(),
-    source: p.data.source_name ?? '',
-    category: p.data.category ?? '',
-    tags: p.data.tags ?? [],
-    thumbnail: p.data.thumbnail ?? '',
-  }));
+// Search index is no longer inlined — it's a separate JSON file generated
+// by scripts/build-blog-index.mjs into public/blog-index.json (via the
+// `prebuild` npm script). The browser fetches it lazily on first search
+// interaction, then caches it. Saves ~15 KB on every blog listing page.
 
 const searchUi = {
   placeholder: lang === 'km' ? 'ស្វែងរកអត្ថបទ…' : 'Search articles…',
   clear: lang === 'km' ? 'សម្អាត' : 'Clear',
+  searching: lang === 'km' ? 'កំពុងស្វែងរក…' : 'Searching…',
+  failed: lang === 'km' ? 'មិនអាចស្វែងរកបាន' : 'Search unavailable',
   empty: lang === 'km' ? 'រកមិនឃើញអ្វីសម្រាប់' : 'No results for',
   count: (n: number) =>
     lang === 'km'
@@ -219,7 +207,7 @@ const searchUi = {
     </div>
   </section>
 
-  <script define:vars={{ allPosts, lang, searchUi }}>
+  <script define:vars={{ lang, searchUi }}>
     (() => {
       const input = document.getElementById('blog-search');
       const clearBtn = document.getElementById('blog-search-clear');
@@ -238,18 +226,47 @@ const searchUi = {
           .replace(/"/g, '&quot;')
           .replace(/'/g, '&#39;');
 
-      // Pre-compute haystack per post — lowercase concatenation of fields we
-      // want to search. Khmer has no case so toLowerCase is a no-op there;
-      // Latin script gets case-insensitive matching.
-      const indexed = allPosts.map((p) => ({
-        ...p,
-        haystack: [p.title, p.description, p.source, p.category, (p.tags || []).join(' ')]
-          .join(' ')
-          .toLowerCase(),
-      }));
+      // Lazy fetch + cache the index. First search interaction triggers
+      // the fetch; subsequent searches are instant.
+      let indexCache = null;
+      let indexPromise = null;
+      const loadIndex = () => {
+        if (indexCache) return Promise.resolve(indexCache);
+        if (indexPromise) return indexPromise;
+        indexPromise = fetch('/blog-index.json')
+          .then((r) => {
+            if (!r.ok) throw new Error('Failed to load search index');
+            return r.json();
+          })
+          .then((data) => {
+            indexCache = data.map((p) => ({
+              ...p,
+              dateFormatted: p.date ? new Date(p.date).toLocaleDateString() : '',
+              haystack: [p.title, p.description, p.source, p.category, (p.tags || []).join(' ')]
+                .join(' ')
+                .toLowerCase(),
+            }));
+            return indexCache;
+          })
+          .catch((e) => {
+            indexPromise = null;
+            throw e;
+          });
+        return indexPromise;
+      };
+
+      // Warm the cache on idle so the first search feels instant. Falls back
+      // to setTimeout where requestIdleCallback isn't available (Safari).
+      const warm = () => { loadIndex().catch(() => {}); };
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(warm, { timeout: 2000 });
+      } else {
+        setTimeout(warm, 500);
+      }
 
       const renderCard = (p) => {
-        const dateLine = p.source ? `${escapeHtml(p.date)} · ${escapeHtml(p.source)}` : escapeHtml(p.date);
+        const dateStr = p.dateFormatted || p.date || '';
+        const dateLine = p.source ? `${escapeHtml(dateStr)} · ${escapeHtml(p.source)}` : escapeHtml(dateStr);
         const categoryPill = p.category
           ? `<span class="absolute top-3 left-3 inline-block bg-[#C1272D] text-white text-micro font-semibold uppercase tracking-wider px-3 py-1 rounded-full">${escapeHtml(p.category)}</span>`
           : '';
@@ -284,7 +301,7 @@ const searchUi = {
         clearBtn.classList.toggle('hidden', !on);
       };
 
-      const update = () => {
+      const update = async () => {
         const q = input.value.trim().toLowerCase();
         if (!q) {
           setSearching(false);
@@ -292,17 +309,28 @@ const searchUi = {
           empty.classList.add('hidden');
           return;
         }
-        const matches = indexed.filter((p) => p.haystack.includes(q));
         setSearching(true);
-        countEl.textContent = searchUi.count(matches.length);
-        if (matches.length === 0) {
-          results.classList.add('hidden');
-          empty.classList.remove('hidden');
-          empty.textContent = `${searchUi.empty} "${input.value.trim()}"`;
-        } else {
-          empty.classList.add('hidden');
-          results.classList.remove('hidden');
-          results.innerHTML = matches.map(renderCard).join('');
+        // Show "Searching…" while the index loads on first interaction;
+        // for cached subsequent searches this flashes too briefly to see.
+        if (!indexCache) countEl.textContent = searchUi.searching;
+        try {
+          const data = await loadIndex();
+          // Bail if the user already typed something else while we were
+          // loading — only render results for the current query.
+          if (q !== input.value.trim().toLowerCase()) return;
+          const matches = data.filter((p) => p.haystack.includes(q));
+          countEl.textContent = searchUi.count(matches.length);
+          if (matches.length === 0) {
+            results.classList.add('hidden');
+            empty.classList.remove('hidden');
+            empty.textContent = `${searchUi.empty} "${input.value.trim()}"`;
+          } else {
+            empty.classList.add('hidden');
+            results.classList.remove('hidden');
+            results.innerHTML = matches.map(renderCard).join('');
+          }
+        } catch (_e) {
+          countEl.textContent = searchUi.failed;
         }
       };
 
