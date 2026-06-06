@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/og-image.png" alt="POSCAR Digital" width="600" />
+</p>
+
 # POSCAR Digital — Website
 
 The marketing site for POSCAR Digital Co., Ltd. — built with Astro, deployed
@@ -398,6 +402,16 @@ products and dates also live in `content.about.story.timeline` (in
   accidentally.
 
 ---
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup, commit
+conventions, and PR guidelines.
+
+## License
+
+Source code and brand assets in this repository are © POSCAR Digital
+Co., Ltd., all rights reserved. See [LICENSE](./LICENSE).
 
 ## Contact
 
