@@ -58,6 +58,36 @@ const { page } = Astro.props as { page: PageData };
 const { lang } = Astro.params as { lang: Languages };
 const t = useTranslations(lang);
 const content = await getContentTranslations(lang);
+
+// Build the client-side search index — every post in date-desc order.
+// Inlined per page via define:vars below. Small enough (~30 posts) to ship
+// in the HTML and search via plain substring; no fetch, no library.
+const allPosts = (await getCollection('blog'))
+  .sort(
+    (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+      b.data.date.valueOf() - a.data.date.valueOf(),
+  )
+  .map((p: CollectionEntry<'blog'>) => ({
+    slug: p.slug,
+    title: p.data.title,
+    description: p.data.description ?? '',
+    date: p.data.date.toLocaleDateString(),
+    source: p.data.source_name ?? '',
+    category: p.data.category ?? '',
+    tags: p.data.tags ?? [],
+    thumbnail: p.data.thumbnail ?? '',
+  }));
+
+const searchUi = {
+  placeholder: lang === 'km' ? 'ស្វែងរកអត្ថបទ…' : 'Search articles…',
+  clear: lang === 'km' ? 'សម្អាត' : 'Clear',
+  empty: lang === 'km' ? 'រកមិនឃើញអ្វីសម្រាប់' : 'No results for',
+  count: (n: number) =>
+    lang === 'km'
+      ? `លទ្ធផល ${n}`
+      : `${n} ${n === 1 ? 'result' : 'results'}`,
+  readMore: await t('common.buttons.read_more'),
+};
 ---
 
 <Base>
@@ -70,10 +100,41 @@ const content = await getContentTranslations(lang);
     </div>
   </section>
 
+  <!-- Search -->
+  <section class="bg-white pt-10">
+    <div class="max-w-2xl mx-auto px-4">
+      <label for="blog-search" class="sr-only">{searchUi.placeholder}</label>
+      <div class="relative">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          id="blog-search"
+          type="search"
+          placeholder={searchUi.placeholder}
+          autocomplete="off"
+          class="w-full pl-12 pr-12 py-3 rounded-full border border-gray-300 bg-white text-body placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C1272D] focus:border-[#C1272D] transition"
+        />
+        <button
+          id="blog-search-clear"
+          type="button"
+          aria-label={searchUi.clear}
+          class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <p id="blog-search-count" class="text-caption text-gray-500 mt-3 text-center hidden" aria-live="polite"></p>
+    </div>
+  </section>
+
   <!-- Blog Posts Grid -->
-  <section class="py-16 bg-white">
+  <section class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Default paginated grid (visible when no search) -->
+      <div id="blog-paginated" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {page.data.map((post: CollectionEntry<'blog'>) => (
           <a
             href={`/${lang}/blog/${post.slug}`}
@@ -119,9 +180,13 @@ const content = await getContentTranslations(lang);
         ))}
       </div>
 
-      <!-- Pagination -->
+      <!-- Search results grid (filled by JS, hidden when no search) -->
+      <div id="blog-search-results" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <p id="blog-search-empty" class="hidden text-center text-lead text-gray-500 py-16"></p>
+
+      <!-- Pagination (visible only when no search) -->
       {page.lastPage > 1 && (
-        <div class="mt-14 flex items-center justify-center gap-3">
+        <div id="blog-pagination" class="mt-14 flex items-center justify-center gap-3">
           {page.url.prev ? (
             <a href={page.url.prev} class="btn btn-secondary">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -153,4 +218,107 @@ const content = await getContentTranslations(lang);
       )}
     </div>
   </section>
+
+  <script define:vars={{ allPosts, lang, searchUi }}>
+    (() => {
+      const input = document.getElementById('blog-search');
+      const clearBtn = document.getElementById('blog-search-clear');
+      const countEl = document.getElementById('blog-search-count');
+      const paginated = document.getElementById('blog-paginated');
+      const pagination = document.getElementById('blog-pagination');
+      const results = document.getElementById('blog-search-results');
+      const empty = document.getElementById('blog-search-empty');
+      if (!input || !paginated || !results || !empty || !countEl || !clearBtn) return;
+
+      const escapeHtml = (s) =>
+        String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+
+      // Pre-compute haystack per post — lowercase concatenation of fields we
+      // want to search. Khmer has no case so toLowerCase is a no-op there;
+      // Latin script gets case-insensitive matching.
+      const indexed = allPosts.map((p) => ({
+        ...p,
+        haystack: [p.title, p.description, p.source, p.category, (p.tags || []).join(' ')]
+          .join(' ')
+          .toLowerCase(),
+      }));
+
+      const renderCard = (p) => {
+        const dateLine = p.source ? `${escapeHtml(p.date)} · ${escapeHtml(p.source)}` : escapeHtml(p.date);
+        const categoryPill = p.category
+          ? `<span class="absolute top-3 left-3 inline-block bg-[#C1272D] text-white text-micro font-semibold uppercase tracking-wider px-3 py-1 rounded-full">${escapeHtml(p.category)}</span>`
+          : '';
+        const thumb = p.thumbnail
+          ? `<div class="relative bg-gray-50 flex items-center justify-center h-48 p-6"><img src="${escapeHtml(p.thumbnail)}" alt="${escapeHtml(p.title)}" class="max-h-full max-w-full object-contain" loading="lazy" />${categoryPill}</div>`
+          : '';
+        const desc = p.description
+          ? `<p class="text-body text-gray-600 mb-4 line-clamp-2">${escapeHtml(p.description)}</p>`
+          : '';
+        return `
+          <a href="/${lang}/blog/${escapeHtml(p.slug)}/" class="card-lift block bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden border border-gray-200 group">
+            ${thumb}
+            <div class="p-6">
+              <div class="flex flex-wrap items-center text-caption text-gray-500 mb-3 gap-x-2">${dateLine}</div>
+              <h3 class="text-h3 mb-3 text-gray-900 line-clamp-3">${escapeHtml(p.title)}</h3>
+              ${desc}
+              <span class="inline-flex items-center text-[#C1272D] font-semibold group-hover:text-[#991B1F] transition-colors">
+                ${escapeHtml(searchUi.readMore)}
+                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </a>`;
+      };
+
+      const setSearching = (on) => {
+        paginated.classList.toggle('hidden', on);
+        if (pagination) pagination.classList.toggle('hidden', on);
+        results.classList.toggle('hidden', !on);
+        countEl.classList.toggle('hidden', !on);
+        clearBtn.classList.toggle('hidden', !on);
+      };
+
+      const update = () => {
+        const q = input.value.trim().toLowerCase();
+        if (!q) {
+          setSearching(false);
+          results.innerHTML = '';
+          empty.classList.add('hidden');
+          return;
+        }
+        const matches = indexed.filter((p) => p.haystack.includes(q));
+        setSearching(true);
+        countEl.textContent = searchUi.count(matches.length);
+        if (matches.length === 0) {
+          results.classList.add('hidden');
+          empty.classList.remove('hidden');
+          empty.textContent = `${searchUi.empty} "${input.value.trim()}"`;
+        } else {
+          empty.classList.add('hidden');
+          results.classList.remove('hidden');
+          results.innerHTML = matches.map(renderCard).join('');
+        }
+      };
+
+      input.addEventListener('input', update);
+      input.addEventListener('search', update);
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        update();
+        input.focus();
+      });
+      // Initialize from URL ?q= so search results can be linked
+      const urlQ = new URLSearchParams(window.location.search).get('q');
+      if (urlQ) {
+        input.value = urlQ;
+        update();
+      }
+    })();
+  </script>
 </Base>
