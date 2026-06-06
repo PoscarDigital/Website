@@ -29,6 +29,24 @@ const formattedDate = entry.data.date.toLocaleDateString(lang === 'km' ? 'km-KH'
 
 const isPress = entry.data.category === 'Press' && entry.data.source_url;
 
+// Pull a YouTube video id out of any of the common URL shapes.
+function getYouTubeId(url: string | undefined): string | null {
+  if (!url) return null;
+  const patterns = [
+    /(?:youtube\.com|youtube-nocookie\.com)\/watch\?(?:[^&]*&)*v=([\w-]+)/i,
+    /(?:youtube\.com|youtube-nocookie\.com)\/embed\/([\w-]+)/i,
+    /(?:youtube\.com|youtube-nocookie\.com)\/shorts\/([\w-]+)/i,
+    /youtu\.be\/([\w-]+)/i,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+const sourceVideoId = getYouTubeId(entry.data.source_url);
+const isYouTubeSource = !!sourceVideoId;
+
 // Detect whether the thumbnail is a brand mark (logo) vs an editorial photo.
 // Brand logos sit in a white card with padding; photos go full-bleed at 16:9.
 const isLogoThumb = !!entry.data.thumbnail && entry.data.thumbnail.includes('/brand/');
@@ -139,7 +157,23 @@ const related = [
 
     <!-- Article body -->
     <div class="max-w-3xl mx-auto px-4 pb-8">
-      <div class="prose prose-slate prose-lg max-w-none
+      {isYouTubeSource && (
+        <figure class="mb-10">
+          <div class="relative aspect-video rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200 bg-black">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${sourceVideoId}`}
+              title={entry.data.title}
+              class="absolute inset-0 w-full h-full"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </figure>
+      )}
+
+      <div id="blog-article-body" class="prose prose-slate prose-lg max-w-none
                   prose-headings:font-bold prose-headings:text-gray-900
                   prose-p:leading-relaxed
                   prose-a:text-[#C1272D] prose-a:no-underline hover:prose-a:underline
@@ -176,10 +210,12 @@ const related = [
     {isPress && (
       <aside class="max-w-3xl mx-auto px-4 mt-8">
         <div class="bg-red-50 border border-red-100 rounded-2xl p-8 md:p-10">
-          <p class="text-caption uppercase tracking-wider text-gray-500 mb-2">Read the original article</p>
+          <p class="text-caption uppercase tracking-wider text-gray-500 mb-2">
+            {isYouTubeSource ? 'Watch the original video' : 'Read the original article'}
+          </p>
           <p class="text-h3 text-gray-900 mb-6">{entry.data.source_name}</p>
           <a href={entry.data.source_url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            Read on {entry.data.source_name}
+            {isYouTubeSource ? 'Watch on YouTube' : `Read on ${entry.data.source_name}`}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -187,6 +223,51 @@ const related = [
         </div>
       </aside>
     )}
+
+    <!-- Inline transform: any YouTube anchor inside the article body becomes
+         a responsive embed in-place. Runs once on DOMContentLoaded. -->
+    <script is:inline>
+      (() => {
+        const root = document.getElementById('blog-article-body');
+        if (!root) return;
+        const getId = (url) => {
+          const patterns = [
+            /(?:youtube\.com|youtube-nocookie\.com)\/watch\?(?:[^&]*&)*v=([\w-]+)/i,
+            /(?:youtube\.com|youtube-nocookie\.com)\/embed\/([\w-]+)/i,
+            /(?:youtube\.com|youtube-nocookie\.com)\/shorts\/([\w-]+)/i,
+            /youtu\.be\/([\w-]+)/i,
+          ];
+          for (const p of patterns) {
+            const m = url.match(p);
+            if (m) return m[1];
+          }
+          return null;
+        };
+        root.querySelectorAll('a[href]').forEach((a) => {
+          const id = getId(a.getAttribute('href') || '');
+          if (!id) return;
+          const wrap = document.createElement('figure');
+          wrap.className = 'my-6 relative aspect-video rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200 bg-black';
+          const iframe = document.createElement('iframe');
+          iframe.src = 'https://www.youtube-nocookie.com/embed/' + id;
+          iframe.title = a.textContent && a.textContent.trim() ? a.textContent.trim() : 'YouTube video';
+          iframe.className = 'absolute inset-0 w-full h-full';
+          iframe.loading = 'lazy';
+          iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+          iframe.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          iframe.allowFullscreen = true;
+          wrap.appendChild(iframe);
+          // Replace the anchor's parent paragraph if the anchor is the only thing in it,
+          // otherwise replace just the anchor. Keeps surrounding text intact.
+          const p = a.parentElement;
+          if (p && p.tagName === 'P' && p.textContent && p.textContent.trim() === (a.textContent || '').trim()) {
+            p.replaceWith(wrap);
+          } else {
+            a.replaceWith(wrap);
+          }
+        });
+      })();
+    </script>
 
     <!-- Related posts -->
     {related.length > 0 && (
