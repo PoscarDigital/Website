@@ -4,7 +4,7 @@ date: 2021-08-31
 author: 'POSCAR Digital'
 category: 'Press'
 description: 'The Ministry of Education, Youth and Sports, through the National Institute of Education, in collaboration with Poscar Digital on August 31, announced the launch of digital school system "Wiki School"'
-thumbnail: '/images/brand/01-Poscar.png'
+thumbnail: '/images/blog/2021-08-31-press-10.jpg'
 source_name: 'OpenDevelopment
 Cambodia'
 source_url: 'https://opendevelopmentcambodia.net/news/the-ministry-of-education-in-collaboration-with-poscar-digital-co-ltd-announces-the-launch-of-the-wiki-school-digital-school-system#!/story=post-154039'

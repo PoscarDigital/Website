@@ -4,8 +4,8 @@ date: 2022-01-09
 author: 'POSCAR Digital'
 category: 'Press'
 description: 'កូនខ្មែរបង្កើតប្រព័ន្ធគណនេយ្យអនឡាញ «វិធាន» ជួយការងារគ្រប់គ្រងហិរញ្ញវត្ថុកាន់តែងាយស្រួល ក្នុងយុគសម័យឌីជីថល (Video inside)(ភ្នំពេញ)៖ ក្រុមហ៊ុន ផុស្ការ ឌីជីធល ឯ...'
-thumbnail: '/images/brand/01-Poscar.png'
-source_name: 'Fresh News'
+thumbnail: '/images/blog/2022-01-09-press-20.jpg'
+source_name: 'Youtube: Fresh News'
 source_url: 'https://www.youtube.com/watch?v=WA0KAm_7mQM&ab_channel=FRESHNEWS'
 tags: ['POSCAR Digital']
 ---
