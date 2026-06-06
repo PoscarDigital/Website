@@ -64,16 +64,15 @@ const content = await getContentTranslations(lang);
 // `prebuild` npm script). The browser fetches it lazily on first search
 // interaction, then caches it. Saves ~15 KB on every blog listing page.
 
+// Anything in this object must be JSON-serializable: define:vars uses
+// JSON, which silently drops functions. The result-count formatter is
+// defined in the client script body below, not here.
 const searchUi = {
   placeholder: lang === 'km' ? 'ស្វែងរកអត្ថបទ…' : 'Search articles…',
   clear: lang === 'km' ? 'សម្អាត' : 'Clear',
   searching: lang === 'km' ? 'កំពុងស្វែងរក…' : 'Searching…',
   failed: lang === 'km' ? 'មិនអាចស្វែងរកបាន' : 'Search unavailable',
   empty: lang === 'km' ? 'រកមិនឃើញអ្វីសម្រាប់' : 'No results for',
-  count: (n: number) =>
-    lang === 'km'
-      ? `លទ្ធផល ${n}`
-      : `${n} ${n === 1 ? 'result' : 'results'}`,
   readMore: await t('common.buttons.read_more'),
 };
 ---
@@ -218,6 +217,14 @@ const searchUi = {
       const empty = document.getElementById('blog-search-empty');
       if (!input || !paginated || !results || !empty || !countEl || !clearBtn) return;
 
+      // Result-count formatter. Defined here (not in searchUi) because
+      // define:vars JSON-serializes its inputs and silently drops
+      // functions.
+      const formatCount = (n) =>
+        lang === 'km'
+          ? `លទ្ធផល ${n}`
+          : `${n} ${n === 1 ? 'result' : 'results'}`;
+
       const escapeHtml = (s) =>
         String(s)
           .replace(/&/g, '&amp;')
@@ -319,7 +326,7 @@ const searchUi = {
           // loading — only render results for the current query.
           if (q !== input.value.trim().toLowerCase()) return;
           const matches = data.filter((p) => p.haystack.includes(q));
-          countEl.textContent = searchUi.count(matches.length);
+          countEl.textContent = formatCount(matches.length);
           if (matches.length === 0) {
             results.classList.add('hidden');
             empty.classList.remove('hidden');
