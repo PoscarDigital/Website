@@ -1,18 +1,14 @@
 ---
-// Static root page that redirects to the default language.
-// Astro.redirect() doesn't work on static hosts (GitHub Pages), so we emit
-// a meta-refresh + JS fallback + a link for crawlers/no-JS clients.
+// Root homepage. Serves the default language (English) directly at "/" so the
+// bare domain renders content immediately instead of redirecting to "/en/".
+// Khmer still lives under "/km/"; the language picker switches to it.
+// Base derives lang from the URL — "/" has no prefix, so it falls back to the
+// default language (en), and Nav/Footer render their English links.
+import Base from '../layouts/Base.astro';
+import HomeContent from '../components/HomeContent.astro';
+import { defaultLang } from '../i18n/ui';
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>POSCAR Digital</title>
-    <link rel="canonical" href="https://poscardigital.com/en/" />
-    <meta http-equiv="refresh" content="0; url=/en/" />
-    <script>window.location.replace('/en/');</script>
-  </head>
-  <body>
-    <p>Redirecting to <a href="/en/">POSCAR Digital</a>&hellip;</p>
-  </body>
-</html>
+
+<Base>
+  <HomeContent lang={defaultLang} />
+</Base>

@@ -8,8 +8,11 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["en", "km"],
     routing: {
-      prefixDefaultLocale: true,
-      strategy: "prefix-always"
+      // Serve the default locale (en) without a prefix so "/" renders the
+      // English homepage directly instead of redirecting to "/en/". Khmer
+      // stays under "/km/". (Setting this to true makes Astro auto-generate
+      // a "/" -> "/en/" redirect, which is what we're removing.)
+      prefixDefaultLocale: false
     }
   },
   output: 'static',
