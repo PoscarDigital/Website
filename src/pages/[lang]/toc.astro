@@ -1,14 +1,12 @@
 ---
 // src/pages/[lang]/toc.astro
 import Base from '../../layouts/Base.astro';
-import { getLangFromUrl } from '../../i18n/utils';
 
 export async function getStaticPaths() {
   // Khmer has its own page at src/pages/km/toc.astro.
   return [{ params: { lang: 'en' } }];
 }
 
-const lang = getLangFromUrl(Astro.url);
 ---
 
 <Base title="Terms & Conditions">

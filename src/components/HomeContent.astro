@@ -359,7 +359,7 @@ const stats = [
       <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
       <input type="hidden" name="subject" value="POSCAR newsletter signup" />
       <input type="hidden" name="from_name" value="POSCAR Digital Website" />
-      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+      <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
       <label for="newsletter-email" class="sr-only">Email address</label>
       <input
         id="newsletter-email"
@@ -380,17 +380,17 @@ const stats = [
       Something went wrong. Please try again later.
     </p>
   </div>
-  <script is:inline>
+  <script>
     (() => {
-      const form = document.getElementById('newsletter-form');
+      const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
       const success = document.getElementById('newsletter-success');
       const errorEl = document.getElementById('newsletter-error');
-      const submit = document.getElementById('newsletter-submit');
+      const submit = document.getElementById('newsletter-submit') as HTMLButtonElement | null;
       if (!form || !success || !errorEl || !submit) return;
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const input = form.querySelector('input[type=email]');
+        const input = form.querySelector<HTMLInputElement>('input[type=email]');
         if (!input || !input.checkValidity()) {
           input?.reportValidity();
           return;

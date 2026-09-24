@@ -1,6 +1,6 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../../i18n/utils';
+import { useTranslations, getContentTranslations } from '../../../i18n/utils';
 import type { GetStaticPaths } from 'astro';
 import { ui } from '../../../i18n/ui';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -64,9 +64,9 @@ const content = await getContentTranslations(lang);
 // `prebuild` npm script). The browser fetches it lazily on first search
 // interaction, then caches it. Saves ~15 KB on every blog listing page.
 
-// Anything in this object must be JSON-serializable: define:vars uses
-// JSON, which silently drops functions. The result-count formatter is
-// defined in the client script body below, not here.
+// Passed to the client script as JSON in data-ui on the search input
+// (not define:vars — Astro's CSP can't hash define:vars scripts). Must be
+// JSON-serializable; the result-count formatter lives in the script.
 const searchUi = {
   placeholder: lang === 'km' ? 'ស្វែងរកអត្ថបទ…' : 'Search articles…',
   clear: lang === 'km' ? 'សម្អាត' : 'Clear',
@@ -97,6 +97,8 @@ const searchUi = {
         </svg>
         <input
           id="blog-search"
+          data-lang={lang}
+          data-ui={JSON.stringify(searchUi)}
           type="search"
           placeholder={searchUi.placeholder}
           autocomplete="off"
@@ -206,26 +208,44 @@ const searchUi = {
     </div>
   </section>
 
-  <script define:vars={{ lang, searchUi }}>
+  <script>
+    // Shape of each entry in /blog-index.json (scripts/build-blog-index.mjs).
+    interface IndexEntry {
+      slug: string;
+      title: string;
+      description?: string;
+      date?: string;
+      source?: string;
+      category?: string;
+      tags?: string[];
+      thumbnail?: string;
+    }
+    interface SearchEntry extends IndexEntry {
+      dateFormatted: string;
+      haystack: string;
+    }
+
     (() => {
-      const input = document.getElementById('blog-search');
+      const input = document.getElementById('blog-search') as HTMLInputElement | null;
+      if (!input) return;
+      const lang = input.dataset.lang || 'en';
+      const searchUi = JSON.parse(input.dataset.ui || '{}');
       const clearBtn = document.getElementById('blog-search-clear');
       const countEl = document.getElementById('blog-search-count');
       const paginated = document.getElementById('blog-paginated');
       const pagination = document.getElementById('blog-pagination');
       const results = document.getElementById('blog-search-results');
       const empty = document.getElementById('blog-search-empty');
-      if (!input || !paginated || !results || !empty || !countEl || !clearBtn) return;
+      if (!paginated || !results || !empty || !countEl || !clearBtn) return;
 
       // Result-count formatter. Defined here (not in searchUi) because
-      // define:vars JSON-serializes its inputs and silently drops
-      // functions.
-      const formatCount = (n) =>
+      // functions don't survive the JSON round-trip.
+      const formatCount = (n: number) =>
         lang === 'km'
           ? `លទ្ធផល ${n}`
           : `${n} ${n === 1 ? 'result' : 'results'}`;
 
-      const escapeHtml = (s) =>
+      const escapeHtml = (s: unknown) =>
         String(s)
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
@@ -235,9 +255,9 @@ const searchUi = {
 
       // Lazy fetch + cache the index. First search interaction triggers
       // the fetch; subsequent searches are instant.
-      let indexCache = null;
-      let indexPromise = null;
-      const loadIndex = () => {
+      let indexCache: SearchEntry[] | null = null;
+      let indexPromise: Promise<SearchEntry[]> | null = null;
+      const loadIndex = (): Promise<SearchEntry[]> => {
         if (indexCache) return Promise.resolve(indexCache);
         if (indexPromise) return indexPromise;
         indexPromise = fetch('/blog-index.json')
@@ -245,7 +265,7 @@ const searchUi = {
             if (!r.ok) throw new Error('Failed to load search index');
             return r.json();
           })
-          .then((data) => {
+          .then((data: IndexEntry[]) => {
             indexCache = data.map((p) => ({
               ...p,
               dateFormatted: p.date ? new Date(p.date).toLocaleDateString() : '',
@@ -271,7 +291,7 @@ const searchUi = {
         setTimeout(warm, 500);
       }
 
-      const renderCard = (p) => {
+      const renderCard = (p: SearchEntry) => {
         const dateStr = p.dateFormatted || p.date || '';
         const dateLine = p.source ? `${escapeHtml(dateStr)} · ${escapeHtml(p.source)}` : escapeHtml(dateStr);
         const categoryPill = p.category
@@ -300,7 +320,7 @@ const searchUi = {
           </a>`;
       };
 
-      const setSearching = (on) => {
+      const setSearching = (on: boolean) => {
         paginated.classList.toggle('hidden', on);
         if (pagination) pagination.classList.toggle('hidden', on);
         results.classList.toggle('hidden', !on);

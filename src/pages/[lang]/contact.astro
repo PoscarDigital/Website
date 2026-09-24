@@ -24,6 +24,7 @@ const formMessagePlaceholder = await t('contact.form.message.placeholder');
 const formSubmit = await t('contact.form.submit');
 const detailsTitle = await t('contact.details.title');
 const detailsDescription = await t('contact.details.description');
+const detailsFallback = await t('contact.details.fallback');
 const addressLabel = await t('contact.details.address.label');
 const addressValue = await t('contact.details.address.value');
 const phoneLabel = await t('contact.details.phone.label');
@@ -59,7 +60,7 @@ const emailValue = await t('contact.details.email.value');
           <input type="hidden" name="subject" value="New contact from poscardigital.com" />
           <input type="hidden" name="from_name" value="POSCAR Digital Website" />
           <!-- Honeypot (bots fill it; real users don't see it) -->
-          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
 
           <div class="mb-6">
             <label
@@ -125,7 +126,7 @@ const emailValue = await t('contact.details.email.value');
         <div class="bg-white shadow-md rounded-lg p-8">
           <h2 class="text-h2 mb-4">{detailsTitle}</h2>
           <p class="text-body text-gray-700 mb-6">
-            The contact form is temporarily unavailable. Please reach us directly:
+            {detailsFallback}
           </p>
           <ul class="space-y-4 text-body">
             <li>
@@ -171,7 +172,7 @@ const emailValue = await t('contact.details.email.value');
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.3501001134096!2d104.92547577370833!3d11.594652843571561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310953acc34f48bd%3A0xdc7731a1497fa17b!2sPOSCAR%20Digital%20Co.%2C%20Ltd.!5e1!3m2!1skm!2skh!4v1731403925110!5m2!1skm!2skh"
               title="POSCAR Digital office location on Google Maps"
-              style="width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 0.5rem;"
+              class="w-full aspect-video border-0 rounded-lg"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>

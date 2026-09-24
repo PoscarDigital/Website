@@ -233,11 +233,11 @@ const related = [
 
     <!-- Inline transform: any YouTube anchor inside the article body becomes
          a responsive embed in-place. Runs once on DOMContentLoaded. -->
-    <script is:inline>
+    <script>
       (() => {
         const root = document.getElementById('blog-article-body');
         if (!root) return;
-        const getId = (url) => {
+        const getId = (url: string) => {
           const patterns = [
             /(?:youtube\.com|youtube-nocookie\.com)\/watch\?(?:[^&]*&)*v=([\w-]+)/i,
             /(?:youtube\.com|youtube-nocookie\.com)\/embed\/([\w-]+)/i,

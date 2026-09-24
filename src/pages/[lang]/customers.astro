@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../i18n/utils';
+import { getLangFromUrl, getContentTranslations } from '../../i18n/utils';
 import { ui } from '../../i18n/ui';
 import customerData from '../../data/customers.json';
 import testimonialData from '../../data/testimonial.json';
@@ -10,7 +10,6 @@ export async function getStaticPaths() {
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 const content = await getContentTranslations(lang);
 const c = content.customers;
 

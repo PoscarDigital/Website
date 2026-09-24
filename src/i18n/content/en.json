@@ -274,6 +274,7 @@
     "details": {
       "title": "Get in Touch",
       "description": "For any inquiries, please use the contact form or reach out through the details below:",
+      "fallback": "The contact form is temporarily unavailable. Please reach us directly:",
       "address": {
         "label": "Address",
         "value": "C-7 Building, 6th & 7th Floor, Street Vimean Ahha, Kien Klaing Village, Sangkat Chroy Changvar, Khan Chroy Changvar, Phnom Penh, Cambodia. 121001"
