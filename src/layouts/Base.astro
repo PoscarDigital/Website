@@ -5,15 +5,24 @@ import Footer from "../components/Footer.astro";
 import "@fontsource/kantumruy-pro/400.css";
 import "@fontsource/kantumruy-pro/500.css";
 import "@fontsource/kantumruy-pro/700.css";
+import "../styles/global.css";
 
 const lang = getLangFromUrl(Astro.url);
+const SITE = "https://poscardigital.com";
+
+// Same page in each language, for hreflang. "/" and "/en/..." are English;
+// "/km/..." is Khmer. The English homepage lives at "/".
+const pathRest = Astro.url.pathname.replace(/^\/(en|km)(?=\/|$)/, "") || "/";
+const altUrl = (code: string) =>
+  code === "en" && pathRest === "/" ? `${SITE}/` : `${SITE}/${code}${pathRest}`;
+const ogLocales: Record<string, string> = { en: "en_US", km: "km_KH" };
 
 // Default SEO meta tags
 const defaultMeta = {
   title: "POSCAR Digital - Smart Education & ERP Solutions in Cambodia",
   description: "POSCAR Digital is a leading provider of smart education, accounting, attendance, and ERP solutions in Cambodia. Discover our innovative platforms including Wiki School and Vithean.",
   keywords: "POSCAR Digital, digital solutions, Cambodia, Wiki School, Vithean, ERP solutions, smart education, accounting software",
-  ogImage: "/og-image.png",
+  ogImage: `${SITE}/og-image.png`,
   ogType: "website",
   twitterCard: "summary_large_image",
   twitterSite: "@poscardigital",
@@ -47,7 +56,7 @@ const structuredData = {
       "url": "https://poscardigital.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://poscardigital.com/images/poscar-digital-logo.png"
+        "url": "https://poscardigital.com/android-chrome-512x512.png"
       },
       "sameAs": [
         "https://www.facebook.com/poscardigital",
@@ -110,11 +119,6 @@ const structuredData = {
       "publisher": {
         "@id": "https://poscardigital.com/#organization"
       },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://poscardigital.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
       "inLanguage": lang
     },
     {
@@ -155,19 +159,28 @@ const structuredData = {
     <meta property="og:title" content={finalMeta.title} />
     <meta property="og:description" content={finalMeta.description} />
     <meta property="og:image" content={finalMeta.ogImage} />
-    <meta property="og:locale" content={finalMeta.language} />
+    <meta property="og:locale" content={ogLocales[finalMeta.language] ?? "en_US"} />
+    {Object.keys(ogLocales).filter((c) => c !== finalMeta.language).map((c) => (
+      <meta property="og:locale:alternate" content={ogLocales[c]} />
+    ))}
+    <meta property="og:site_name" content="POSCAR Digital" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content={finalMeta.twitterCard} />
-    <meta property="twitter:url" content={finalMeta.canonical} />
-    <meta property="twitter:title" content={finalMeta.title} />
-    <meta property="twitter:description" content={finalMeta.description} />
-    <meta property="twitter:image" content={finalMeta.ogImage} />
-    <meta property="twitter:site" content={finalMeta.twitterSite} />
-    <meta property="twitter:creator" content={finalMeta.twitterCreator} />
+    <meta name="twitter:card" content={finalMeta.twitterCard} />
+    <meta name="twitter:url" content={finalMeta.canonical} />
+    <meta name="twitter:title" content={finalMeta.title} />
+    <meta name="twitter:description" content={finalMeta.description} />
+    <meta name="twitter:image" content={finalMeta.ogImage} />
+    <meta name="twitter:site" content={finalMeta.twitterSite} />
+    <meta name="twitter:creator" content={finalMeta.twitterCreator} />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={finalMeta.canonical} />
+
+    <!-- Language alternates -->
+    <link rel="alternate" hreflang="en" href={altUrl("en")} />
+    <link rel="alternate" hreflang="km" href={altUrl("km")} />
+    <link rel="alternate" hreflang="x-default" href={altUrl("en")} />
     
     <!-- Geo Tags -->
     <meta name="geo.region" content={finalMeta.geo.region} />
@@ -307,8 +320,6 @@ const structuredData = {
     <main class="font-kantumruy">
       <slot />
     </main>
-    <footer>
-      <Footer />
-    </footer>
+    <Footer />
   </body>
 </html>

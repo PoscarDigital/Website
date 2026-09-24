@@ -1,5 +1,4 @@
 // Language Utils
-import { getCollection } from 'astro:content';
 import { ui, defaultLang } from './ui';
 
 // Track translation lookups

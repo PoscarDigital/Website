@@ -2,10 +2,10 @@
 // src/pages/[lang]/toc.astro
 import Base from '../../layouts/Base.astro';
 import { getLangFromUrl } from '../../i18n/utils';
-import { ui } from '../../i18n/ui';
 
 export async function getStaticPaths() {
-  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+  // Khmer has its own page at src/pages/km/toc.astro.
+  return [{ params: { lang: 'en' } }];
 }
 
 const lang = getLangFromUrl(Astro.url);

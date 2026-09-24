@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Type scale — fluid clamps shared across every page. Used as
+   text-display / text-h1 … text-micro. */
+@theme {
+  --font-kantumruy: 'Kantumruy Pro', sans-serif;
+
+  /* Display — hero titles (fluid 36 → 60px) */
+  --text-display: clamp(2.25rem, 1.55rem + 3.2vw, 3.75rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.025em;
+  --text-display--font-weight: 700;
+
+  /* h1 — main page heading (fluid 30 → 40px) */
+  --text-h1: clamp(1.875rem, 1.5rem + 1.9vw, 2.5rem);
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  /* h2 — section heading (fluid 24 → 30px) */
+  --text-h2: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h2--font-weight: 700;
+
+  /* h3 — card / sub-section (fluid 20 → 24px) */
+  --text-h3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+
+  /* h4 — minor heading (18 → 20px) */
+  --text-h4: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-h4--line-height: 1.4;
+  --text-h4--font-weight: 600;
+
+  /* Stat number — KPI emphasis (fluid 40 → 64px) */
+  --text-stat: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.03em;
+  --text-stat--font-weight: 700;
+
+  /* Lead paragraph — intro / hero body */
+  --text-lead: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+
+  /* Body — default paragraph */
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  /* Caption — meta, footer body, small text */
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.5;
+
+  /* Micro — fine print */
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.4;
+}
+
+/* Tailwind v4 changed these defaults; keep the v3 look the site was
+   designed with. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+}

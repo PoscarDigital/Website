@@ -1,9 +1,22 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://poscardigital.com',
-  integrations: [tailwind()],
+  integrations: [
+    sitemap({
+      // /en/ canonicalizes to / (same content), so list only the root.
+      filter: (page) => page !== 'https://poscardigital.com/en/',
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en-US', km: 'km-KH' },
+      },
+    }),
+  ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   i18n: {
     defaultLocale: "en",
     locales: ["en", "km"],

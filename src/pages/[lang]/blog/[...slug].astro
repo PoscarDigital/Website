@@ -1,7 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import { useTranslations } from '../../../i18n/utils';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { ui } from '../../../i18n/ui';
 
 type Languages = keyof typeof ui;
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return Object.keys(ui).flatMap((lang) => {
     return blogEntries.map((entry) => ({
-      params: { lang, slug: entry.slug },
+      params: { lang, slug: entry.id },
       props: { entry },
     }));
   });
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Languages };
 const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const t = useTranslations(lang);
 
 const formattedDate = entry.data.date.toLocaleDateString(lang === 'km' ? 'km-KH' : 'en-US', {
@@ -62,7 +62,7 @@ const minutes = Math.max(1, Math.round(khmerChars / 700 + words / 220));
 // Related posts: same category, most recent, excluding self. If fewer than 3
 // match, fill from any category.
 const allPosts = await getCollection('blog');
-const otherPosts = allPosts.filter((e: CollectionEntry<'blog'>) => e.slug !== entry.slug);
+const otherPosts = allPosts.filter((e: CollectionEntry<'blog'>) => e.id !== entry.id);
 const sameCat = otherPosts.filter((e: CollectionEntry<'blog'>) => e.data.category === entry.data.category);
 const related = [
   ...sameCat,
@@ -126,7 +126,7 @@ const related = [
          hero slot and the thumbnail is hidden on the detail page (the
          thumbnail still serves as the card image on the listing). -->
     {isYouTubeSource && (
-      <section class="relative bg-gradient-to-b from-red-50 via-red-50/60 to-white py-12 md:py-16 mb-16">
+      <section class="relative bg-linear-to-b from-red-50 via-red-50/60 to-white py-12 md:py-16 mb-16">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><circle cx=%221%22 cy=%221%22 r=%221%22 fill=%22%23C1272D%22 opacity=%220.08%22/></svg>')] opacity-50" aria-hidden="true"></div>
         <figure class="relative max-w-4xl mx-auto px-4">
           <div class="aspect-video rounded-2xl overflow-hidden shadow-[0_25px_70px_-15px_rgba(193,39,45,0.35)] ring-1 ring-red-100 bg-black">
@@ -165,7 +165,7 @@ const related = [
          Band, dot-texture, red glow, and ring all kept for the
          editorial framing. Skipped for YouTube posts. -->
     {!isYouTubeSource && entry.data.thumbnail && !isLogoThumb && (
-      <section class="relative bg-gradient-to-b from-red-50 via-red-50/60 to-white py-12 md:py-16 mb-16">
+      <section class="relative bg-linear-to-b from-red-50 via-red-50/60 to-white py-12 md:py-16 mb-16">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><circle cx=%221%22 cy=%221%22 r=%221%22 fill=%22%23C1272D%22 opacity=%220.08%22/></svg>')] opacity-50" aria-hidden="true"></div>
         <figure class="relative max-w-6xl mx-auto px-4 flex justify-center">
           <img
@@ -285,7 +285,7 @@ const related = [
           </h2>
           <div class="grid md:grid-cols-3 gap-6">
             {related.map(({ post, isLogo }) => (
-              <a href={`/${lang}/blog/${post.slug}`} class="card-lift block bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden border border-gray-200 group">
+              <a href={`/${lang}/blog/${post.id}`} class="card-lift block bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden border border-gray-200 group">
                 {post.data.thumbnail && (
                   <div class={isLogo ? 'relative bg-gray-50 flex items-center justify-center h-44 p-6' : 'relative h-44 overflow-hidden'}>
                     <img
