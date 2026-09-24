@@ -13,8 +13,9 @@ Bilingual: English (`/en/…`) and Khmer (`/km/…`).
 
 ## Stack
 
-- **Astro 4.x** — static site generator. Output is plain HTML/CSS/JS in `dist/`.
-- **Tailwind CSS** with a centralized type scale defined in `tailwind.config.mjs`
+- **Astro 7.x** — static site generator. Output is plain HTML/CSS/JS in `dist/`.
+- **Tailwind CSS 4** (via `@tailwindcss/vite`) with a centralized type scale defined in the
+  `@theme` block of `src/styles/global.css`
   (`text-display`, `text-h1`…`text-h4`, `text-stat`, `text-lead`, `text-body`,
   `text-caption`, `text-micro`).
 - **TypeScript** for the page frontmatter and a few utilities.
@@ -29,7 +30,7 @@ No runtime framework on the client — just small inline scripts where needed
 
 ## Local setup
 
-Requires Node 20+.
+Requires Node 22.12+.
 
 ```bash
 git clone https://github.com/PoscarDigital/Website.git
@@ -47,7 +48,6 @@ Hot reload works for `.astro`, content, styles, and images.
 ```
 .
 ├── astro.config.mjs           # site config (i18n, base, format, integrations)
-├── tailwind.config.mjs        # type scale tokens + theme
 ├── package.json
 ├── public/                    # copied verbatim to dist/
 │   ├── images/
@@ -66,6 +66,7 @@ Hot reload works for `.astro`, content, styles, and images.
 │   ├── generate-icons.mjs
 │   └── optimize-images.mjs
 └── src/
+    ├── content.config.ts      # blog collection schema (glob loader)
     ├── content/
     │   └── blog/              # one .md per post (Astro content collection)
     ├── i18n/
@@ -97,7 +98,7 @@ Hot reload works for `.astro`, content, styles, and images.
     │   │   ├── blog/[...slug].astro     # post detail
     │   │   └── blogs/[page].astro       # paginated listing + search
     │   ├── km/                          # legacy hardcoded km pages (privacy, toc)
-    │   ├── index.astro                  # root redirect → /en/
+    │   ├── index.astro                  # English homepage at "/"
     │   └── *.html (in public/)          # legacy redirect stubs
     ├── lib/
     │   └── forms.ts                     # Web3Forms key + feature flags
@@ -152,7 +153,7 @@ There are two paths depending on whether you're adding **one** post by hand or
 
 ### Frontmatter fields
 
-Schema lives in `src/content/config.ts`. All fields except `title`, `date`,
+Schema lives in `src/content.config.ts`. All fields except `title`, `date`,
 and `author` are optional.
 
 | Field | Type | What it does |
@@ -294,7 +295,7 @@ and `site.webmanifest` into `public/`.
 Pushing to `main` triggers `.github/workflows/deploy.yml`:
 
 1. `npm ci`
-2. `npm run build` (which itself runs the blog-index prebuild + astro build)
+2. `npm run build` (blog-index prebuild, then `astro check` + `astro build`)
 3. Upload `dist/` as the Pages artifact
 4. Publish
 
