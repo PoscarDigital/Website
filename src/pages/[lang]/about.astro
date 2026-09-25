@@ -81,7 +81,7 @@ const techIcons = [
   <!-- Company Profile -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 text-center">
-      <div class="card-lift bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl p-10">
+      <div class="card-lift bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl p-6 md:p-10">
         <h2 class="text-h1 text-[#C1272D] mb-6">{a.profile.title}</h2>
         <p class="text-lead text-gray-700">
           {a.profile.description}
@@ -114,24 +114,24 @@ const techIcons = [
 
   <!-- Vision + Mission (side-by-side) -->
   <section class="py-20 bg-white border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
-      <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-10">
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+      <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-6 md:p-10">
         <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
           <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>
         </div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">{a.vision.title}</h2>
+        <h2 class="text-h3 text-[#C1272D] mb-3">{a.vision.title}</h2>
         <p class="text-body text-gray-700 leading-relaxed">{a.vision.description}</p>
       </div>
-      <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-10">
+      <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-6 md:p-10">
         <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
           <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">{a.mission.title}</h2>
+        <h2 class="text-h3 text-[#C1272D] mb-3">{a.mission.title}</h2>
         <p class="text-body text-gray-700 leading-relaxed">{a.mission.description}</p>
       </div>
     </div>
@@ -159,7 +159,7 @@ const techIcons = [
               class="w-full max-w-[260px] h-auto object-contain mb-6"
               loading="lazy"
             />
-            <p class="text-caption text-gray-600 uppercase tracking-wider text-center">Cambodia's first national education broadcast</p>
+            <p class="text-caption text-gray-600 uppercase tracking-wider text-center">{lang === 'km' ? 'ទូរទស្សន៍អប់រំជាតិដំបូងគេនៅកម្ពុជា' : "Cambodia's first national education broadcast"}</p>
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@ const techIcons = [
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {a.tech.items.map((item: { title: string; description: string }, idx: number) => (
-          <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-7">
+          <div class="card-lift bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-6 md:p-7">
             <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
               <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={techIcons[idx]} />
@@ -195,7 +195,7 @@ const techIcons = [
       <h2 class="text-h1 text-[#C1272D] text-center mb-12">{a.values.title}</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {a.values.items.map((item: string) => (
-          <div class="card-lift bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl p-8">
+          <div class="card-lift bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl p-6 md:p-8">
             <p class="text-lead text-gray-700">{item}</p>
           </div>
         ))}
@@ -205,10 +205,10 @@ const techIcons = [
 
   <!-- Explore further (Solutions + Customers) -->
   <section class="py-20 bg-white border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-h1 text-[#C1272D] text-center mb-12">{a.explore.title}</h2>
       <div class="grid md:grid-cols-2 gap-8">
-        <a href={`/${lang}/solutions`} class="card-lift block bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 group">
+        <a href={`/${lang}/solutions`} class="card-lift block bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-6 md:p-8 group">
           <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -223,7 +223,7 @@ const techIcons = [
             </svg>
           </span>
         </a>
-        <a href={`/${lang}/customers`} class="card-lift block bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-8 group">
+        <a href={`/${lang}/customers`} class="card-lift block bg-white border border-gray-200 shadow-md hover:shadow-xl rounded-xl p-6 md:p-8 group">
           <div class="w-12 h-12 rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-5">
             <svg class="w-6 h-6 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -244,16 +244,16 @@ const techIcons = [
 
   <!-- Brand Partners -->
   <section class="py-20 bg-gray-50 border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-h1 text-[#C1272D] text-center mb-12">{a.brands.title}</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
         {
           (await import('../../data/brands.json')).brands.map((brand) => (
-            <div class="flex flex-col items-center justify-center p-4">
+            <div class="flex flex-col items-center p-4">
               <img
                 src={brand.logo}
                 alt={brand.name}
-                class="w-full max-w-[150px] h-auto object-contain mb-4"
+                class="w-full max-w-[150px] h-24 object-contain mb-4"
               />
               <p class="text-center text-caption font-medium">{brand.name}</p>
             </div>

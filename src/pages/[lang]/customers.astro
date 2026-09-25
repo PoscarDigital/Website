@@ -20,10 +20,11 @@ const government = activeCustomers.filter((cust) => cust.category === 'governmen
 const education = activeCustomers.filter((cust) => cust.category === 'education');
 const enterprise = activeCustomers.filter((cust) => cust.category === 'enterprise');
 
-// First 6 logos for hero collage
+// 9 logos fill the square 3x3 hero collage: featured first, then others.
 const heroLogos = [
   ...activeCustomers.filter((cust) => cust.featured),
-].slice(0, 6);
+  ...activeCustomers.filter((cust) => !cust.featured),
+].slice(0, 9);
 
 // Stats displayed in hero
 const heroStats = [
@@ -61,7 +62,7 @@ const sectorBlocks = [
           <p class="text-lead text-gray-700 mb-8 max-w-xl mx-auto md:mx-0">
             {c.hero.description}
           </p>
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div class="flex flex-wrap gap-4 justify-center md:justify-start max-sm:*:w-full">
             <a href={`/${lang}/contact`} class="btn btn-primary">
               {c.hero.primary_cta}
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -76,9 +77,9 @@ const sectorBlocks = [
         <div class="relative isolate aspect-square max-w-md mx-auto md:ml-auto">
           <div class="absolute -top-8 -left-8 w-64 h-64 bg-[#C1272D]/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
           <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl z-0" aria-hidden="true"></div>
-          <div class="relative z-10 h-full bg-white rounded-3xl shadow-2xl ring-1 ring-red-100 grid grid-cols-3 gap-3 p-6">
+          <div class="relative z-10 h-full bg-white rounded-3xl shadow-2xl ring-1 ring-red-100 grid grid-cols-3 grid-rows-3 gap-3 p-6">
             {heroLogos.map((customer) => (
-              <div class="aspect-square rounded-2xl bg-gray-50 flex items-center justify-center p-2">
+              <div class="rounded-2xl bg-gray-50 flex items-center justify-center p-3 min-h-0">
                 <img src={customer.logo} alt={customer.name} class="max-w-full max-h-full object-contain" loading="eager" />
               </div>
             ))}
@@ -110,11 +111,11 @@ const sectorBlocks = [
           <h2 class="text-h1 text-[#C1272D] mb-4">{block.title}</h2>
           <p class="text-lead text-gray-600">{block.description}</p>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div class="flex flex-wrap justify-center gap-4 *:w-[calc(50%-0.5rem)] sm:*:w-[calc(33.333%-0.667rem)] md:*:w-[calc(25%-0.75rem)] lg:*:w-[calc(16.666%-0.834rem)]">
           {block.list.map((customer) => (
-            <div class="group card-lift bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center aspect-square shadow-xs hover:shadow-lg" title={customer.name}>
-              <img src={customer.logo} alt={customer.name} class="max-w-full max-h-16 object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition duration-300" loading="lazy" />
-              <p class="text-caption text-gray-600 text-center mt-3 opacity-0 group-hover:opacity-100 transition-opacity">{customer.name}</p>
+            <div class="group card-lift relative bg-white border border-gray-200 rounded-xl p-6 flex items-center justify-center aspect-square shadow-xs hover:shadow-lg" title={customer.name}>
+              <img src={customer.logo} alt={customer.name} class="max-w-full max-h-20 object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition duration-300" loading="lazy" />
+              <p class="absolute inset-x-2 bottom-2 text-micro text-gray-600 text-center opacity-0 group-hover:opacity-100 transition-opacity">{customer.name}</p>
             </div>
           ))}
         </div>

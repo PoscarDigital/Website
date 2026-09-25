@@ -31,6 +31,8 @@ const phoneLabel = await t('contact.details.phone.label');
 const phoneValue = await t('contact.details.phone.value');
 const emailLabel = await t('contact.details.email.label');
 const emailValue = await t('contact.details.email.value');
+
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.3501001134096!2d104.92547577370833!3d11.594652843571561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310953acc34f48bd%3A0xdc7731a1497fa17b!2sPOSCAR%20Digital%20Co.%2C%20Ltd.!5e1!3m2!1skm!2skh!4v1731403925110!5m2!1skm!2skh';
 ---
 
 <Base>
@@ -39,7 +41,7 @@ const emailValue = await t('contact.details.email.value');
     class="contact-section py-16 bg-gray-50 text-gray-800 px-6 md:px-12 lg:px-16"
   >
     <div class="container mx-auto">
-      <h1 class="text-display text-center mb-6">
+      <h1 class="text-display text-[#C1272D] text-center mb-6">
         {title}
       </h1>
       <p class="text-lead text-center mb-12 max-w-2xl mx-auto">
@@ -47,12 +49,12 @@ const emailValue = await t('contact.details.email.value');
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Contact form, or a direct-contact fallback while it's disabled -->
+        <!-- Form enabled: form + details/map. Disabled: details card + full-height map. -->
         {CONTACT_FORM_ENABLED ? (
         <form
           action={WEB3FORMS_ENDPOINT}
           method="POST"
-          class="bg-white shadow-md rounded-lg p-8"
+          class="bg-white shadow-md rounded-lg p-6 md:p-8"
           id="contact-form"
         >
           <!-- Web3Forms required + helpful hidden fields -->
@@ -123,31 +125,9 @@ const emailValue = await t('contact.details.email.value');
           <p id="contact-error" role="alert" class="hidden mt-4 p-3 rounded-lg bg-red-50 text-red-800 text-body"></p>
         </form>
         ) : (
-        <div class="bg-white shadow-md rounded-lg p-8">
-          <h2 class="text-h2 mb-4">{detailsTitle}</h2>
-          <p class="text-body text-gray-700 mb-6">
-            {detailsFallback}
-          </p>
-          <ul class="space-y-4 text-body">
-            <li>
-              <strong class="block text-gray-700 mb-1">{emailLabel}:</strong>
-              <a href={`mailto:${emailValue}`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{emailValue}</a>
-            </li>
-            <li>
-              <strong class="block text-gray-700 mb-1">{phoneLabel}:</strong>
-              <a href={`tel:+85595569568`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{phoneValue}</a>
-            </li>
-          </ul>
-        </div>
-        )}
-
-        <!-- Contact Details -->
-        <div class="bg-white shadow-md rounded-lg p-8">
-          <h2 class="text-h2 mb-4">{detailsTitle}</h2>
-          <p class="text-lead mb-6">
-            {detailsDescription}
-          </p>
-
+        <div class="bg-white shadow-md rounded-lg p-6 md:p-8">
+          <h2 class="text-h3 mb-3">{detailsTitle}</h2>
+          <p class="text-body text-gray-700 mb-6">{detailsFallback}</p>
           <ul class="space-y-4 text-body">
             <li>
               <strong class="block text-gray-700 mb-1">{addressLabel}:</strong>
@@ -155,22 +135,37 @@ const emailValue = await t('contact.details.email.value');
             </li>
             <li>
               <strong class="block text-gray-700 mb-1">{phoneLabel}:</strong>
-              <a href="tel:+85595569568" class="text-slate-600 hover:text-slate-800">
-                {phoneValue}
-              </a>
+              <a href="tel:+85595569568" class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{phoneValue}</a>
             </li>
             <li>
               <strong class="block text-gray-700 mb-1">{emailLabel}:</strong>
-              <a href="mailto:info@poscardigital.com" class="text-[#C1272D] hover:text-[#991B1F] font-semibold">
-                {emailValue}
-              </a>
+              <a href={`mailto:${emailValue}`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{emailValue}</a>
             </li>
           </ul>
+        </div>
+        )}
 
-          <!-- Google Map Embed -->
+        {CONTACT_FORM_ENABLED ? (
+        <div class="bg-white shadow-md rounded-lg p-6 md:p-8">
+          <h2 class="text-h3 mb-3">{detailsTitle}</h2>
+          <p class="text-body text-gray-700 mb-6">{detailsDescription}</p>
+          <ul class="space-y-4 text-body">
+            <li>
+              <strong class="block text-gray-700 mb-1">{addressLabel}:</strong>
+              <span class="text-gray-600">{addressValue}</span>
+            </li>
+            <li>
+              <strong class="block text-gray-700 mb-1">{phoneLabel}:</strong>
+              <a href="tel:+85595569568" class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{phoneValue}</a>
+            </li>
+            <li>
+              <strong class="block text-gray-700 mb-1">{emailLabel}:</strong>
+              <a href={`mailto:${emailValue}`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold">{emailValue}</a>
+            </li>
+          </ul>
           <div class="mt-8">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.3501001134096!2d104.92547577370833!3d11.594652843571561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310953acc34f48bd%3A0xdc7731a1497fa17b!2sPOSCAR%20Digital%20Co.%2C%20Ltd.!5e1!3m2!1skm!2skh!4v1731403925110!5m2!1skm!2skh"
+              src={mapSrc}
               title="POSCAR Digital office location on Google Maps"
               class="w-full aspect-video border-0 rounded-lg"
               allowfullscreen=""
@@ -178,6 +173,17 @@ const emailValue = await t('contact.details.email.value');
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
+        ) : (
+        <div class="bg-white shadow-md rounded-lg overflow-hidden min-h-80">
+          <iframe
+            src={mapSrc}
+            title="POSCAR Digital office location on Google Maps"
+            class="w-full h-full min-h-80 border-0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        )}
       </div>
     </div>
   </section>

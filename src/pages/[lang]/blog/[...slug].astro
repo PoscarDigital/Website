@@ -20,6 +20,7 @@ const { lang } = Astro.params as { lang: Languages };
 const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
 const { Content } = await render(entry);
 const t = useTranslations(lang);
+const km = lang === 'km';
 
 const formattedDate = entry.data.date.toLocaleDateString(lang === 'km' ? 'km-KH' : 'en-US', {
   year: 'numeric',
@@ -98,8 +99,8 @@ const related = [
           {entry.data.category}
         </p>
       )}
-      <!-- The title — fixed 1.8rem with line-height 2 for Khmer legibility -->
-      <h1 class="font-extrabold text-gray-900 text-[1.8rem] leading-[2] tracking-tight mb-8">
+      <!-- The title — shared h1 scale; Khmer size/leading set in global.css -->
+      <h1 class="text-h1 text-gray-900 mb-6">
         {entry.data.title}
       </h1>
       <!-- Lede subtitle — clearly subordinate (lead size, lighter color, no bold) -->
@@ -118,7 +119,7 @@ const related = [
         )}
         <span>{formattedDate}</span>
         <span aria-hidden="true" class="text-gray-300">·</span>
-        <span>{minutes} min read</span>
+        <span>{km ? `អាន ${minutes} នាទី` : `${minutes} min read`}</span>
       </div>
     </header>
 
@@ -180,7 +181,7 @@ const related = [
 
     <!-- Article body -->
     <div class="max-w-3xl mx-auto px-4 pb-8">
-      <div id="blog-article-body" class="prose prose-slate prose-lg max-w-none
+      <div id="blog-article-body" class="prose prose-slate prose-lg max-w-none wrap-anywhere
                   prose-headings:font-bold prose-headings:text-gray-900
                   prose-p:leading-relaxed
                   prose-a:text-[#C1272D] prose-a:no-underline hover:prose-a:underline
@@ -193,7 +194,7 @@ const related = [
 
       {isPress && (
         <p class="mt-10 pt-6 border-t border-gray-200 text-caption text-gray-500 italic">
-          Originally published in
+          {km ? 'ចុះផ្សាយដើមនៅ' : 'Originally published in'}
           {' '}
           <a href={entry.data.source_url} target="_blank" rel="noopener noreferrer" class="text-[#C1272D] hover:text-[#991B1F] font-semibold not-italic underline-offset-2 hover:underline">
             {entry.data.source_name}
@@ -203,7 +204,7 @@ const related = [
 
       {entry.data.tags && entry.data.tags.length > 0 && (
         <div class="mt-10 flex flex-wrap items-center gap-2">
-          <span class="text-caption text-gray-500 uppercase tracking-wider mr-2">Tags</span>
+          <span class="text-caption text-gray-500 uppercase tracking-wider mr-2">{km ? 'ស្លាក' : 'Tags'}</span>
           {entry.data.tags.map((tag: string) => (
             <span class="bg-gray-100 hover:bg-red-50 text-gray-700 hover:text-[#C1272D] px-3 py-1 rounded-full text-caption font-medium transition-colors">
               #{tag}
@@ -218,11 +219,11 @@ const related = [
       <aside class="max-w-3xl mx-auto px-4 mt-8">
         <div class="bg-red-50 border border-red-100 rounded-2xl p-8 md:p-10">
           <p class="text-caption uppercase tracking-wider text-gray-500 mb-2">
-            {isYouTubeSource ? 'Watch the original video' : 'Read the original article'}
+            {isYouTubeSource ? (km ? 'មើលវីដេអូដើម' : 'Watch the original video') : (km ? 'អានអត្ថបទដើម' : 'Read the original article')}
           </p>
           <p class="text-h3 text-gray-900 mb-6">{entry.data.source_name}</p>
-          <a href={entry.data.source_url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            {isYouTubeSource ? 'Watch on YouTube' : `Read on ${entry.data.source_name}`}
+          <a href={entry.data.source_url} target="_blank" rel="noopener noreferrer" class="btn btn-primary max-w-full whitespace-normal text-center">
+            {isYouTubeSource ? (km ? 'មើលនៅលើ YouTube' : 'Watch on YouTube') : (km ? `អាននៅលើ ${entry.data.source_name}` : `Read on ${entry.data.source_name}`)}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
@@ -279,9 +280,11 @@ const related = [
     <!-- Related posts -->
     {related.length > 0 && (
       <section class="bg-gray-50 border-t border-gray-100 mt-20 py-16">
-        <div class="max-w-6xl mx-auto px-4">
-          <h2 class="text-h2 text-[#C1272D] mb-10 text-center">
-            More {entry.data.category === 'Press' ? 'press coverage' : 'articles'}
+        <div class="max-w-7xl mx-auto px-4">
+          <h2 class="text-h1 text-[#C1272D] mb-10 text-center">
+            {km
+              ? (entry.data.category === 'Press' ? 'ព័ត៌មានផ្សេងទៀត' : 'អត្ថបទផ្សេងទៀត')
+              : `More ${entry.data.category === 'Press' ? 'press coverage' : 'articles'}`}
           </h2>
           <div class="grid md:grid-cols-3 gap-6">
             {related.map(({ post, isLogo }) => (

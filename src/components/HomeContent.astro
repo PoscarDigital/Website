@@ -127,7 +127,7 @@ const stats = [
 <section aria-label="Trusted by" class="bg-white border-y border-gray-100 py-10">
   <div class="max-w-7xl mx-auto px-4">
     <p class="text-caption text-center text-gray-500 uppercase tracking-wider mb-8">
-      Trusted by 25+ leading organizations across Cambodia
+      {lang === 'km' ? 'ទទួលបានការទុកចិត្តពីស្ថាប័នឈានមុខជាង ២៥ ទូទាំងប្រទេសកម្ពុជា' : 'Trusted by 25+ leading organizations across Cambodia'}
     </p>
     <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
       {trustedLogos.map((customer) => (
@@ -156,7 +156,7 @@ const stats = [
 
   <div class="grid md:grid-cols-3 gap-8">
     <!-- Education Solutions -->
-    <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden">
+    <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden flex flex-col">
       <div class="aspect-w-16 aspect-h-9">
         <img
           src="/images/wikischool/wiki-1.png"
@@ -165,19 +165,19 @@ const stats = [
           loading="lazy"
         />
       </div>
-      <div class="p-6">
+      <div class="p-6 flex flex-1 flex-col">
         <h3 class="text-h3 mb-3 text-[#C1272D]">{content.solutions.education.title}</h3>
         <ul class="space-y-2 text-body text-gray-600 mb-4">
           {content.solutions.education.features.map((feature: string) => (
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-[#C1272D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-2 mt-0.5 text-[#C1272D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              {feature}
+              <span class="min-w-0">{feature}</span>
             </li>
           ))}
         </ul>
-        <div class="flex justify-between text-caption font-semibold">
+        <div class="mt-auto flex justify-between text-caption font-semibold">
           <a href={`/${lang}/education-sms-solution`} class="text-[#C1272D] hover:text-[#991B1F] transition-colors">Wiki School →</a>
           <a href={`/${lang}/education-ums-solution`} class="text-[#C1272D] hover:text-[#991B1F] transition-colors">Wiki College →</a>
         </div>
@@ -185,7 +185,7 @@ const stats = [
     </div>
 
     <!-- Enterprise Solutions -->
-    <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden">
+    <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden flex flex-col">
       <div class="aspect-w-16 aspect-h-9">
         <img
           src="/images/vithean-solution.jpg"
@@ -194,26 +194,26 @@ const stats = [
           loading="lazy"
         />
       </div>
-      <div class="p-6">
+      <div class="p-6 flex flex-1 flex-col">
         <h3 class="text-h3 mb-3 text-[#C1272D]">{content.solutions.enterprise.title}</h3>
         <ul class="space-y-2 text-body text-gray-600 mb-4">
           {content.solutions.enterprise.features.map((feature: string) => (
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-[#C1272D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-2 mt-0.5 text-[#C1272D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              {feature}
+              <span class="min-w-0">{feature}</span>
             </li>
           ))}
         </ul>
-        <a href={`/${lang}/accounting-erp-vithean`} class="text-caption font-semibold text-[#C1272D] hover:text-[#991B1F] transition-colors">
+        <a href={`/${lang}/accounting-erp-vithean`} class="mt-auto self-start text-caption font-semibold text-[#C1272D] hover:text-[#991B1F] transition-colors">
           {ui("common.buttons.learn_more")} →
         </a>
       </div>
     </div>
 
     <!-- Event Management -->
-    <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden">
+    <div class="card-lift bg-white shadow-lg hover:shadow-xl rounded-xl overflow-hidden flex flex-col">
       <div class="aspect-w-16 aspect-h-9">
         <img
           src="/images/bakan/bakan-elite.png"
@@ -222,19 +222,19 @@ const stats = [
           loading="lazy"
         />
       </div>
-      <div class="p-6">
+      <div class="p-6 flex flex-1 flex-col">
         <h3 class="text-h3 mb-3 text-[#C1272D]">{content.solutions.event.title}</h3>
         <ul class="space-y-2 text-body text-gray-600 mb-4">
           {content.solutions.event.features.map((feature: string) => (
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-[#C1272D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-2 mt-0.5 text-[#C1272D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              {feature}
+              <span class="min-w-0">{feature}</span>
             </li>
           ))}
         </ul>
-        <a href={`/${lang}/bakan-elite`} class="text-caption font-semibold text-[#C1272D] hover:text-[#991B1F] transition-colors">
+        <a href={`/${lang}/bakan-elite`} class="mt-auto self-start text-caption font-semibold text-[#C1272D] hover:text-[#991B1F] transition-colors">
           {ui("common.buttons.learn_more")} →
         </a>
       </div>
@@ -248,9 +248,9 @@ const stats = [
     <h2 class="text-h1 mb-14 text-[#C1272D]">
       {content.home.impact.title}
     </h2>
-    <div class="grid md:grid-cols-3 gap-10 md:divide-x md:divide-red-200">
+    <div class="grid grid-cols-3 gap-3 md:gap-10 divide-x divide-red-200">
       {stats.map((stat) => (
-        <div class="px-4">
+        <div class="px-1 md:px-4">
           <div class="flex justify-center mb-4">
             <div class="w-14 h-14 rounded-full bg-[#C1272D]/10 flex items-center justify-center">
               <svg class="w-7 h-7 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -259,7 +259,7 @@ const stats = [
             </div>
           </div>
           <p class="text-stat text-[#C1272D] mb-2">{stat.value}</p>
-          <p class="text-lead text-gray-700">{stat.label}</p>
+          <p class="text-caption md:text-lead text-gray-700">{stat.label}</p>
         </div>
       ))}
     </div>
@@ -271,15 +271,15 @@ const stats = [
   <h2 class="text-h1 mb-14 text-center text-[#C1272D]">
     {content.home.industries.title}
   </h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
     {industries.map((ind) => (
-      <div class="card-lift bg-white border border-gray-100 rounded-xl p-6 text-center shadow-xs hover:shadow-lg">
+      <div class="card-lift bg-white border border-gray-100 rounded-xl p-4 md:p-6 text-center shadow-xs hover:shadow-lg">
         <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-[#C1272D]/10 flex items-center justify-center">
           <svg class="w-7 h-7 text-[#C1272D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={ind.icon} />
           </svg>
         </div>
-        <p class="text-h4 text-gray-800">{ind.label}</p>
+        <p class="text-body md:text-h4 font-semibold text-gray-800">{ind.label}</p>
       </div>
     ))}
   </div>
@@ -308,7 +308,7 @@ const stats = [
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {posts.map((post: BlogPost) => (
-        <div class="card-lift bg-white rounded-xl shadow-lg hover:shadow-xl overflow-hidden">
+        <div class="card-lift bg-white rounded-xl shadow-lg hover:shadow-xl overflow-hidden flex flex-col">
           {post.data.thumbnail && (
             <div class="relative">
               <img
@@ -324,15 +324,15 @@ const stats = [
               )}
             </div>
           )}
-          <div class="p-6">
+          <div class="p-6 flex flex-1 flex-col">
             <div class="flex items-center text-caption text-gray-500 mb-3">
               <span>{post.data.date.toLocaleDateString()}</span>
               <span class="mx-2">•</span>
               <span>{post.data.author}</span>
             </div>
-            <h3 class="text-h3 mb-3">{post.data.title}</h3>
-            <p class="text-body text-gray-600 mb-4">{post.data.description}</p>
-            <a href={`/${lang}/blog/${post.id}`} class="text-[#C1272D] hover:text-[#991B1F] font-semibold inline-flex items-center">
+            <h3 class="text-h3 mb-3 line-clamp-3">{post.data.title}</h3>
+            <p class="text-body text-gray-600 mb-4 line-clamp-3">{post.data.description}</p>
+            <a href={`/${lang}/blog/${post.id}`} class="mt-auto self-start text-[#C1272D] hover:text-[#991B1F] font-semibold inline-flex items-center">
               {ui('common.buttons.read_more')}
               <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
