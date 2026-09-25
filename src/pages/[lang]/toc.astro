@@ -1,27 +1,25 @@
 ---
 // src/pages/[lang]/toc.astro
 import Base from '../../layouts/Base.astro';
-import { getLangFromUrl } from '../../i18n/utils';
-import { ui } from '../../i18n/ui';
 
 export async function getStaticPaths() {
-  return Object.keys(ui).map((lang) => ({ params: { lang } }));
+  // Khmer has its own page at src/pages/km/toc.astro.
+  return [{ params: { lang: 'en' } }];
 }
 
-const lang = getLangFromUrl(Astro.url);
 ---
 
 <Base title="Terms & Conditions">
   <!-- Hero Section -->
-  <section class="bg-slate-600 text-white py-20 text-center">
+  <section class="bg-linear-to-b from-red-50 to-white py-16 md:py-20 text-center border-b border-red-100">
     <div class="container mx-auto px-4">
-      <h1 class="text-display mb-4">Terms & Conditions</h1>
+      <h1 class="text-display text-[#C1272D]">Terms & Conditions</h1>
     </div>
   </section>
 
   <!-- Terms & Conditions Content -->
   <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 text-gray-700 leading-relaxed space-y-6">
+    <div class="max-w-4xl mx-auto px-4 legal-content">
       <div>
         <p class="italic">Last updated on 07 July 2022</p>
       </div>
@@ -39,7 +37,7 @@ const lang = getLangFromUrl(Astro.url);
       </div>
 
       <div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">Age restrictions</h2>
+        <h2 class="text-h2 text-[#C1272D] mb-4">Age Restrictions</h2>
         <p>You must be at least 18 years of age to use our Products. If you are less than 18, you must have permission from your parent or legal guardian to use our Products and accept the Terms and you must use the Products under their supervision.</p>
       </div>
 
@@ -56,7 +54,7 @@ const lang = getLangFromUrl(Astro.url);
       </div>
 
       <div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">APPS And Third-Party Products and Services</h2>
+        <h2 class="text-h2 text-[#C1272D] mb-4">Apps and Third-Party Products and Services</h2>
         <p>The Products may use third party's services that impose their own Terms and Conditions and Privacy Policies which will then apply to you. Along with the use of our products, you may use data, services and apps from other companies (third-party products). Any third party providing a third-party product is a provider and is independent of us, so be aware that a provider may also charge you fees in addition to what you pay us.</p>
         <p>Please read those terms of use thoroughly and make sure you agree to their terms and conditions and understand their approach before you connect to them. The descriptions of third-party products that we publish, and any associated links, have been provided to us by the providers. While we make reasonable efforts to check the accuracy of the descriptions, the providers are solely responsible for any representations contained in those descriptions. We do not endorse or assume any responsibility for third-party products.</p>
       </div>
@@ -88,12 +86,12 @@ const lang = getLangFromUrl(Astro.url);
       </div>
 
       <div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">CONFIDENTIAL INFORMATION</h2>
+        <h2 class="text-h2 text-[#C1272D] mb-4">Confidential Information</h2>
         <p>While using our services, you may share confidential information with us, and you may become aware of confidential information about us. You and we both agree to take reasonable steps to protect the other party's confidential information from being accessed by unauthorized individuals. You or we may share each other's confidential information with legal or regulatory authorities if required to do so.</p>
       </div>
 
       <div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">TERMINATION</h2>
+        <h2 class="text-h2 text-[#C1272D] mb-4">Termination</h2>
         <p><strong>Termination by you</strong>: You may choose to terminate your subscription at any time. In this case, you will still need to pay all relevant subscription fees up to and including the day of termination, if any.</p>
         <p><strong>Termination by us: </strong>We may terminate or suspend your subscription or access to all or any data any time if:</p>
         <ul class="list-disc pl-6 space-y-2">
@@ -103,7 +101,7 @@ const lang = getLangFromUrl(Astro.url);
       </div>
 
       <div>
-        <h2 class="text-h2 text-[#C1272D] mb-4">DISPUTES</h2>
+        <h2 class="text-h2 text-[#C1272D] mb-4">Disputes</h2>
         <p>Any dispute arising out of or in connection with this Terms and Conditions that cannot be settled amicably within 30 days, shall be referred to and finally resolved by arbitration in the Kingdom of Cambodia in accordance with the Arbitration Rules of the National Commercial Arbitration Center ("NCAC Rules") being in force at the time of commencement of arbitration, which are deemed to be incorporated as part of this Article.</p>
       </div>
 

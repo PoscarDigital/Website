@@ -1,7 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const blogCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     author: z.string(),
@@ -10,7 +12,7 @@ const blogCollection = defineCollection({
     description: z.string().optional(),
     category: z.enum(['News', 'Technology', 'Education', 'Business', 'Press']).optional(),
     tags: z.array(z.string()).optional(),
-    source_url: z.string().url().optional(),
+    source_url: z.url().optional(),
     source_name: z.string().optional(),
   }),
 });

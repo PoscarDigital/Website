@@ -5,15 +5,24 @@ import Footer from "../components/Footer.astro";
 import "@fontsource/kantumruy-pro/400.css";
 import "@fontsource/kantumruy-pro/500.css";
 import "@fontsource/kantumruy-pro/700.css";
+import "../styles/global.css";
 
 const lang = getLangFromUrl(Astro.url);
+const SITE = "https://poscardigital.com";
+
+// Same page in each language, for hreflang. "/" and "/en/..." are English;
+// "/km/..." is Khmer. The English homepage lives at "/".
+const pathRest = Astro.url.pathname.replace(/^\/(en|km)(?=\/|$)/, "") || "/";
+const altUrl = (code: string) =>
+  code === "en" && pathRest === "/" ? `${SITE}/` : `${SITE}/${code}${pathRest}`;
+const ogLocales: Record<string, string> = { en: "en_US", km: "km_KH" };
 
 // Default SEO meta tags
 const defaultMeta = {
   title: "POSCAR Digital - Smart Education & ERP Solutions in Cambodia",
   description: "POSCAR Digital is a leading provider of smart education, accounting, attendance, and ERP solutions in Cambodia. Discover our innovative platforms including Wiki School and Vithean.",
   keywords: "POSCAR Digital, digital solutions, Cambodia, Wiki School, Vithean, ERP solutions, smart education, accounting software",
-  ogImage: "/og-image.png",
+  ogImage: `${SITE}/og-image.png`,
   ogType: "website",
   twitterCard: "summary_large_image",
   twitterSite: "@poscardigital",
@@ -47,12 +56,12 @@ const structuredData = {
       "url": "https://poscardigital.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://poscardigital.com/images/poscar-digital-logo.png"
+        "url": "https://poscardigital.com/android-chrome-512x512.png"
       },
       "sameAs": [
-        "https://www.facebook.com/poscardigital",
-        "https://twitter.com/poscardigital",
-        "https://www.linkedin.com/company/poscardigital"
+        "https://www.facebook.com/people/Poscar-Digital/100076631097443/",
+        "https://x.com/poscardigital",
+        "https://www.linkedin.com/company/poscar"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -110,11 +119,6 @@ const structuredData = {
       "publisher": {
         "@id": "https://poscardigital.com/#organization"
       },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://poscardigital.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
       "inLanguage": lang
     },
     {
@@ -155,19 +159,28 @@ const structuredData = {
     <meta property="og:title" content={finalMeta.title} />
     <meta property="og:description" content={finalMeta.description} />
     <meta property="og:image" content={finalMeta.ogImage} />
-    <meta property="og:locale" content={finalMeta.language} />
+    <meta property="og:locale" content={ogLocales[finalMeta.language] ?? "en_US"} />
+    {Object.keys(ogLocales).filter((c) => c !== finalMeta.language).map((c) => (
+      <meta property="og:locale:alternate" content={ogLocales[c]} />
+    ))}
+    <meta property="og:site_name" content="POSCAR Digital" />
     
     <!-- Twitter -->
-    <meta property="twitter:card" content={finalMeta.twitterCard} />
-    <meta property="twitter:url" content={finalMeta.canonical} />
-    <meta property="twitter:title" content={finalMeta.title} />
-    <meta property="twitter:description" content={finalMeta.description} />
-    <meta property="twitter:image" content={finalMeta.ogImage} />
-    <meta property="twitter:site" content={finalMeta.twitterSite} />
-    <meta property="twitter:creator" content={finalMeta.twitterCreator} />
+    <meta name="twitter:card" content={finalMeta.twitterCard} />
+    <meta name="twitter:url" content={finalMeta.canonical} />
+    <meta name="twitter:title" content={finalMeta.title} />
+    <meta name="twitter:description" content={finalMeta.description} />
+    <meta name="twitter:image" content={finalMeta.ogImage} />
+    <meta name="twitter:site" content={finalMeta.twitterSite} />
+    <meta name="twitter:creator" content={finalMeta.twitterCreator} />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={finalMeta.canonical} />
+
+    <!-- Language alternates -->
+    <link rel="alternate" hreflang="en" href={altUrl("en")} />
+    <link rel="alternate" hreflang="km" href={altUrl("km")} />
+    <link rel="alternate" hreflang="x-default" href={altUrl("en")} />
     
     <!-- Geo Tags -->
     <meta name="geo.region" content={finalMeta.geo.region} />
@@ -186,120 +199,6 @@ const structuredData = {
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#C1272D" />
 
-    <style is:global>
-      /* Global font stack */
-      body,
-      h1, h2, h3, h4, h5, h6, p {
-        font-family: 'Kantumruy Pro', sans-serif;
-      }
-
-      /* Khmer needs more leading so subscripts/superscripts don't clip */
-      :lang(km) h1,
-      :lang(km) h2,
-      :lang(km) h3,
-      :lang(km) h4,
-      :lang(km) h5,
-      :lang(km) h6 {
-        line-height: 1.4;
-      }
-      :lang(km) p,
-      :lang(km) li {
-        line-height: 1.85;
-      }
-
-      .text-bold { font-weight: 700; }
-      .text-medium { font-weight: 500; }
-      .text-regular { font-weight: 400; }
-
-      /* ----- Buttons -------------------------------------------------- */
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.875rem 1.75rem;
-        border-radius: 9999px;
-        font-weight: 600;
-        font-size: 1rem;
-        line-height: 1;
-        text-decoration: none;
-        transition: background-color .2s, color .2s, border-color .2s,
-                    transform .15s, box-shadow .2s;
-        cursor: pointer;
-        white-space: nowrap;
-      }
-      .btn:focus-visible {
-        outline: 2px solid #C1272D;
-        outline-offset: 3px;
-      }
-      .btn-primary {
-        background: #C1272D;
-        color: #fff;
-        box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
-      .btn-primary:hover {
-        background: #991B1F;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(193,39,45,.25);
-      }
-      .btn-secondary {
-        background: #fff;
-        color: #C1272D;
-        border: 1.5px solid #C1272D;
-      }
-      .btn-secondary:hover {
-        background: #FEF2F2;
-      }
-      .btn-ghost {
-        background: transparent;
-        color: #C1272D;
-        padding: 0.5rem 0.75rem;
-      }
-      .btn-ghost:hover { color: #991B1F; }
-
-      /* ----- Card hover lift ------------------------------------------ */
-      .card-lift {
-        transition: transform .25s ease, box-shadow .25s ease;
-      }
-      .card-lift:hover {
-        transform: translateY(-4px);
-      }
-
-      /* ----- Eyebrow tag --------------------------------------------- */
-      .eyebrow {
-        display: inline-block;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        padding: 0.35rem 0.85rem;
-        border-radius: 9999px;
-        background: rgba(193,39,45,.08);
-        color: #C1272D;
-      }
-      .eyebrow-light {
-        display: inline-block;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        padding: 0.35rem 0.85rem;
-        border-radius: 9999px;
-        background: rgba(255,255,255,.12);
-        color: #FCA5A5;
-      }
-
-      /* ----- Accessibility: focus rings on everything interactive ----- */
-      a:focus-visible,
-      button:focus-visible,
-      input:focus-visible,
-      textarea:focus-visible,
-      select:focus-visible {
-        outline: 2px solid #C1272D;
-        outline-offset: 2px;
-        border-radius: 4px;
-      }
-    </style>
   </head>
   <body class="bg-gray-100 text-gray-900 font-kantumruy">
     <Nav />
@@ -307,8 +206,6 @@ const structuredData = {
     <main class="font-kantumruy">
       <slot />
     </main>
-    <footer>
-      <Footer />
-    </footer>
+    <Footer />
   </body>
 </html>

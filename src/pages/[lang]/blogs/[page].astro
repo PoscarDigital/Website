@@ -1,6 +1,6 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { getLangFromUrl, useTranslations, getContentTranslations } from '../../../i18n/utils';
+import { useTranslations, getContentTranslations } from '../../../i18n/utils';
 import type { GetStaticPaths } from 'astro';
 import { ui } from '../../../i18n/ui';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -64,9 +64,9 @@ const content = await getContentTranslations(lang);
 // `prebuild` npm script). The browser fetches it lazily on first search
 // interaction, then caches it. Saves ~15 KB on every blog listing page.
 
-// Anything in this object must be JSON-serializable: define:vars uses
-// JSON, which silently drops functions. The result-count formatter is
-// defined in the client script body below, not here.
+// Passed to the client script as JSON in data-ui on the search input
+// (not define:vars — Astro's CSP can't hash define:vars scripts). Must be
+// JSON-serializable; the result-count formatter lives in the script.
 const searchUi = {
   placeholder: lang === 'km' ? 'ស្វែងរកអត្ថបទ…' : 'Search articles…',
   clear: lang === 'km' ? 'សម្អាត' : 'Clear',
@@ -79,9 +79,9 @@ const searchUi = {
 
 <Base>
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-red-50 to-white py-16 md:py-20">
+  <section class="relative overflow-hidden bg-linear-to-b from-red-50 to-white py-16 md:py-20">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <p class="eyebrow mb-5">News &amp; Press</p>
+      <p class="eyebrow mb-5">{lang === 'km' ? 'ព័ត៌មាន និងសារព័ត៌មាន' : 'News & Press'}</p>
       <h1 class="text-display text-[#C1272D] mb-4">{content.home.blogs.title}</h1>
       <p class="text-lead text-gray-700 max-w-2xl mx-auto">{content.home.blogs.subtitle}</p>
     </div>
@@ -97,10 +97,12 @@ const searchUi = {
         </svg>
         <input
           id="blog-search"
+          data-lang={lang}
+          data-ui={JSON.stringify(searchUi)}
           type="search"
           placeholder={searchUi.placeholder}
           autocomplete="off"
-          class="w-full pl-12 pr-12 py-3 rounded-full border border-gray-300 bg-white text-body placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C1272D] focus:border-[#C1272D] transition"
+          class="w-full pl-12 pr-12 py-3 rounded-full border border-gray-300 bg-white text-body placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-[#C1272D] focus:border-[#C1272D] transition"
         />
         <button
           id="blog-search-clear"
@@ -124,15 +126,15 @@ const searchUi = {
       <div id="blog-paginated" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {page.data.map((post: CollectionEntry<'blog'>) => (
           <a
-            href={`/${lang}/blog/${post.slug}`}
+            href={`/${lang}/blog/${post.id}`}
             class="card-lift block bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden border border-gray-200 group"
           >
             {post.data.thumbnail && (
-              <div class="relative bg-gray-50 flex items-center justify-center h-48 p-6">
+              <div class:list={['relative bg-gray-50 flex items-center justify-center h-48', post.data.thumbnail.includes('/brand/') && 'p-6']}>
                 <img
                   src={post.data.thumbnail}
                   alt={post.data.title}
-                  class="max-h-full max-w-full object-contain"
+                  class:list={[post.data.thumbnail.includes('/brand/') ? 'max-h-full max-w-full object-contain' : 'w-full h-full object-cover']}
                   loading="lazy"
                 />
                 {post.data.category && (
@@ -173,31 +175,31 @@ const searchUi = {
 
       <!-- Pagination (visible only when no search) -->
       {page.lastPage > 1 && (
-        <div id="blog-pagination" class="mt-14 flex items-center justify-center gap-3">
+        <div id="blog-pagination" class="mt-14 flex items-center justify-center gap-2 md:gap-3">
           {page.url.prev ? (
-            <a href={page.url.prev} class="btn btn-secondary">
+            <a href={page.url.prev} class="btn btn-secondary max-sm:px-3">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
               </svg>
               {t('common.buttons.previous')}
             </a>
           ) : (
-            <span class="btn btn-secondary opacity-40 pointer-events-none">
+            <span class="btn btn-secondary max-sm:px-3 opacity-40 pointer-events-none">
               {t('common.buttons.previous')}
             </span>
           )}
-          <span class="px-4 text-caption text-gray-600">
+          <span class="px-1 md:px-4 text-caption text-gray-600 whitespace-nowrap">
             {t('common.pagination.page')} {page.currentPage} {t('common.pagination.of')} {page.lastPage}
           </span>
           {page.url.next ? (
-            <a href={page.url.next} class="btn btn-secondary">
+            <a href={page.url.next} class="btn btn-secondary max-sm:px-3">
               {t('common.buttons.next')}
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </a>
           ) : (
-            <span class="btn btn-secondary opacity-40 pointer-events-none">
+            <span class="btn btn-secondary max-sm:px-3 opacity-40 pointer-events-none">
               {t('common.buttons.next')}
             </span>
           )}
@@ -206,26 +208,44 @@ const searchUi = {
     </div>
   </section>
 
-  <script define:vars={{ lang, searchUi }}>
+  <script>
+    // Shape of each entry in /blog-index.json (scripts/build-blog-index.mjs).
+    interface IndexEntry {
+      slug: string;
+      title: string;
+      description?: string;
+      date?: string;
+      source?: string;
+      category?: string;
+      tags?: string[];
+      thumbnail?: string;
+    }
+    interface SearchEntry extends IndexEntry {
+      dateFormatted: string;
+      haystack: string;
+    }
+
     (() => {
-      const input = document.getElementById('blog-search');
+      const input = document.getElementById('blog-search') as HTMLInputElement | null;
+      if (!input) return;
+      const lang = input.dataset.lang || 'en';
+      const searchUi = JSON.parse(input.dataset.ui || '{}');
       const clearBtn = document.getElementById('blog-search-clear');
       const countEl = document.getElementById('blog-search-count');
       const paginated = document.getElementById('blog-paginated');
       const pagination = document.getElementById('blog-pagination');
       const results = document.getElementById('blog-search-results');
       const empty = document.getElementById('blog-search-empty');
-      if (!input || !paginated || !results || !empty || !countEl || !clearBtn) return;
+      if (!paginated || !results || !empty || !countEl || !clearBtn) return;
 
       // Result-count formatter. Defined here (not in searchUi) because
-      // define:vars JSON-serializes its inputs and silently drops
-      // functions.
-      const formatCount = (n) =>
+      // functions don't survive the JSON round-trip.
+      const formatCount = (n: number) =>
         lang === 'km'
           ? `លទ្ធផល ${n}`
           : `${n} ${n === 1 ? 'result' : 'results'}`;
 
-      const escapeHtml = (s) =>
+      const escapeHtml = (s: unknown) =>
         String(s)
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
@@ -235,9 +255,9 @@ const searchUi = {
 
       // Lazy fetch + cache the index. First search interaction triggers
       // the fetch; subsequent searches are instant.
-      let indexCache = null;
-      let indexPromise = null;
-      const loadIndex = () => {
+      let indexCache: SearchEntry[] | null = null;
+      let indexPromise: Promise<SearchEntry[]> | null = null;
+      const loadIndex = (): Promise<SearchEntry[]> => {
         if (indexCache) return Promise.resolve(indexCache);
         if (indexPromise) return indexPromise;
         indexPromise = fetch('/blog-index.json')
@@ -245,7 +265,7 @@ const searchUi = {
             if (!r.ok) throw new Error('Failed to load search index');
             return r.json();
           })
-          .then((data) => {
+          .then((data: IndexEntry[]) => {
             indexCache = data.map((p) => ({
               ...p,
               dateFormatted: p.date ? new Date(p.date).toLocaleDateString() : '',
@@ -271,14 +291,16 @@ const searchUi = {
         setTimeout(warm, 500);
       }
 
-      const renderCard = (p) => {
+      const renderCard = (p: SearchEntry) => {
         const dateStr = p.dateFormatted || p.date || '';
         const dateLine = p.source ? `${escapeHtml(dateStr)} · ${escapeHtml(p.source)}` : escapeHtml(dateStr);
         const categoryPill = p.category
           ? `<span class="absolute top-3 left-3 inline-block bg-[#C1272D] text-white text-micro font-semibold uppercase tracking-wider px-3 py-1 rounded-full">${escapeHtml(p.category)}</span>`
           : '';
         const thumb = p.thumbnail
-          ? `<div class="relative bg-gray-50 flex items-center justify-center h-48 p-6"><img src="${escapeHtml(p.thumbnail)}" alt="${escapeHtml(p.title)}" class="max-h-full max-w-full object-contain" loading="lazy" />${categoryPill}</div>`
+          ? (p.thumbnail.includes('/brand/')
+            ? `<div class="relative bg-gray-50 flex items-center justify-center h-48 p-6"><img src="${escapeHtml(p.thumbnail)}" alt="${escapeHtml(p.title)}" class="max-h-full max-w-full object-contain" loading="lazy" />${categoryPill}</div>`
+            : `<div class="relative bg-gray-50 h-48"><img src="${escapeHtml(p.thumbnail)}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover" loading="lazy" />${categoryPill}</div>`)
           : '';
         const desc = p.description
           ? `<p class="text-body text-gray-600 mb-4 line-clamp-2">${escapeHtml(p.description)}</p>`
@@ -300,7 +322,7 @@ const searchUi = {
           </a>`;
       };
 
-      const setSearching = (on) => {
+      const setSearching = (on: boolean) => {
         paginated.classList.toggle('hidden', on);
         if (pagination) pagination.classList.toggle('hidden', on);
         results.classList.toggle('hidden', !on);

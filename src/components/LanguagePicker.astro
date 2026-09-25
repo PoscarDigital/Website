@@ -4,6 +4,11 @@ import { getLangFromUrl } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const currentLang = languages[lang];
+
+// Link each language to the same page in that language, not just its
+// homepage. "/" is the unprefixed English homepage.
+const rest = Astro.url.pathname.replace(/^\/(en|km)(?=\/|$)/, '') || '/';
+const hrefFor = (code: string) => `/${code}${rest === '/' ? '/' : rest}`;
 ---
 
 <div class="relative" id="language-picker">
@@ -25,13 +30,14 @@ const currentLang = languages[lang];
   </button>
   
   <div 
-    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 z-50 opacity-0 invisible"
+    class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black/5 transition-all duration-200 z-50 opacity-0 invisible"
     id="language-dropdown"
   >
     <div class="py-1" role="menu" aria-orientation="vertical">
       {Object.entries(languages).map(([code, label]) => (
         <a
-          href={`/${code}/`}
+          href={hrefFor(code)}
+          hreflang={code}
           class={`block px-4 py-2 text-sm transition-colors ${
             code === lang 
               ? 'text-[#C1272D] font-medium bg-red-50' 
